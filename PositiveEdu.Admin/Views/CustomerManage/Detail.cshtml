@@ -34,102 +34,105 @@
 
 
                     <div class="form-group">
-                        <h3><label>会员姓名：</label>@Model.CustomerRealName</h3>
+                        <h3><label style="color:blue">会员姓名：</label>@Model.CustomerRealName</h3>
                     </div>
                     <div></div>
 
                     <div class="form-group">
-                        <h3><label>会员手机号：</label>@Model.CustomerPhoneNum</h3>
+                        <h3><label style="color:blue">会员手机号：</label>@Model.CustomerPhoneNum</h3>
                     </div>
                     <div></div>     <div class="form-group">
-                        <h3><label>会员编号：</label>@Model.CustomerId</h3>
+                        <h3><label style="color:blue">会员编号：</label>@Model.CustomerId</h3>
                     </div>
                     <div></div>     <div class="form-group">
-                        <h3><label>证件编号：</label>@Model.CustomerCertificateType-@Model.CustomerCertificateNum</h3>
+                        <h3><label style="color:blue">证件编号：</label>@Model.CustomerCertificateType-@Model.CustomerCertificateNum</h3>
                     </div>
                     <div></div>     <div class="form-group">
-                        <h3><label>性别：</label>@Model.CustomerSex</h3>
+                        <h3><label style="color:blue">性别：</label>@Model.CustomerSex</h3>
                     </div>
                     <div></div>     <div class="form-group">
-                        <h3><label>生日：</label>@Model.CustomerBirthday</h3>
+                        <h3><label style="color:blue">生日：</label>@Model.CustomerBirthday</h3>
                     </div>
                     <div></div>     <div class="form-group">
-                        <h3><label>所属区域：</label>@(Model.CustomerAddressProvince)省-@(Model.CustomerAddressCity)市-@(Model.CustomerAddressDistrict)区</h3>
+                        <h3><label style="color:blue">所属区域：</label>@(Model.CustomerAddressProvince)省-@(Model.CustomerAddressCity)市-@(Model.CustomerAddressDistrict)区</h3>
                     </div>
                     <div></div>     <div class="form-group">
-                        <h3><label>微信号：</label>@Model.CustomerWechatNum</h3>
+                        <h3><label style="color:blue">微信号：</label>@Model.CustomerWechatNum</h3>
                     </div>
                     <div></div>     <div class="form-group">
-                        <h3><label>微博号：</label>@Model.CustomerWeiboNum</h3>
+                        <h3><label style="color:blue">微博号：</label>@Model.CustomerWeiboNum</h3>
                     </div>
                     <div></div>     <div class="form-group">
-                        <h3><label>QQ号：</label>@Model.CustomerQQNum</h3>
+                        <h3><label style="color:blue">QQ号：</label>@Model.CustomerQQNum</h3>
                     </div>
                     <div></div>     <div class="form-group">
-                        <h3><label>Email：</label>@Model.CustomerEmailNum</h3>
+                        <h3><label style="color:blue">Email：</label>@Model.CustomerEmailNum</h3>
                     </div>
                     <div></div>     <div class="form-group">
-                        <h3><label>账户是否有效：</label>@(Model.AccountEffect == 0 ? "有效" : "无效")</h3>
+                        <h3><label style="color:blue">账户是否有效：</label>@(Model.AccountEffect == 0 ? "有效" : "无效")</h3>
                     </div>
                     <div></div>     <div class="form-group">
-                        <label>会员标签：
-                        @{
-                            if (Model.CustomerTag != null)
-                            {
-                                var a = Model.CustomerTag.Split(',');
-                                PeContext p = new PeContext();
-                                for (int i = 0; i < a.Length; i++)
-                                {
-                                    var a1 = Convert.ToInt32(a[i]);
+                        <h3>
+                            <label style="color:blue">
+                                会员标签：
+                                @{
+                                    if (Model.CustomerTag != null)
+                                    {
+                                        var a = Model.CustomerTag.Split(',');
+                                        PeContext p = new PeContext();
+                                        for (int i = 0; i < a.Length; i++)
+                                        {
+                                            var a1 = Convert.ToInt32(a[i]);
 
-                        <label>   @p.T_CustomerTag.Where(x => x.id == a1).FirstOrDefault().TagName|    </label>
-                               
+                                            <label>   @p.T_CustomerTag.Where(x => x.id == a1).FirstOrDefault().TagName|    </label>
+
+                                        }
+
+
+                                    }
+
+
+
                                 }
-
-
-                            }
-
-
-
-                        }
-                    </label>
+                            </label>
+                        </h3>
 
                     </div>
                     <div></div>     <div class="form-group">
-                        <h3><label>当前积分：</label> @(Model.CustomerCurrentIntegral)分</h3>
+                        <h3><label style="color:blue">当前积分：</label> @(Model.CustomerCurrentIntegral)分</h3>
                     </div>
                     <div></div>     <div class="form-group">
-                        <h3><label>加入时间：</label>@Model.CustomerTakeTime</h3>
+                        <h3><label style="color:blue">加入时间：</label>@Model.CustomerTakeTime</h3>
                     </div>
                     <div></div>     <div class="form-group">
-                        <h3><label>自定义字段1</label>@Model.CustomizeTag1</h3>
+                        <h3><label style="color:blue">自定义字段1:   </label>@Model.CustomizeTag1</h3>
                     </div>
                     <div></div>     <div class="form-group">
-                        <h3><label>自定义字段2</label>@Model.CustomizeTag2</h3>
+                        <h3><label style="color:blue">自定义字段2:   </label>@Model.CustomizeTag2</h3>
                     </div>
                     <div></div>     <div class="form-group">
-                        <h3><label>自定义字段3</label>@Model.CustomizeTag3</h3>
+                        <h3><label style="color:blue">自定义字段3:   </label>@Model.CustomizeTag3</h3>
                     </div>
                     <div></div>     <div class="form-group">
-                        <h3><label>自定义字段4</label>@Model.CustomizeTag4</h3>
+                        <h3><label style="color:blue">自定义字段4:   </label>@Model.CustomizeTag4</h3>
                     </div>
                     <div></div>     <div class="form-group">
-                        <h3><label>自定义字段5</label>@Model.CustomizeTag5</h3>
+                        <h3><label style="color:blue">自定义字段5:   </label>@Model.CustomizeTag5</h3>
                     </div>
                     <div></div>     <div class="form-group">
-                        <h3><label>自定义字段6</label>@Model.CustomizeTag6</h3>
+                        <h3><label style="color:blue">自定义字段6:   </label>@Model.CustomizeTag6</h3>
                     </div>
                     <div></div>     <div class="form-group">
-                        <h3><label>自定义字段7</label>@Model.CustomizeTag7</h3>
+                        <h3><label style="color:blue">自定义字段7:   </label>@Model.CustomizeTag7</h3>
                     </div>
                     <div></div>     <div class="form-group">
-                        <h3><label>自定义字段8</label>@Model.CustomizeTag8</h3>
+                        <h3><label style="color:blue">自定义字段8:   </label>@Model.CustomizeTag8</h3>
                     </div>
                     <div></div>     <div class="form-group">
-                        <h3><label>自定义字段9</label>@Model.CustomizeTag9</h3>
+                        <h3><label style="color:blue">自定义字段9:   </label>@Model.CustomizeTag9</h3>
                     </div>
                     <div></div>     <div class="form-group">
-                        <h3><label>自定义字段10</label>@Model.CustomizeTag10</h3>
+                        <h3><label style="color:blue">自定义字段10:   </label>@Model.CustomizeTag10</h3>
                     </div>
                     <div></div>
 

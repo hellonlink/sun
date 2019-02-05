@@ -11,7 +11,7 @@
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
         <h2>
-           修改会员
+            新增会员
         </h2>
         <ol class="breadcrumb">
             <li>
@@ -19,7 +19,7 @@
             </li>
             <li class="active">
                 <strong>
-                    修改会员
+                    新增会员
                 </strong>
             </li>
         </ol>
@@ -34,12 +34,12 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>
-                        修改会员
+                        新增会员
                     </h5>
                 </div>
                 <div class="ibox-content">
 
-                    @using (Html.BeginForm("Edit", "CustomerManage", FormMethod.Post, htmlAttributes: new { @class = "form-inline" }))
+                    @using (Html.BeginForm("CustomerCreate", "CustomerManage", FormMethod.Post, htmlAttributes: new { @class = "form-inline" }))
                     {
 
                         @Html.AntiForgeryToken()

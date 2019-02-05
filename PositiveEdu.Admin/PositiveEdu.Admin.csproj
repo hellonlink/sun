@@ -1787,6 +1787,7 @@
     <Content Include="Views\CustomerManage\Detail.cshtml" />
     <Content Include="Views\CustomerManage\CustomerTagCreate.cshtml" />
     <Content Include="Views\CustomerManage\CustomerTagIndex.cshtml" />
+    <Content Include="Views\CustomerManage\CustomerCreate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PositiveEdu.Common\PositiveEdu.Common.csproj">
