@@ -1,0 +1,2130 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PositiveEdu.WebApi</name>
+    </assembly>
+    <members>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.ApiDescriptionExtensions.GetFriendlyId(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Generates an URI-friendly ID for the <see cref="T:System.Web.Http.Description.ApiDescription"/>. E.g. "Get-Values-id_name" instead of "GetValues/{id}?name={name}"
+            </summary>
+            <param name="description">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The ID as a string.</returns>
+        </member>
+        <member name="T:PositiveEdu.WebApi.Areas.HelpPage.HelpPageConfig">
+            <summary>
+            Use this class to customize the Help Page.
+            For example you can set a custom <see cref="T:System.Web.Http.Description.IDocumentationProvider"/> to supply the documentation
+            or you can provide the samples for the requests/responses.
+            </summary>
+        </member>
+        <member name="T:PositiveEdu.WebApi.Areas.HelpPage.Controllers.HelpController">
+            <summary>
+            The controller that will handle requests for the help page.
+            </summary>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetDocumentationProvider(System.Web.Http.HttpConfiguration,System.Web.Http.Description.IDocumentationProvider)">
+            <summary>
+            Sets the documentation provider for help page.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="documentationProvider">The documentation provider.</param>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleObjects(System.Web.Http.HttpConfiguration,System.Collections.Generic.IDictionary{System.Type,System.Object})">
+            <summary>
+            Sets the objects that will be used by the formatters to produce sample requests/responses.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sampleObjects">The sample objects.</param>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleRequest(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String)">
+            <summary>
+            Sets the sample request directly for the specified media type and action.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample request.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleRequest(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String,System.String[])">
+            <summary>
+            Sets the sample request directly for the specified media type and action with parameters.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample request.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleResponse(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String)">
+            <summary>
+            Sets the sample request directly for the specified media type of the action.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample response.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleResponse(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String,System.String[])">
+            <summary>
+            Sets the sample response directly for the specified media type of the action with specific parameters.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample response.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleForMediaType(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue)">
+            <summary>
+            Sets the sample directly for all actions with the specified media type.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample.</param>
+            <param name="mediaType">The media type.</param>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleForType(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.Type)">
+            <summary>
+            Sets the sample directly for all actions with the specified type and media type.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="type">The parameter type or return type of an action.</param>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualRequestType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String)">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate request samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualRequestType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String,System.String[])">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate request samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualResponseType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String)">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> returned as part of the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate response samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualResponseType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String,System.String[])">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> returned as part of the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate response samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.GetHelpPageSampleGenerator(System.Web.Http.HttpConfiguration)">
+            <summary>
+            Gets the help page sample generator.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <returns>The help page sample generator.</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetHelpPageSampleGenerator(System.Web.Http.HttpConfiguration,PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleGenerator)">
+            <summary>
+            Sets the help page sample generator.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sampleGenerator">The help page sample generator.</param>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.GetModelDescriptionGenerator(System.Web.Http.HttpConfiguration)">
+            <summary>
+            Gets the model description generator.
+            </summary>
+            <param name="config">The configuration.</param>
+            <returns>The <see cref="T:PositiveEdu.WebApi.Areas.HelpPage.ModelDescriptions.ModelDescriptionGenerator"/></returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.GetHelpPageApiModel(System.Web.Http.HttpConfiguration,System.String)">
+            <summary>
+            Gets the model that represents an API displayed on the help page. The model is initialized on the first call and cached for subsequent calls.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="apiDescriptionId">The <see cref="T:System.Web.Http.Description.ApiDescription"/> ID.</param>
+            <returns>
+            An <see cref="T:PositiveEdu.WebApi.Areas.HelpPage.Models.HelpPageApiModel"/>
+            </returns>
+        </member>
+        <member name="T:PositiveEdu.WebApi.Areas.HelpPage.ModelDescriptions.ModelDescription">
+            <summary>
+            Describes a type model.
+            </summary>
+        </member>
+        <member name="T:PositiveEdu.WebApi.Areas.HelpPage.ModelDescriptions.ModelDescriptionGenerator">
+            <summary>
+            Generates model descriptions for given types.
+            </summary>
+        </member>
+        <member name="T:PositiveEdu.WebApi.Areas.HelpPage.ModelDescriptions.ModelNameAttribute">
+            <summary>
+            Use this attribute to change the name of the <see cref="T:PositiveEdu.WebApi.Areas.HelpPage.ModelDescriptions.ModelDescription"/> generated for a type.
+            </summary>
+        </member>
+        <member name="T:PositiveEdu.WebApi.Areas.HelpPage.Models.HelpPageApiModel">
+            <summary>
+            The model that represents an API displayed on the help page.
+            </summary>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.Models.HelpPageApiModel.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:PositiveEdu.WebApi.Areas.HelpPage.Models.HelpPageApiModel"/> class.
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.Areas.HelpPage.Models.HelpPageApiModel.ApiDescription">
+            <summary>
+            Gets or sets the <see cref="P:PositiveEdu.WebApi.Areas.HelpPage.Models.HelpPageApiModel.ApiDescription"/> that describes the API.
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.Areas.HelpPage.Models.HelpPageApiModel.UriParameters">
+            <summary>
+            Gets or sets the <see cref="T:PositiveEdu.WebApi.Areas.HelpPage.ModelDescriptions.ParameterDescription"/> collection that describes the URI parameters for the API.
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.Areas.HelpPage.Models.HelpPageApiModel.RequestDocumentation">
+            <summary>
+            Gets or sets the documentation for the request.
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.Areas.HelpPage.Models.HelpPageApiModel.RequestModelDescription">
+            <summary>
+            Gets or sets the <see cref="T:PositiveEdu.WebApi.Areas.HelpPage.ModelDescriptions.ModelDescription"/> that describes the request body.
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.Areas.HelpPage.Models.HelpPageApiModel.RequestBodyParameters">
+            <summary>
+            Gets the request body parameter descriptions.
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.Areas.HelpPage.Models.HelpPageApiModel.ResourceDescription">
+            <summary>
+            Gets or sets the <see cref="T:PositiveEdu.WebApi.Areas.HelpPage.ModelDescriptions.ModelDescription"/> that describes the resource.
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.Areas.HelpPage.Models.HelpPageApiModel.ResourceProperties">
+            <summary>
+            Gets the resource property descriptions.
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.Areas.HelpPage.Models.HelpPageApiModel.SampleRequests">
+            <summary>
+            Gets the sample requests associated with the API.
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.Areas.HelpPage.Models.HelpPageApiModel.SampleResponses">
+            <summary>
+            Gets the sample responses associated with the API.
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.Areas.HelpPage.Models.HelpPageApiModel.ErrorMessages">
+            <summary>
+            Gets the error messages associated with this model.
+            </summary>
+        </member>
+        <member name="T:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleGenerator">
+            <summary>
+            This class will generate the samples for the help page.
+            </summary>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleGenerator.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleGenerator"/> class.
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleGenerator.ActualHttpMessageTypes">
+            <summary>
+            Gets CLR types that are used as the content of <see cref="T:System.Net.Http.HttpRequestMessage"/> or <see cref="T:System.Net.Http.HttpResponseMessage"/>.
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleGenerator.ActionSamples">
+            <summary>
+            Gets the objects that are used directly as samples for certain actions.
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleGenerator.SampleObjects">
+            <summary>
+            Gets the objects that are serialized as samples by the supported formatters.
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleGenerator.SampleObjectFactories">
+            <summary>
+            Gets factories for the objects that the supported formatters will serialize as samples. Processed in order,
+            stopping when the factory successfully returns a non-<see langref="null"/> object.
+            </summary>
+            <remarks>
+            Collection includes just <see cref="M:PositiveEdu.WebApi.Areas.HelpPage.ObjectGenerator.GenerateObject(System.Type)"/> initially. Use
+            <code>SampleObjectFactories.Insert(0, func)</code> to provide an override and
+            <code>SampleObjectFactories.Add(func)</code> to provide a fallback.</remarks>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleGenerator.GetSampleRequests(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Gets the request body samples for a given <see cref="T:System.Web.Http.Description.ApiDescription"/>.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleGenerator.GetSampleResponses(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Gets the response body samples for a given <see cref="T:System.Web.Http.Description.ApiDescription"/>.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleGenerator.GetSample(System.Web.Http.Description.ApiDescription,PositiveEdu.WebApi.Areas.HelpPage.SampleDirection)">
+            <summary>
+            Gets the request or response body samples.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or for a response.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleGenerator.GetActionSample(System.String,System.String,System.Collections.Generic.IEnumerable{System.String},System.Type,System.Net.Http.Formatting.MediaTypeFormatter,System.Net.Http.Headers.MediaTypeHeaderValue,PositiveEdu.WebApi.Areas.HelpPage.SampleDirection)">
+            <summary>
+            Search for samples that are provided directly through <see cref="P:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleGenerator.ActionSamples"/>.
+            </summary>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+            <param name="type">The CLR type.</param>
+            <param name="formatter">The formatter.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or for a response.</param>
+            <returns>The sample that matches the parameters.</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleGenerator.GetSampleObject(System.Type)">
+            <summary>
+            Gets the sample object that will be serialized by the formatters. 
+            First, it will look at the <see cref="P:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleGenerator.SampleObjects"/>. If no sample object is found, it will try to create
+            one using <see cref="M:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleGenerator.DefaultSampleObjectFactory(PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleGenerator,System.Type)"/> (which wraps an <see cref="T:PositiveEdu.WebApi.Areas.HelpPage.ObjectGenerator"/>) and other
+            factories in <see cref="P:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleGenerator.SampleObjectFactories"/>.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>The sample object.</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleGenerator.ResolveHttpRequestMessageType(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Resolves the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The type.</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleGenerator.ResolveType(System.Web.Http.Description.ApiDescription,System.String,System.String,System.Collections.Generic.IEnumerable{System.String},PositiveEdu.WebApi.Areas.HelpPage.SampleDirection,System.Collections.ObjectModel.Collection{System.Net.Http.Formatting.MediaTypeFormatter}@)">
+            <summary>
+            Resolves the type of the action parameter or return value when <see cref="T:System.Net.Http.HttpRequestMessage"/> or <see cref="T:System.Net.Http.HttpResponseMessage"/> is used.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or a response.</param>
+            <param name="formatters">The formatters.</param>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleGenerator.WriteSampleObjectUsingFormatter(System.Net.Http.Formatting.MediaTypeFormatter,System.Object,System.Type,System.Net.Http.Headers.MediaTypeHeaderValue)">
+            <summary>
+            Writes the sample object using formatter.
+            </summary>
+            <param name="formatter">The formatter.</param>
+            <param name="value">The value.</param>
+            <param name="type">The type.</param>
+            <param name="mediaType">Type of the media.</param>
+            <returns></returns>
+        </member>
+        <member name="T:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleKey">
+            <summary>
+            This is used to identify the place where the sample should be applied.
+            </summary>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue)">
+            <summary>
+            Creates a new <see cref="T:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleKey"/> based on media type.
+            </summary>
+            <param name="mediaType">The media type.</param>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue,System.Type)">
+            <summary>
+            Creates a new <see cref="T:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleKey"/> based on media type and CLR type.
+            </summary>
+            <param name="mediaType">The media type.</param>
+            <param name="type">The CLR type.</param>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleKey.#ctor(PositiveEdu.WebApi.Areas.HelpPage.SampleDirection,System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates a new <see cref="T:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleKey"/> based on <see cref="P:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>, controller name, action name and parameter names.
+            </summary>
+            <param name="sampleDirection">The <see cref="P:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue,PositiveEdu.WebApi.Areas.HelpPage.SampleDirection,System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates a new <see cref="T:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleKey"/> based on media type, <see cref="P:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>, controller name, action name and parameter names.
+            </summary>
+            <param name="mediaType">The media type.</param>
+            <param name="sampleDirection">The <see cref="P:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="P:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleKey.ControllerName">
+            <summary>
+            Gets the name of the controller.
+            </summary>
+            <value>
+            The name of the controller.
+            </value>
+        </member>
+        <member name="P:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleKey.ActionName">
+            <summary>
+            Gets the name of the action.
+            </summary>
+            <value>
+            The name of the action.
+            </value>
+        </member>
+        <member name="P:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleKey.MediaType">
+            <summary>
+            Gets the media type.
+            </summary>
+            <value>
+            The media type.
+            </value>
+        </member>
+        <member name="P:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleKey.ParameterNames">
+            <summary>
+            Gets the parameter names.
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection">
+            <summary>
+            Gets the <see cref="P:PositiveEdu.WebApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.
+            </summary>
+        </member>
+        <member name="T:PositiveEdu.WebApi.Areas.HelpPage.ImageSample">
+            <summary>
+            This represents an image sample on the help page. There's a display template named ImageSample associated with this class.
+            </summary>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.ImageSample.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:PositiveEdu.WebApi.Areas.HelpPage.ImageSample"/> class.
+            </summary>
+            <param name="src">The URL of an image.</param>
+        </member>
+        <member name="T:PositiveEdu.WebApi.Areas.HelpPage.InvalidSample">
+            <summary>
+            This represents an invalid sample on the help page. There's a display template named InvalidSample associated with this class.
+            </summary>
+        </member>
+        <member name="T:PositiveEdu.WebApi.Areas.HelpPage.ObjectGenerator">
+            <summary>
+            This class will create an object of a given type and populate it with sample data.
+            </summary>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.ObjectGenerator.GenerateObject(System.Type)">
+            <summary>
+            Generates an object for a given type. The type needs to be public, have a public default constructor and settable public properties/fields. Currently it supports the following types:
+            Simple types: <see cref="T:System.Int32"/>, <see cref="T:System.String"/>, <see cref="T:System.Enum"/>, <see cref="T:System.DateTime"/>, <see cref="T:System.Uri"/>, etc.
+            Complex types: POCO types.
+            Nullables: <see cref="T:System.Nullable`1"/>.
+            Arrays: arrays of simple types or complex types.
+            Key value pairs: <see cref="T:System.Collections.Generic.KeyValuePair`2"/>
+            Tuples: <see cref="T:System.Tuple`1"/>, <see cref="T:System.Tuple`2"/>, etc
+            Dictionaries: <see cref="T:System.Collections.Generic.IDictionary`2"/> or anything deriving from <see cref="T:System.Collections.Generic.IDictionary`2"/>.
+            Collections: <see cref="T:System.Collections.Generic.IList`1"/>, <see cref="T:System.Collections.Generic.IEnumerable`1"/>, <see cref="T:System.Collections.Generic.ICollection`1"/>, <see cref="T:System.Collections.IList"/>, <see cref="T:System.Collections.IEnumerable"/>, <see cref="T:System.Collections.ICollection"/> or anything deriving from <see cref="T:System.Collections.Generic.ICollection`1"/> or <see cref="T:System.Collections.IList"/>.
+            Queryables: <see cref="T:System.Linq.IQueryable"/>, <see cref="T:System.Linq.IQueryable`1"/>.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>An object of the given type.</returns>
+        </member>
+        <member name="T:PositiveEdu.WebApi.Areas.HelpPage.SampleDirection">
+            <summary>
+            Indicates whether the sample is used for request or response
+            </summary>
+        </member>
+        <member name="T:PositiveEdu.WebApi.Areas.HelpPage.TextSample">
+            <summary>
+            This represents a preformatted text sample on the help page. There's a display template named TextSample associated with this class.
+            </summary>
+        </member>
+        <member name="T:PositiveEdu.WebApi.Areas.HelpPage.XmlDocumentationProvider">
+            <summary>
+            A custom <see cref="T:System.Web.Http.Description.IDocumentationProvider"/> that reads the API documentation from an XML documentation file.
+            </summary>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Areas.HelpPage.XmlDocumentationProvider.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:PositiveEdu.WebApi.Areas.HelpPage.XmlDocumentationProvider"/> class.
+            </summary>
+            <param name="documentPath">The physical path to XML document.</param>
+        </member>
+        <member name="T:PositiveEdu.WebApi.Controllers.AboutUsController">
+            <summary>
+            关于我们
+            </summary>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.AboutUsController.Team(System.Boolean)">
+            <summary>
+            讲师团队
+            </summary>
+            <param name="mobile">是否移动端</param>
+            <returns>html字符串</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.AboutUsController.TeamTeacher1">
+            <summary>
+            讲师团队（导师）
+            </summary>
+            <returns>老师信息</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.AboutUsController.TeamTeacher2">
+            <summary>
+            讲师团队（讲师）
+            </summary>
+            <returns>老师信息</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.AboutUsController.TeamTeacher3">
+            <summary>
+            讲师团队（合作讲师）
+            </summary>
+            <returns>老师信息</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.AboutUsController.TeamTeacher4">
+            <summary>
+            讲师团队（国外导师）
+            </summary>
+            <returns>老师信息</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.AboutUsController.History(System.Boolean)">
+            <summary>
+            历史沿革
+            </summary>
+            <param name="mobile">是否移动端</param>
+            <returns>html字符串</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.AboutUsController.Wish(System.Boolean)">
+            <summary>
+            使命愿景
+            </summary>
+            <param name="mobile">是否移动端</param>
+            <returns>html字符串</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.AboutUsController.JoinUs">
+            <summary>
+            加入我们
+            </summary>
+            <returns>招聘职位</returns>
+        </member>
+        <member name="T:PositiveEdu.WebApi.Controllers.AccountController">
+            <summary>
+            用户账户
+            </summary>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.AccountController.SendSignUpSMS(System.String)">
+            <summary>
+            发送注册验证码
+            </summary>
+            <param name="mobile">手机号码</param>
+            <returns>发送结果</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.AccountController.SignUp(PositiveEdu.WebApi.ModelsRes.ReqModelSignUp)">
+            <summary>
+            用户注册
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.AccountController.SendSignInSMS(System.String)">
+            <summary>
+            发送登录验证码
+            </summary>
+            <param name="mobile">手机号码</param>
+            <returns>发送结果</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.AccountController.SendForgetSMS(System.String)">
+            <summary>
+            发送忘记密码验证码
+            </summary>
+            <param name="mobile">手机号码</param>
+            <returns>发送结果</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.AccountController.ChangePassword(PositiveEdu.WebApi.ModelsRes.ReqModelForgetChangePassword)">
+            <summary>
+            忘记密码 修改密码
+            </summary>
+            <param name="model">手机号、新密码、验证码</param>
+            <returns>修改结果</returns>
+        </member>
+        <member name="T:PositiveEdu.WebApi.Controllers.ClassScheduleController">
+            <summary>
+            课程表
+            </summary>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.ClassScheduleController.Parents(System.Boolean)">
+            <summary>
+            家长课程
+            </summary>
+            <param name="mobile">是否移动端</param>
+            <returns>html字符串</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.ClassScheduleController.Teacher(System.Boolean)">
+            <summary>
+            教师培训
+            </summary>
+            <param name="mobile">是否移动端</param>
+            <returns>html字符串</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.ClassScheduleController.Certification(System.Boolean)">
+            <summary>
+            讲师认证
+            </summary>
+            <param name="mobile">是否移动端</param>
+            <returns>html字符串</returns>
+        </member>
+        <member name="T:PositiveEdu.WebApi.Controllers.CourseCategoryController">
+            <summary>
+            课程分类
+            </summary>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.CourseCategoryController.Parents(System.Boolean)">
+            <summary>
+            学校讲师班
+            </summary>
+            <param name="mobile">是否移动端</param>
+            <returns>html字符串</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.CourseCategoryController.CertifiedParents(System.Boolean)">
+            <summary>
+            家长讲师班
+            </summary>
+            <param name="mobile">是否移动端</param>
+            <returns>html字符串</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.CourseCategoryController.Tutorial(System.Boolean)">
+            <summary>
+            指导课家长课堂
+            </summary>
+            <param name="mobile">是否移动端</param>
+            <returns>html字符串</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.CourseCategoryController.ImParents(System.Boolean)">
+            <summary>
+            我是家长
+            </summary>
+            <param name="mobile">是否移动端</param>
+            <returns>html字符串</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.CourseCategoryController.ImLecturer(System.Boolean)">
+            <summary>
+            我是讲师
+            </summary>
+            <param name="mobile">是否移动端</param>
+            <returns>html字符串</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.CourseCategoryController.ImTeacher(System.Boolean)">
+            <summary>
+            我是老师
+            </summary>
+            <param name="mobile">是否移动端</param>
+            <returns>html字符串</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.CourseCategoryController.ClassicalClass(System.Boolean)">
+            <summary>
+            经典普及班
+            </summary>
+            <param name="mobile">是否移动端</param>
+            <returns>html字符串</returns>
+        </member>
+        <member name="T:PositiveEdu.WebApi.Controllers.CourseController">
+            <summary>
+            线上课程
+            </summary>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.CourseController.Query(PositiveEdu.WebApi.ModelsRes.QueryCourse)">
+            <summary>
+            课程检索
+            </summary>
+            <param name="param">检索条件</param>
+            <returns>课程</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.CourseController.Details(System.Int32)">
+            <summary>
+            课程详情
+            </summary>
+            <param name="id">课程id</param>
+            <returns>课程信息</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.CourseController.GetReview(System.Int32,System.Int32)">
+            <summary>
+            课程评论
+            </summary>
+            <param name="courseId">课程id</param>
+            <param name="page">评论页码</param>
+            <returns>课程评论</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.CourseController.Trial(System.Int32)">
+            <summary>
+            试听/看 获取试看课程的地址
+            </summary>
+            <param name="id">课程id</param>
+            <returns>播放地址</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.CourseController.Full(System.Int32)">
+            <summary>
+            开始学习 获取完整课程的地址
+            </summary>
+            <param name="id">课程id</param>
+            <returns>播放地址</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.CourseController.Buy(System.Int32)">
+            <summary>
+            下单
+            </summary>
+            <param name="courseId">课程id</param>
+            <returns>订单编号</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.CourseController.Order(System.String)">
+            <summary>
+            获取订单 待支付
+            </summary>
+            <param name="orderNumber">订单编号</param>
+            <returns>订单信息</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.CourseController.PayCodeAliPay(System.Int32)">
+            <summary>
+            订单支付 生成支付二维码 （支付宝）
+            </summary>
+            <param name="id">订单id</param>
+            <returns>二维码地址</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.CourseController.PayCodeWxPay(System.Int32)">
+            <summary>
+            订单支付 生成支付二维码 （微信）
+            </summary>
+            <param name="id">订单id</param>
+            <returns>二维码地址</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.CourseController.PayWxJsApi(System.Int32,System.String)">
+            <summary>
+            订单支付 （微信客户端H5支付）
+            </summary>
+            <param name="id">订单id</param>
+            <param name="wxCode">微信授权code</param>
+            <returns>wxJsApiParam</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.CourseController.MonitorPaid(System.Int32)">
+            <summary>
+            监测支付状态
+            </summary>
+            <param name="id">订单id</param>
+            <returns>支付结果</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.CourseController.Review(System.Int32,System.String)">
+            <summary>
+            评价课程
+            </summary>
+            <param name="id">课程id</param>
+            <param name="text">评论内容</param>
+            <returns>评价结果</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.CourseController.UpReview(System.Int32)">
+            <summary>
+            对评论点赞
+            </summary>
+            <param name="id">评论id</param>
+            <returns></returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.CourseController.Favorite(System.Int32)">
+            <summary>
+            收藏课程（已收藏的再次调用变成取消）
+            </summary>
+            <param name="id">课程id</param>
+            <returns>收藏结果</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.DictDataController.CourseCategoryA">
+            <summary>
+            课程大类（全龄适用 - CatA01 / 讲师认证 - CatA02）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.DictDataController.CourseCategoryB">
+            <summary>
+            课程分类
+            </summary>
+            <returns>课程分类</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.DictDataController.Area">
+            <summary>
+            地区
+            </summary>
+            <returns>地区列表</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.DictDataController.Qualification">
+            <summary>
+            职业资质
+            </summary>
+            <returns>职业资质</returns>
+        </member>
+        <member name="T:PositiveEdu.WebApi.Controllers.DocumentController">
+            <summary>
+            资料下载
+            </summary>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.DocumentController.List(System.String,System.Int32)">
+            <summary>
+            资料列表
+            </summary>
+            <param name="key">关键字</param>
+            <param name="page">页码</param>
+            <returns>资料</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.DocumentController.Download(System.Int32)">
+            <summary>
+            资料下载
+            </summary>
+            <param name="id"></param>
+            <returns>文件</returns>
+        </member>
+        <member name="T:PositiveEdu.WebApi.Controllers.MainController">
+            <summary>
+            首页
+            </summary>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.MainController.Get">
+            <summary>
+            获取首页轮播图
+            </summary>
+            <returns>轮播图</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.MainController.HomePageText">
+            <summary>
+            首页中段文字
+            </summary>
+            <returns>文字内容</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.MainController.HomePageImage">
+            <summary>
+            首页下方占位图
+            </summary>
+            <returns>占位图</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.MainController.CompanyInfo">
+            <summary>
+            公司信息
+            </summary>
+            <returns>公司信息</returns>
+        </member>
+        <member name="T:PositiveEdu.WebApi.Controllers.MarketController">
+            <summary>
+            市场合作
+            </summary>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.MarketController.Cooperation(System.Boolean)">
+            <summary>
+            机构合作简介
+            </summary>
+            <param name="mobile">是否移动端</param>
+            <returns>html字符串</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.MarketController.OnLine(System.Boolean)">
+            <summary>
+            线上合作
+            </summary>
+            <param name="mobile">是否移动端</param>
+            <returns>html字符串</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.MarketController.Line(System.Boolean)">
+            <summary>
+            线下合作
+            </summary>
+            <param name="mobile">是否移动端</param>
+            <returns>html字符串</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.MarketController.Case(System.Boolean)">
+            <summary>
+            合作案例
+            </summary>
+            <param name="mobile">是否移动端</param>
+            <returns>html字符串</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.MarketController.AllCase(System.Boolean)">
+            <summary>
+            全国合作联盟
+            </summary>
+            <param name="mobile">是否移动端</param>
+            <returns>html字符串</returns>
+        </member>
+        <member name="T:PositiveEdu.WebApi.Controllers.MemberController">
+            <summary>
+            会员中心
+            </summary>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.MemberController.Customer">
+            <summary>
+            获取当前用户
+            </summary>
+            <returns>用户信息</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.MemberController.UploadPortrait">
+            <summary>
+            上传头像
+            </summary>
+            <returns>上传结果</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.MemberController.SaveProfile(PositiveEdu.WebApi.ModelsRes.ReqModelProfile)">
+            <summary>
+            保存个人信息
+            </summary>
+            <param name="model">个人信息</param>
+            <returns>保存结果</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.MemberController.SaveCareer(PositiveEdu.WebApi.ModelsRes.ReqModelCareer)">
+            <summary>
+            保存职业信息
+            </summary>
+            <param name="model">职业信息</param>
+            <returns>保存结果</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.MemberController.MyCourse(System.Int32)">
+            <summary>
+            我的线上课程
+            </summary>
+            <param name="page">页码</param>
+            <returns>已购买的课程</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.MemberController.MyReview(System.Int32)">
+            <summary>
+            我的评论
+            </summary>
+            <param name="page">页码</param>
+            <returns>我的评论</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.MemberController.MyDownload(System.Int32)">
+            <summary>
+            我的下载
+            </summary>
+            <param name="page">页码</param>
+            <returns>下载过的文档</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.MemberController.SiteMessage(System.Int32)">
+            <summary>
+            我的消息 - 站内公告
+            </summary>
+            <param name="page">页码</param>
+            <returns>站内公告</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.MemberController.MyMessage(System.Int32)">
+            <summary>
+            我的消息 - 系统消息
+            </summary>
+            <param name="page">页码</param>
+            <returns></returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.MemberController.MyFavorite(System.Int32)">
+            <summary>
+            我的收藏
+            </summary>
+            <param name="page">页码</param>
+            <returns>收藏的课程</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.MemberController.SetPassword(PositiveEdu.WebApi.ModelsRes.ReqModelSetPassword)">
+            <summary>
+            设置密码
+            </summary>
+            <param name="model">新旧密码</param>
+            <returns>设置结果</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.MemberController.PostParentAssessment(System.String)">
+            <summary>
+            提交家长评估结果 （A/B/C/D）
+            </summary>
+            <param name="result">评估结果（A/B/C/D）</param>
+            <returns>提交结果</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.MemberController.GetParentAssessmentRecommend(System.String)">
+            <summary>
+            家长评估后的推荐
+            </summary>
+            <param name="result">评估结果（A/B/C/D）</param>
+            <returns>html字符串</returns>
+        </member>
+        <member name="T:PositiveEdu.WebApi.Controllers.NewsController">
+            <summary>
+            新闻资讯
+            </summary>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.NewsController.List(System.Int32)">
+            <summary>
+            新闻资讯
+            </summary>
+            <param name="page">页码</param>
+            <returns>新闻</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.NewsController.Details(System.Int32)">
+            <summary>
+            新闻详情
+            </summary>
+            <param name="id">新闻编号</param>
+            <returns>新闻</returns>
+        </member>
+        <member name="T:PositiveEdu.WebApi.Controllers.QualificationsController">
+            <summary>
+            全国讲师资质查询
+            </summary>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.QualificationsController.Query(PositiveEdu.WebApi.ModelsRes.QueryQualifications)">
+            <summary>
+            全国讲师资质查询
+            </summary>
+            <param name="param">查询条件</param>
+            <returns>讲师资质</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.QualificationsController.Images">
+            <summary>
+            全国讲师资质图
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:PositiveEdu.WebApi.Controllers.SampleController">
+            <summary>
+            接口样例
+            </summary>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.SampleController.Get">
+            <summary>
+            取得数组
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.SampleController.Get(System.Int32)">
+            <summary>
+            取得字符串 带参数
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.SampleController.Post(System.String)">
+            <summary>
+            提交数组 POST
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.SampleController.Delete(System.Int32)">
+            <summary>
+            删除 带参数
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Controllers.SampleController.GetAuthValue">
+            <summary>
+            测试认证 需要认证才能取得返回值
+            </summary>
+            <returns>当前用户基本信息</returns>
+        </member>
+        <member name="T:PositiveEdu.WebApi.ModelsRes.ModelArea">
+            <summary>
+            地区
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelArea.AREA_NAME">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelArea.PARENT_ID">
+            <summary>
+            上级地区
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelArea.LEVEL_ID">
+            <summary>
+            层级
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelArea.SORT_ID">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="T:PositiveEdu.WebApi.ModelsRes.ModelBanner">
+            <summary>
+            首页轮动图
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelBanner.model">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelBanner.imgUrl">
+            <summary>
+            图片地址
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelBanner.Is_First">
+            <summary>
+            是否首图
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelBanner.linkUrl">
+            <summary>
+            跳转地址
+            </summary>
+        </member>
+        <member name="T:PositiveEdu.WebApi.ModelsRes.ModelCompanyInfo">
+            <summary>
+            公司信息
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelCompanyInfo.Tel">
+            <summary>
+            电话
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelCompanyInfo.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelCompanyInfo.Address">
+            <summary>
+            地址
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelCompanyInfo.Blog">
+            <summary>
+            博客
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelCompanyInfo.Chat">
+            <summary>
+            微信
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelCompanyInfo.QR1">
+            <summary>
+            二维码1
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelCompanyInfo.QR2">
+            <summary>
+            二维码2
+            </summary>
+        </member>
+        <member name="T:PositiveEdu.WebApi.ModelsRes.ModelCourse">
+            <summary>
+            课程
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelCourse.title">
+            <summary>
+            标题
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelCourse.teacher">
+            <summary>
+            讲师
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelCourse.simpleIntro">
+            <summary>
+            课程简介
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelCourse.price">
+            <summary>
+            价格
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelCourse.imgUrl">
+            <summary>
+            图片
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelCourse.IsFavorite">
+            <summary>
+            是否收藏
+            </summary>
+        </member>
+        <member name="T:PositiveEdu.WebApi.ModelsRes.ModelCourseData">
+            <summary>
+            课程资源
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelCourseData.name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelCourseData.linkUrl">
+            <summary>
+            地址
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelCourseData.imgUrl">
+            <summary>
+            图片
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelCourseData.sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="T:PositiveEdu.WebApi.ModelsRes.ModelCourseDetails">
+            <summary>
+            课程详情
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelCourseDetails.intro">
+            <summary>
+            课程介绍
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelCourseDetails.relatedCourses">
+            <summary>
+            相关课程
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelCourseDetails.Bought">
+            <summary>
+            是否已购买
+            </summary>
+        </member>
+        <member name="T:PositiveEdu.WebApi.ModelsRes.ModelCustomer">
+            <summary>
+            会员信息
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelCustomer.customerImg">
+            <summary>
+            头像
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelCustomer.mobile">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelCustomer.realName">
+            <summary>
+            真实姓名
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelCustomer.sex">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelCustomer.birthday">
+            <summary>
+            生日
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelCustomer.province">
+            <summary>
+            省
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelCustomer.market">
+            <summary>
+            市
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelCustomer.intro">
+            <summary>
+            个人简介
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelCustomer.qualification">
+            <summary>
+            资质
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelCustomer.periods">
+            <summary>
+            开课期数
+            </summary>
+        </member>
+        <member name="T:PositiveEdu.WebApi.ModelsRes.ModelDictData">
+            <summary>
+            字典
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelDictData.id">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelDictData.name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelDictData.value">
+            <summary>
+            辅助值
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelDictData.weight">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelDocument.title">
+            <summary>
+            标题
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelDocument.intro">
+            <summary>
+            简介
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelDocument.extName">
+            <summary>
+            扩展名
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelDocument.sizeMB">
+            <summary>
+            文件大小
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelDocument.CanDownload">
+            <summary>
+            根据当前用户身份判断是否可以下载
+            </summary>
+        </member>
+        <member name="T:PositiveEdu.WebApi.ModelsRes.ModelMessage">
+            <summary>
+            系统消息
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelMessage.message">
+            <summary>
+            消息
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelMessage.createTime">
+            <summary>
+            时间
+            </summary>
+        </member>
+        <member name="T:PositiveEdu.WebApi.ModelsRes.ModelNews">
+            <summary>
+            新闻资讯
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelNews.title">
+            <summary>
+            标题
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelNews.mainContent">
+            <summary>
+            正文
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelNews.publishDate">
+            <summary>
+            发布日期
+            </summary>
+        </member>
+        <member name="T:PositiveEdu.WebApi.ModelsRes.ModelPagedList`1">
+            <summary>
+            分页列表
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelPagedList`1.List">
+            <summary>
+            数据列表
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelPagedList`1.Pagination">
+            <summary>
+            分页信息
+            </summary>
+        </member>
+        <member name="T:PositiveEdu.WebApi.ModelsRes.ModelPlaceholderImage">
+            <summary>
+            占位图
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelPlaceholderImage.model">
+            <summary>
+            标记
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelPlaceholderImage.imgUrl">
+            <summary>
+            图片
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelPlaceholderImage.linkUrl">
+            <summary>
+            跳转链接
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelPlaceholderImage.linkUrlMB">
+            <summary>
+            跳转链接（移动端）
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelPlaceholderImage.width">
+            <summary>
+            宽度
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelPlaceholderImage.height">
+            <summary>
+            高度
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelPlaceholderImage.sort">
+            <summary>
+            顺序
+            </summary>
+        </member>
+        <member name="T:PositiveEdu.WebApi.ModelsRes.ModelPosition">
+            <summary>
+            招聘职位
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelPosition.name">
+            <summary>
+            职位名称
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelPosition.requirements">
+            <summary>
+            职位要求
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelPosition.jobContent">
+            <summary>
+            工作内容
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelPosition.objects">
+            <summary>
+            汇报对象
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelPosition.contact">
+            <summary>
+            联系方式
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelPosition.createTime">
+            <summary>
+            创建日期
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelPosition.updateTime">
+            <summary>
+            更新日期
+            </summary>
+        </member>
+        <member name="T:PositiveEdu.WebApi.ModelsRes.ModelQualificationsImage">
+            <summary>
+            讲师资质图
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelQualificationsImage.ImgUrl">
+            <summary>
+            图片
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelQualificationsImage.Name">
+            <summary>
+            名字
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelQualificationsImage.Qualification">
+            <summary>
+            资质
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelQualificationsImage.Sort">
+            <summary>
+            顺序
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelQualificationsImage.LinkUrl">
+            <summary>
+            链接
+            </summary>
+        </member>
+        <member name="T:PositiveEdu.WebApi.ModelsRes.ModelReview">
+            <summary>
+            课程评论
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelReview.comment">
+            <summary>
+            评论
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelReview.up">
+            <summary>
+            点赞（有用）数
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelReview.createdTime">
+            <summary>
+            发布日期
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelReview.customerMobile">
+            <summary>
+            发布人手机号
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelReview.customerImg">
+            <summary>
+            发布人头像
+            </summary>
+        </member>
+        <member name="T:PositiveEdu.WebApi.ModelsRes.ModelTeacher">
+            <summary>
+            老师信息
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelTeacher.photo">
+            <summary>
+            照片
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelTeacher.name">
+            <summary>
+            名字
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelTeacher.description">
+            <summary>
+            简介
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelTeacher.lever">
+            <summary>
+            资质
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelTeacher.type">
+            <summary>
+            类型
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelTeacher.name_en">
+            <summary>
+            英文名
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelTeacher.sort">
+            <summary>
+            顺序
+            </summary>
+        </member>
+        <member name="T:PositiveEdu.WebApi.ModelsRes.Pagination">
+            <summary>
+            分页信息
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.Pagination.TotalItemCount">
+            <summary>
+            总记录数
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.Pagination.PageCount">
+            <summary>
+            总页数
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.Pagination.PageNumber">
+            <summary>
+            当前页码
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.Pagination.PageSize">
+            <summary>
+            每页记录数
+            </summary>
+        </member>
+        <member name="T:PositiveEdu.WebApi.ModelsRes.QueryCourse">
+            <summary>
+            线上课程查询条件
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.QueryCourse.categoryA">
+            <summary>
+            全龄适用 - CatA01 / 讲师认证 - CatA02
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.QueryCourse.categoryB">
+            <summary>
+            课程分类
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.QueryCourse.minPrice">
+            <summary>
+            最小价格
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.QueryCourse.maxPrice">
+            <summary>
+            最大价格
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.QueryCourse.key">
+            <summary>
+            关键字
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.QueryCourse.age">
+            <summary>
+            年龄
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.QueryCourse.order">
+            <summary>
+            排序 (1-热门度；2-上架时间；3-价格，不填按热门度)
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.QueryCourse.orderAsc">
+            <summary>
+            顺序 / 逆序 （1-顺序；2-逆序，不填按逆序）
+            </summary>
+        </member>
+        <member name="T:PositiveEdu.WebApi.ModelsRes.QueryPagerBase">
+            <summary>
+            带分页的查询条件
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.QueryPagerBase.PageIndex">
+            <summary>
+            页码
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.QueryPagerBase.PageSize">
+            <summary>
+            每页记录数
+            </summary>
+        </member>
+        <member name="T:PositiveEdu.WebApi.ModelsRes.QueryQualifications">
+            <summary>
+            全国讲师资质查询条件
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.QueryQualifications.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.QueryQualifications.Qualification">
+            <summary>
+            资质
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.QueryQualifications.Location">
+            <summary>
+            所在地
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.QueryQualifications.Periods">
+            <summary>
+            开课期数（可为空）
+            </summary>
+        </member>
+        <member name="T:PositiveEdu.WebApi.ModelsRes.ReqModelCareer">
+            <summary>
+            修改职业信息
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ReqModelCareer.qualification">
+            <summary>
+            资质 （填写文字，非Id）
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ReqModelCareer.periods">
+            <summary>
+            开课期数
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ReqModelForgetChangePassword.Mobile">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ReqModelForgetChangePassword.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ReqModelForgetChangePassword.ValidateCode">
+            <summary>
+            验证码
+            </summary>
+        </member>
+        <member name="T:PositiveEdu.WebApi.ModelsRes.ReqModelProfile">
+            <summary>
+            修改用户资料
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ReqModelProfile.RealName">
+            <summary>
+            真实姓名
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ReqModelProfile.Sex">
+            <summary>
+            性别 男/女
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ReqModelProfile.Birthday">
+            <summary>
+            生日
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ReqModelProfile.Province">
+            <summary>
+            居住地 - 省
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ReqModelProfile.Market">
+            <summary>
+            居住地 - 市
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ReqModelProfile.Intro">
+            <summary>
+            个人简介
+            </summary>
+        </member>
+        <member name="T:PositiveEdu.WebApi.ModelsRes.ReqModelSetPassword">
+            <summary>
+            修改密码
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ReqModelSetPassword.OldPassword">
+            <summary>
+            旧密码
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ReqModelSetPassword.NewPassword">
+            <summary>
+            新密码
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ReqModelSetPassword.ConfirmPassword">
+            <summary>
+            确认新密码
+            </summary>
+        </member>
+        <member name="T:PositiveEdu.WebApi.ModelsRes.ReqModelSignUp">
+            <summary>
+            用户注册信息
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ReqModelSignUp.Mobile">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ReqModelSignUp.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ReqModelSignUp.ValidateCode">
+            <summary>
+            验证码
+            </summary>
+        </member>
+        <member name="T:PositiveEdu.WebApi.ModelsRes.ModelQualifications">
+            <summary>
+            全国讲师资质
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelQualifications.name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelQualifications.auth">
+            <summary>
+            资质
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelQualifications.date">
+            <summary>
+            认证日期
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelQualifications.institution">
+            <summary>
+            发证机构
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelQualifications.location">
+            <summary>
+            所在地
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.ModelsRes.ModelQualifications.Periods">
+            <summary>
+            开课期数
+            </summary>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Ali.AliPay.BuildPrecreateContent(PositiveEdu.DAL.MyOrder)">
+            <summary>
+            构造支付请求数据
+            </summary>
+            <returns>请求数据集</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Ali.AliPay.DoWaitProcess(Com.Alipay.Business.AlipayF2FPrecreateResult)">
+            <summary>
+            生成二维码并展示到页面上
+            </summary>
+            <param name="precreateResult">二维码串</param>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Ali.AliPay.CheckParams(System.Web.HttpRequestBase)">
+            <summary>
+            对支付宝异步通知的关键参数进行校验
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Ali.AliPay.GetRequestPost(System.Web.HttpRequestBase)">
+            <summary>
+            获取支付宝POST过来通知消息，并以“参数名=参数值”的形式组成数组
+            </summary>
+            <returns>request回来的信息组成的数组</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Ali.AliPayConfig.getMerchantPublicKeyStr">
+            <summary>
+            公钥文件类型转换成纯文本类型
+            </summary>
+            <returns>过滤后的字符串类型公钥</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Ali.AliPayConfig.getMerchantPriveteKeyStr">
+            <summary>
+            私钥文件类型转换成纯文本类型
+            </summary>
+            <returns>过滤后的字符串类型私钥</returns>
+        </member>
+        <member name="P:PositiveEdu.WebApi.Pay.Wx.JsApiPay.page">
+            <summary>
+            保存页面对象，因为要在类的方法中使用Page的Request对象
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.Pay.Wx.JsApiPay.openid">
+            <summary>
+            openid用于调用统一下单接口
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.Pay.Wx.JsApiPay.access_token">
+            <summary>
+            access_token用于获取收货地址js函数入口参数
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.Pay.Wx.JsApiPay.total_fee">
+            <summary>
+            商品金额，用于统一下单
+            </summary>
+        </member>
+        <member name="P:PositiveEdu.WebApi.Pay.Wx.JsApiPay.unifiedOrderResult">
+            <summary>
+            统一下单接口返回结果
+            </summary>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.JsApiPay.GetOpenidAndAccessToken">
+            
+            网页授权获取用户基本信息的全部过程
+            详情请参看网页授权获取用户基本信息：http://mp.weixin.qq.com/wiki/17/c0f37d5704f0b64713d5d2c37b468d75.html
+            第一步：利用url跳转获取code
+            第二步：利用code去获取openid和access_token
+            
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.JsApiPay.GetOpenidAndAccessTokenFromCode(System.String)">
+            	    * 
+            	    * 通过code换取网页授权access_token和openid的返回数据，正确时返回的JSON数据包如下：
+            	    * {
+            	    *  "access_token":"ACCESS_TOKEN",
+            	    *  "expires_in":7200,
+            	    *  "refresh_token":"REFRESH_TOKEN",
+            	    *  "openid":"OPENID",
+            	    *  "scope":"SCOPE",
+            	    *  "unionid": "o6_bmasdasdsad6_2sgVt7hMZOPfL"
+            	    * }
+            	    * 其中access_token可用于获取共享收货地址
+            	    * openid是微信支付jsapi支付接口统一下单时必须的参数
+                    * 更详细的说明请参考网页授权获取用户基本信息：http://mp.weixin.qq.com/wiki/17/c0f37d5704f0b64713d5d2c37b468d75.html
+                    * @失败时抛异常WxPayException
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.JsApiPay.GetUnifiedOrderResult">
+            调用统一下单，获得下单结果
+            @return 统一下单结果
+            @失败时抛异常WxPayException
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.JsApiPay.GetJsApiParameters">
+             
+            从统一下单成功返回的数据中获取微信浏览器调起jsapi支付所需的参数，
+            微信浏览器调起JSAPI时的输入参数格式如下：
+            {
+              "appId" : "wx2421b1c4370ec43b",     //公众号名称，由商户传入     
+              "timeStamp":" 1395712654",         //时间戳，自1970年以来的秒数     
+              "nonceStr" : "e61463f8efa94090b1f366cccfbbb444", //随机串     
+              "package" : "prepay_id=u802345jgfjsdfgsdg888",     
+              "signType" : "MD5",         //微信签名方式:    
+              "paySign" : "70EA570631E4BB79628FBCA90534C63FF7FADD89" //微信签名 
+            }
+            @return string 微信浏览器调起JSAPI时的输入参数，json格式可以直接做参数用
+            更详细的说明请参考网页端调起支付API：http://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=7_7
+            
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.JsApiPay.GetEditAddressParameters">
+            
+            获取收货地址js函数入口参数,详情请参考收货地址共享接口：http://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=7_9
+            @return string 共享收货地址js函数需要的参数，json格式可以直接做参数使用
+        </member>
+        <member name="T:PositiveEdu.WebApi.Pay.Wx.WxPayConfig">
+            配置账号信息
+        </member>
+        <member name="T:PositiveEdu.WebApi.Pay.Wx.WxPayData">
+            <summary>
+            微信支付协议接口数据类，所有的API接口通信都依赖这个数据结构，
+            在调用接口之前先填充各个字段的值，然后进行接口通信，
+            这样设计的好处是可扩展性强，用户可随意对协议进行更改而不用重新设计数据结构，
+            还可以随意组合出不同的协议数据包，不用为每个协议设计一个数据包结构
+            </summary>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.WxPayData.SetValue(System.String,System.Object)">
+                    * 设置某个字段的值
+                    * @param key 字段名
+                     * @param value 字段值
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.WxPayData.GetValue(System.String)">
+                    * 根据字段名获取某个字段的值
+                    * @param key 字段名
+                     * @return key对应的字段值
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.WxPayData.IsSet(System.String)">
+            判断某个字段是否已设置
+            @param key 字段名
+            @return 若字段key已被设置，则返回true，否则返回false
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.WxPayData.ToXml">
+             @将Dictionary转成xml
+             @return 经转换得到的xml串
+             @throws WxPayException
+            
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.WxPayData.FromXml(System.String)">
+            @将xml转为WxPayData对象并返回对象内部的数据
+            @param string 待转换的xml串
+            @return 经转换得到的Dictionary
+            @throws WxPayException
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.WxPayData.ToUrl">
+            @Dictionary格式转化成url参数格式
+            @ return url格式串, 该串不包含sign字段值
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.WxPayData.ToJson">
+                    * @Dictionary格式化成Json
+                     * @return json串数据
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.WxPayData.ToPrintStr">
+            @values格式化成能在Web页面上显示的结果（因为web页面上不能直接输出xml格式的字符串）
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.WxPayData.MakeSign">
+            @生成签名，详见签名生成算法
+            @return 签名, sign字段不参加签名
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.WxPayData.CheckSign">
+            
+            检测签名是否正确
+            正确返回true，错误抛异常
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.WxPayData.GetValues">
+            @获取Dictionary
+        </member>
+        <member name="T:PositiveEdu.WebApi.Pay.Wx.HttpService">
+            <summary>
+            http连接基础类，负责底层的http通信
+            </summary>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.HttpService.Get(System.String)">
+            <summary>
+            处理http GET请求，返回数据
+            </summary>
+            <param name="url">请求的url地址</param>
+            <returns>http GET成功后返回的数据，失败抛WebException异常</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.Log.Debug(System.String,System.String)">
+            向日志文件写入调试信息
+            @param className 类名
+            @param content 写入内容
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.Log.Info(System.String,System.String)">
+            向日志文件写入运行时信息
+            @param className 类名
+            @param content 写入内容
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.Log.Error(System.String,System.String)">
+            向日志文件写入出错信息
+            @param className 类名
+            @param content 写入内容
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.Log.WriteLog(System.String,System.String,System.String)">
+            实际的写日志操作
+            @param type 日志记录类型
+            @param className 类名
+            @param content 写入内容
+        </member>
+        <member name="T:PositiveEdu.WebApi.Pay.Wx.Notify">
+            <summary>
+            回调处理基类
+            主要负责接收微信支付后台发送过来的数据，对数据进行签名验证
+            子类在此类基础上进行派生并重写自己的回调处理过程
+            </summary>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.Notify.GetNotifyData">
+            <summary>
+            接收从微信支付后台发送过来的数据并验证签名
+            </summary>
+            <returns>微信支付后台返回的数据</returns>
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.WxPayApi.Micropay(PositiveEdu.WebApi.Pay.Wx.WxPayData,System.Int32)">
+            提交被扫支付API
+            收银员使用扫码设备读取微信用户刷卡授权码以后，二维码或条码信息传送至商户收银台，
+            由商户收银台或者商户后台调用该接口发起支付。
+            @param WxPayData inputObj 提交给被扫支付API的参数
+            @param int timeOut 超时时间
+            @throws WxPayException
+            @return 成功时返回调用结果，其他抛异常
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.WxPayApi.OrderQuery(PositiveEdu.WebApi.Pay.Wx.WxPayData,System.Int32)">
+               
+            查询订单
+            @param WxPayData inputObj 提交给查询订单API的参数
+            @param int timeOut 超时时间
+            @throws WxPayException
+            @return 成功时返回订单查询结果，其他抛异常
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.WxPayApi.Reverse(PositiveEdu.WebApi.Pay.Wx.WxPayData,System.Int32)">
+            
+            撤销订单API接口
+            @param WxPayData inputObj 提交给撤销订单API接口的参数，out_trade_no和transaction_id必填一个
+            @param int timeOut 接口超时时间
+            @throws WxPayException
+            @return 成功时返回API调用结果，其他抛异常
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.WxPayApi.Refund(PositiveEdu.WebApi.Pay.Wx.WxPayData,System.Int32)">
+            
+            申请退款
+            @param WxPayData inputObj 提交给申请退款API的参数
+            @param int timeOut 超时时间
+            @throws WxPayException
+            @return 成功时返回接口调用结果，其他抛异常
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.WxPayApi.RefundQuery(PositiveEdu.WebApi.Pay.Wx.WxPayData,System.Int32)">
+            
+            查询退款
+            提交退款申请后，通过该接口查询退款状态。退款有一定延时，
+            用零钱支付的退款20分钟内到账，银行卡支付的退款3个工作日后重新查询退款状态。
+            out_refund_no、out_trade_no、transaction_id、refund_id四个参数必填一个
+            @param WxPayData inputObj 提交给查询退款API的参数
+            @param int timeOut 接口超时时间
+            @throws WxPayException
+            @return 成功时返回，其他抛异常
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.WxPayApi.DownloadBill(PositiveEdu.WebApi.Pay.Wx.WxPayData,System.Int32)">
+            下载对账单
+            @param WxPayData inputObj 提交给下载对账单API的参数
+            @param int timeOut 接口超时时间
+            @throws WxPayException
+            @return 成功时返回，其他抛异常
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.WxPayApi.ShortUrl(PositiveEdu.WebApi.Pay.Wx.WxPayData,System.Int32)">
+            
+            转换短链接
+            该接口主要用于扫码原生支付模式一中的二维码链接转成短链接(weixin://wxpay/s/XXXXXX)，
+            减小二维码数据量，提升扫描速度和精确度。
+            @param WxPayData inputObj 提交给转换短连接API的参数
+            @param int timeOut 接口超时时间
+            @throws WxPayException
+            @return 成功时返回，其他抛异常
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.WxPayApi.UnifiedOrder(PositiveEdu.WebApi.Pay.Wx.WxPayData,System.Int32)">
+            
+            统一下单
+            @param WxPaydata inputObj 提交给统一下单API的参数
+            @param int timeOut 超时时间
+            @throws WxPayException
+            @return 成功时返回，其他抛异常
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.WxPayApi.CloseOrder(PositiveEdu.WebApi.Pay.Wx.WxPayData,System.Int32)">
+            
+            关闭订单
+            @param WxPayData inputObj 提交给关闭订单API的参数
+            @param int timeOut 接口超时时间
+            @throws WxPayException
+            @return 成功时返回，其他抛异常
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.WxPayApi.ReportCostTime(System.String,System.Int32,PositiveEdu.WebApi.Pay.Wx.WxPayData)">
+            
+            测速上报
+            @param string interface_url 接口URL
+            @param int timeCost 接口耗时
+            @param WxPayData inputObj参数数组
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.WxPayApi.Report(PositiveEdu.WebApi.Pay.Wx.WxPayData,System.Int32)">
+            
+            测速上报接口实现
+            @param WxPayData inputObj 提交给测速上报接口的参数
+            @param int timeOut 测速上报接口超时时间
+            @throws WxPayException
+            @return 成功时返回测速上报接口返回的结果，其他抛异常
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.WxPayApi.GenerateOutTradeNo">
+                    * 根据当前系统时间加随机序列来生成订单号
+                     * @return 订单号
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.WxPayApi.GenerateTimeStamp">
+                    * 生成时间戳，标准北京时间，时区为东八区，自1970年1月1日 0点0分0秒以来的秒数
+                     * @return 时间戳
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.WxPayApi.GenerateNonceStr">
+            生成随机串，随机串包含字母或数字
+            @return 随机串
+        </member>
+        <member name="M:PositiveEdu.WebApi.Pay.Wx.WxPay.DoWaitProcess(PositiveEdu.WebApi.Pay.Wx.WxPayData)">
+            <summary>
+            生成二维码并展示到页面上
+            </summary>
+        </member>
+    </members>
+</doc>

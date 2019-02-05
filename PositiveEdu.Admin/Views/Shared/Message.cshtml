@@ -1,0 +1,23 @@
+﻿<div id="ModalMessage" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div id="ModalContent" class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+
+@{
+    var values = Request.QueryString.GetValues("rmsg");
+    if (values != null && values.Count() > 0)
+    {
+        string message = values[0];
+        <script type="text/javascript">
+            $(function () {
+                $('#ModalContent').html('@message');
+                $('#ModalMessage').modal('show');
+            });
+        </script>
+    }
+}
+

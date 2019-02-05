@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+
+    <script type="text/javascript">
+        $(function () {
+            $.ajax({
+                url: 'http://115.159.153.91:801/token',
+                //url: 'http://localhost:4277/token',
+                type: 'POST',
+                data: 'grant_type=password&username=18217076604&password=hu19960326..&LoginType=2',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                success: function (result) {
+                },
+                error: function (result) {
+                    var json = result.responseJSON;
+                    var error = json.error;
+                    var msg = json.error_description;
+                    alert(error);
+                    alert(msg);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

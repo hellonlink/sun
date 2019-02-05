@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>慧育家后台登录</title>
+
+    <!-- Add jQuery Style direct - used for jQGrid plugin -->
+    <link href="@Url.Content("~/Scripts/plugins/jquery-ui/jquery-ui.min.css")" rel="stylesheet" type="text/css" />
+
+    <!-- Primary Inspinia style -->
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/font-awesome/css")
+</head>
+
+<body class="gray-bg">
+
+    <!-- Skin configuration box -->
+    <!-- @Html.Partial("_SkinConfig") -->
+
+    <div class="middle-box text-center loginscreen animated fadeInDown">
+        <div>
+            <div>
+                <h1 class="logo-name">慧</h1>
+            </div>
+            <h3>慧育家管理后台</h3>
+            <p>请用管理员账号登录</p>
+            @using (Html.BeginForm("Login", "Login", FormMethod.Post, htmlAttributes: new { @class = "m-t", role = "form" }))
+            {
+                <input name="returnUrl" type="hidden" value="@ViewBag.ReturnUrl" />
+
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="用户名" name="username" required="">
+                    @Html.ValidationMessage("Username", "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="密码" name="password" required="">
+                    @Html.ValidationMessage("Password", "", new { @class = "text-danger" })
+                </div>
+                <button type="submit" class="btn btn-primary block full-width m-b">登录</button>
+
+                <small>忘记密码？</small>
+                <p class="text-muted text-center"><small>请联系管理员重置密码</small></p>
+            }
+        </div>
+    </div>
+
+    <!-- Section for main scripts render -->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/plugins/slimScroll")
+    @Scripts.Render("~/bundles/inspinia")
+
+    <!-- Skin config script - only for demo purpose-->
+    @Scripts.Render("~/bundles/skinConfig")
+
+</body>
+
+</html>

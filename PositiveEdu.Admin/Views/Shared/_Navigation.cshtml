@@ -1,0 +1,62 @@
+﻿@using PositiveEdu.DAL
+@model List<ROLE_FUNCTIONS>
+@{ 
+
+    
+    AuthAdmin authAdmin = (AuthAdmin)ViewBag.AuthAdmin;
+}
+
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    <span>
+                        <img alt="image" class="img-thumbnail" src="~/Images/bg_subtit.jpg" />
+                    </span>
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <span class="clear">
+                            <span class="block m-t-xs">
+                                <strong class="font-bold">@authAdmin.UserName</strong>
+                            </span> <span class="text-muted text-xs block">@authAdmin.FirstRoleName <b class="caret"></b></span>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                        <li><a href="@Url.Action("SetPassword", "Home")">修改密码</a></li>
+                        <li class="divider"></li>
+                        <li><a href="@Url.Action("Logout", "Login")">登出</a></li>
+                    </ul>
+                </div>
+                <div class="logo-element">
+                    慧
+                </div>
+            </li>
+
+            @{
+                var roots = Model.Where(x => x.TYPE == 0).OrderBy(x => x.SORT).ToList();
+                foreach (var root in roots)
+                {
+                    var menus = Model.Where(x => x.PARENT == root.UUID).OrderBy(x => x.SORT).ToList();
+                    if (menus.Count > 1)
+                    {
+                        <li class="@Html.IsSelected(controller: root.Controller)">
+                            <a href="###"><i class="fa fa-edit"></i> <span class="nav-label" data-i18n="nav.dashboard">@root.NAME</span> <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse @Html.IsSelected(controller: root.Controller, cssClass: "in")">
+                                @foreach (var menu in menus)
+                                {
+                                    <li class="@Html.IsSelected(action: menu.Action)"><a href="@Url.Action(menu.Action, menu.Controller)">@menu.NAME</a></li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                    else if (menus.Count == 1)
+                    {
+                        <li class="@Html.IsSelected(controller: menus[0].Controller)">
+                            <a href="@Url.Action(menus[0].Action, menus[0].Controller)"><i class="fa fa-edit"></i> <span class="nav-label" data-i18n="nav.layouts">@menus[0].NAME</span></a>
+                        </li>
+                    }
+                }
+            }
+        </ul>
+    </div>
+</nav>

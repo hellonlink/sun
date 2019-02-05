@@ -1,0 +1,104 @@
+﻿@{ 
+    string pageTitle = "慧育家管理后台";
+    if (!string.IsNullOrWhiteSpace(ViewBag.Title))
+    {
+        pageTitle += " | " + ViewBag.Title;
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>@pageTitle</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+    <!-- Add local styles, mostly for plugins css file -->
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
+
+    <!-- Add jQuery Style direct - used for jQGrid plugin -->
+    <link href="@Url.Content("~/Scripts/plugins/jquery-ui/jquery-ui.min.css")" rel="stylesheet" type="text/css" />
+
+    <!-- Primary Inspinia style -->
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/font-awesome/css")
+    @Styles.Render("~/plugins/dataPickerStyles")
+    @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
+
+    <!-- UMEditor-->
+    @Styles.Render("~/umeditor/themes/default/css/umeditor.css")
+
+    <!-- jQueryFileUpload-->
+    @Styles.Render("~/Content/jQuery.FileUpload/css/jquery.fileupload.css")
+    @Styles.Render("~/Content/jQuery.FileUpload/css/jquery.fileupload-ui.css")
+    @RenderSection("Myscripts", required: false)
+
+</head>
+<body  >
+
+    <!-- Skin configuration box -->
+    <!-- @Html.Partial("_SkinConfig") -->
+    <!-- Wrapper-->
+    <!-- PageClass give you ability to specify custom style for specific view based on action -->
+    <div id="wrapper" class="@Html.PageClass()">
+
+        <!-- Navigation -->
+        @*@Html.Partial("_Navigation")*@
+      @Html.Action("Navigation")
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg @ViewBag.SpecialClass">
+
+            <!-- Top Navbar -->
+            @Html.Partial("_TopNavbar")
+
+            <!-- Main view  -->
+            @RenderBody()
+
+            <!-- Footer -->
+            @Html.Partial("_Footer")
+
+        </div>
+        <!-- End page wrapper-->
+        <!-- Right Sidebar -->
+        @Html.Partial("_RightSidebar")
+
+    </div>
+    <!-- End wrapper-->
+
+    @Html.Partial("ConfirmModal")
+
+    <!-- Section for main scripts render -->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/plugins/slimScroll")
+    @Scripts.Render("~/bundles/inspinia")
+
+    <!-- inspinia plugins -->
+    @Scripts.Render("~/plugins/dataPicker")
+    @Scripts.Render("~/plugins/iCheck")
+
+
+    <!-- Skin config script - only for demo purpose-->
+    @Scripts.Render("~/bundles/skinConfig")
+
+    <!-- UMEditor-->
+    @Scripts.Render("~/umeditor/scripts")
+
+    <!-- jQueryFileUpload-->
+    @Scripts.Render("~/bundles/jQueryFileUpload")
+
+    <!-- site-->
+    @Scripts.Render("~/bundles/site")
+
+
+    @Html.Partial("Message")
+
+    <!-- Handler for local scripts -->
+    @RenderSection("scripts", required: false)
+</body>
+</html>

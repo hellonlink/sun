@@ -1,0 +1,81 @@
+﻿@using PositiveEdu.DAL
+@using PagedList
+@using PagedList.Mvc
+@model PagedList<ADMIN>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>管理账户</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="###">账户及权限</a>
+            </li>
+            <li class="active">
+                <strong>管理账户</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>管理账户</h5>
+                </div>
+                <div class="ibox-content">
+
+                    <a href="@Url.Action("Create")" class="btn btn-default">新增后台账户</a>
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>账号</th>
+                                <th>更新时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int index = 1;
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@index</td>
+                                        <td>@item.USER_NAME</td>
+                                        <td>@item.UPDATE_TIME</td>
+                                        <td>
+                                            <a href="@Url.Action("Edit", new { id = item.UUID})">修改</a>
+                                            @Html.ConfirmLink("删除", "Delete", new { id = item.UUID })
+                                        </td>
+                                    </tr>
+
+                                    index++;
+                                }
+                            }
+                        </tbody>
+                    </table>
+
+                    <div class="dataTables_paginate">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), PositiveEdu.Common.PagerUtility.GetPagedListRenderOptions())
+                            </div>
+                            <div class="col-sm-4 pagination text-right">
+                                @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
