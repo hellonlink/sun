@@ -65,9 +65,16 @@ namespace PositiveEdu.DAL
         /// </summary>
         public virtual DbSet<T_ExchangeGifts> T_ExchangeGift { get; set; }
         /// <summary>
-        ///礼品兑换表
+        ///会员标签
         /// </summary>
         public virtual DbSet<T_CustomerTag> T_CustomerTag { get; set; }
+
+        /// <summary>
+        ///礼品分类
+        /// </summary>
+        public virtual DbSet<T_GiftsTag> T_GiftsTag { get; set; }
+
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ADMIN>()
@@ -144,32 +151,71 @@ namespace PositiveEdu.DAL
                 .Property(e => e.AREA_NAME)
                 .IsUnicode(false);
 
+
+
+
+            modelBuilder.Entity<T_Customer>()
+    .HasMany(e => e.T_CustomerActivity)
+    .WithOptional(e => e.T_Customer)
+    .HasForeignKey(e => e.T_CustomerId);
+
+
+
+            modelBuilder.Entity<T_Customer>()
+.HasMany(e => e.T_ExchangeGifts)
+.WithOptional(e => e.T_Customer)
+.HasForeignKey(e => e.T_CustomerId);
+
+            modelBuilder.Entity<T_Customer>()
+.HasMany(e => e.T_CustomerAccept)
+.WithOptional(e => e.T_Customer)
+.HasForeignKey(e => e.T_CustomerId);
+
+            modelBuilder.Entity<T_Customer>()
+.HasMany(e => e.T_CustomerIntegralRecord)
+.WithOptional(e => e.T_Customer)
+.HasForeignKey(e => e.T_CustomerId);
+
+            modelBuilder.Entity<T_Activity>()
+.HasMany(e => e.T_CustomerActivity)
+.WithOptional(e => e.T_Activity)
+.HasForeignKey(e => e.T_ActivityId);
+
+            modelBuilder.Entity<T_Activity>()
+.HasMany(e => e.T_Reward)
+.WithOptional(e => e.T_Activity)
+.HasForeignKey(e => e.T_ActivityId);
+
+
+            modelBuilder.Entity<T_Gifts>()
+.HasMany(e => e.T_ExchangeGifts)
+.WithOptional(e => e.T_Gifts)
+.HasForeignKey(e => e.T_GiftsId);
+
+
+            modelBuilder.Entity<T_Gifts>()
+.HasMany(e => e.T_RewardChild)
+.WithOptional(e => e.T_Gifts)
+.HasForeignKey(e => e.T_GiftsId);
+
+            modelBuilder.Entity<T_Gifts>()
+.HasMany(e => e.T_GiftsChild)
+.WithOptional(e => e.T_Gifts)
+.HasForeignKey(e => e.T_GiftsId);
+
+
+
             modelBuilder.Entity<T_Reward>()
-                .HasMany(p => p.T_Gifts)
-                .WithMany()
-                .Map(m => m.ToTable("T_RewardChild")
-                .MapLeftKey("T_RewardId")
-                .MapRightKey("T_GiftsId")
+.HasMany(e => e.T_RewardChild)
+.WithOptional(e => e.T_Reward)
+.HasForeignKey(e => e.T_RewardId);
+            modelBuilder.Entity<T_Reward>()
+.HasMany(e => e.T_CustomerActivity)
+.WithOptional(e => e.T_Reward)
+.HasForeignKey(e => e.T_RewardId);
 
-                );
 
-            modelBuilder.Entity<T_Customer>()
-                .HasMany(p => p.T_Activity)
-                .WithMany()
-                .Map(m => m.ToTable("T_CustomerActivity")
-                .MapLeftKey("T_ActivityId")
-                .MapRightKey("T_CustomerId")
 
-                );
-
-            modelBuilder.Entity<T_Customer>()
-         .HasMany(p => p.T_Gifts)
-         .WithMany()
-         .Map(m => m.ToTable("T_ExchangeGifts")
-         .MapLeftKey("T_CustomerId")
-         .MapRightKey("T_GiftsId")
-
-         );
         }
     }
 }

@@ -25,7 +25,7 @@ namespace PositiveEdu.DAL
         /// <summary>
         /// 兑换会员ID
         /// </summary>
-        public string T_CustomerId { get; set; }
+        public int? T_CustomerId { get; set; }
         public T_Customer T_Customer { get; set; }
         /// <summary>
         /// 消费积分

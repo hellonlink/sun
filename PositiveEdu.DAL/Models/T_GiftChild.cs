@@ -52,7 +52,7 @@ namespace PositiveEdu.DAL
         /// 0这个是活动送出去的，
         /// 1还是人家主动积分商城里面换的
         /// </summary>
-        public int?ExchangeType { get; set; }
+        public int? ExchangeType { get; set; }
         /// <summary>
         /// 是否删除 
         /// </summary>

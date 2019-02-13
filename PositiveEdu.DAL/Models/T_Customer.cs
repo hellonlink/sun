@@ -12,26 +12,44 @@ namespace PositiveEdu.DAL
 
     public class T_Customer
     {
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public T_Customer()
+        {
+            //会员活动
+            T_CustomerActivity = new HashSet<T_CustomerActivity>();
+            //礼品兑换
+            T_ExchangeGifts = new HashSet<T_ExchangeGifts>();
+            //会员收件
+            T_CustomerAccept = new HashSet<T_CustomerAccept>();
+            //会员积分修改
+            T_CustomerIntegralRecord = new HashSet<T_CustomerIntegralRecord>();
+
+        }
         /// <summary>
         /// 会员ID-本系统自己的会员唯一ID
         /// </summary>
         [Key]
         public int Id { get; set; }
         /// <summary>
-        /// 活动表，多对多的关系
+        /// 活动表， 活动会员表 多对多的关系
         /// </summary>
-        public virtual ICollection<T_Activity> T_Activity { get; set; } = new List<T_Activity>();
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<T_CustomerActivity> T_CustomerActivity { get; set; } = new List<T_CustomerActivity>();
         /// <summary>
-        ///  礼品主表，多对多的关系
+        ///  礼品主表，礼品兑换表 多对多的关系 
         /// </summary>
-        public virtual ICollection<T_Gifts> T_Gifts { get; set; } = new List<T_Gifts>();
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<T_ExchangeGifts> T_ExchangeGifts { get; set; } = new List<T_ExchangeGifts>();
         /// <summary>
         /// 会员收件信息表,一对多的关系
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_CustomerAccept> T_CustomerAccept { get; set; } = new List<T_CustomerAccept>();
         /// <summary>
         /// 会员积分记录表,一对多的关系
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_CustomerIntegralRecord> T_CustomerIntegralRecord { get; set; } = new List<T_CustomerIntegralRecord>();
 
 

@@ -271,23 +271,23 @@ namespace PositiveEdu.Admin.Controllers
         {
 
             var a = DB.T_Customer.Where(x => x.Id == (int)id).FirstOrDefault();
-            a.CustomerRealName = Request.Form["CustomerRealName"] == null ? a.CustomerRealName : Request.Form["CustomerRealName"].ToString();
-            a.CustomerPhoneNum = Request.Form["CustomerPhoneNum"] == null ? a.CustomerPhoneNum : Request.Form["CustomerPhoneNum"].ToString();
-            a.CustomerId = Request.Form["CustomerId"] == null ? a.CustomerId : Request.Form["CustomerId"].ToString();
-            a.CustomerCertificateType = Request.Form["CustomerCertificateType"] == null ? a.CustomerCertificateType : Request.Form["CustomerCertificateType"].ToString();
-            a.CustomerCertificateNum = Request.Form["CustomerCertificateNum"] == null ? a.CustomerCertificateNum : Request.Form["CustomerCertificateNum"].ToString();
-            a.CustomerSex = Request.Form["CustomerSex"] == null ? a.CustomerSex : Request.Form["CustomerSex"].ToString();
-            a.CustomerAddressProvince = Request.Form["province"] == null ? a.CustomerAddressProvince : Request.Form["province"].ToString();
-            a.CustomerAddressCity = Request.Form["city"] == null ? a.CustomerAddressCity : Request.Form["city"].ToString();
-            a.CustomerAddressDistrict = Request.Form["town"] == null ? a.CustomerAddressDistrict : Request.Form["town"].ToString();
-            a.CustomerWechatNum = Request.Form["CustomerWechatNum"] == null ? a.CustomerWechatNum : Request.Form["CustomerWechatNum"].ToString();
-            a.CustomerQQNum = Request.Form["CustomerQQNum"] == null ? a.CustomerQQNum : Request.Form["CustomerQQNum"].ToString();
-            a.CustomerEmailNum = Request.Form["CustomerEmailNum"] == null ? a.CustomerEmailNum : Request.Form["CustomerEmailNum"].ToString();
-            a.AccountEffect = Request.Form["AccountEffect"] == null ? a.AccountEffect : Convert.ToInt32(Request.Form["AccountEffect"].ToString());
-            a.CustomerCurrentIntegral = Request.Form["CustomerCurrentIntegral"] == null ? a.CustomerCurrentIntegral : Convert.ToInt32(Request.Form["CustomerCurrentIntegral"].ToString());
-            a.CustomerBirthday = Request.Form["CustomerBirthday"] == null ? a.CustomerBirthday : Convert.ToDateTime(Request.Form["CustomerBirthday"].ToString());
-            a.CustomerTakeTime = Request.Form["CustomerTakeTime"] == null ? a.CustomerTakeTime : Convert.ToDateTime(Request.Form["CustomerTakeTime"].ToString());
-            a.CustomerTag = Request.Form["CustomerTag"] == null ? a.CustomerTag : Request.Form["CustomerTag"].ToString();
+            a.CustomerRealName = Request.Form["CustomerRealName"] == "" ? null : Request.Form["CustomerRealName"].ToString();
+            a.CustomerPhoneNum = Request.Form["CustomerPhoneNum"] == "" ? null : Request.Form["CustomerPhoneNum"].ToString();
+            a.CustomerId = Request.Form["CustomerId"] == "" ? null : Request.Form["CustomerId"].ToString();
+            a.CustomerCertificateType = Request.Form["CustomerCertificateType"] == "" ? a.CustomerCertificateType : Request.Form["CustomerCertificateType"].ToString();
+            a.CustomerCertificateNum = Request.Form["CustomerCertificateNum"] == "" ? null : Request.Form["CustomerCertificateNum"].ToString();
+            a.CustomerSex = Request.Form["CustomerSex"] == "" ? null : Request.Form["CustomerSex"].ToString();
+            a.CustomerAddressProvince = Request.Form["province"] == "" ? a.CustomerAddressProvince : Request.Form["province"].ToString();
+            a.CustomerAddressCity = Request.Form["city"] == "" ? a.CustomerAddressCity : Request.Form["city"].ToString();
+            a.CustomerAddressDistrict = Request.Form["town"] == "" ? a.CustomerAddressDistrict : Request.Form["town"].ToString();
+            a.CustomerWechatNum = Request.Form["CustomerWechatNum"] == "" ? null : Request.Form["CustomerWechatNum"].ToString();
+            a.CustomerQQNum = Request.Form["CustomerQQNum"] == "" ? null : Request.Form["CustomerQQNum"].ToString();
+            a.CustomerEmailNum = Request.Form["CustomerEmailNum"] == "" ? null : Request.Form["CustomerEmailNum"].ToString();
+            a.AccountEffect = Request.Form["AccountEffect"] == "" ? a.AccountEffect : Convert.ToInt32(Request.Form["AccountEffect"].ToString());
+            a.CustomerCurrentIntegral = Request.Form["CustomerCurrentIntegral"] == "" ? a.CustomerCurrentIntegral : Convert.ToInt32(Request.Form["CustomerCurrentIntegral"].ToString());
+            a.CustomerBirthday = Request.Form["CustomerBirthday"] == "" ? a.CustomerBirthday : Convert.ToDateTime(Request.Form["CustomerBirthday"].ToString());
+            a.CustomerTakeTime = Request.Form["CustomerTakeTime"] == "" ? a.CustomerTakeTime : Convert.ToDateTime(Request.Form["CustomerTakeTime"].ToString());
+            a.CustomerTag = Request.Form["CustomerTag"] == null ?null : Request.Form["CustomerTag"].ToString();
 
             a.CustomizeTag1 = Request.Form["CustomizeTag1"] == "" ? null : Request.Form["CustomizeTag1"].ToString();
             a.CustomizeTag2 = Request.Form["CustomizeTag2"] == "" ? null : Request.Form["CustomizeTag2"].ToString();

@@ -11,6 +11,9 @@ namespace PositiveEdu.DAL
 
     public class T_CustomerActivity
     {
+
+
+
         /// <summary>
         /// 活动会员ID
         /// </summary>
@@ -26,7 +29,7 @@ namespace PositiveEdu.DAL
         /// <summary>
         /// 会员ID
         /// </summary>
-        public string T_CustomerId { get; set; }
+        public int? T_CustomerId { get; set; }
         public T_Customer T_Customer { get; set; }
         /// <summary>
         /// 报名时间/导入时间

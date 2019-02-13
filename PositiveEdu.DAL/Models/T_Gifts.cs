@@ -12,22 +12,36 @@ namespace PositiveEdu.DAL
 
     public class T_Gifts
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public T_Gifts()
+        {
+            //兑换礼品
+            T_ExchangeGifts = new HashSet<T_ExchangeGifts>();
+            //奖项字表，奖的类型 对应 礼品的类型
+            T_RewardChild = new HashSet<T_RewardChild>();
+            //礼品子表 
+            T_GiftsChild = new HashSet<T_GiftsChild>();
+            
+        }
         /// <summary>
         /// 礼品ID
         /// </summary>
         [Key]
         public int id { get; set; }
         /// <summary>
-        /// 会员主表,多对多的关系
+        ///       会员主表    ,礼品兑换表 多对多的关系
         /// </summary>
-        public virtual ICollection<T_Customer> T_Customer { get; set; } = new List<T_Customer>();
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<T_ExchangeGifts> T_ExchangeGifts { get; set; } = new List<T_ExchangeGifts>();
         /// <summary>
-        /// 活动奖项表,多对多的关系
+        /// 活动奖项表,   活动奖项子表  多对多的关系
         /// </summary>
-        public virtual ICollection<T_Reward> T_Reward { get; set; } = new List<T_Reward>();
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<T_RewardChild> T_RewardChild { get; set; } = new List<T_RewardChild>();
         /// <summary>
         /// 礼品子表,一对多的关系
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_GiftsChild> T_GiftsChild { get; set; } = new List<T_GiftsChild>();
 
         /// <summary>
@@ -52,7 +66,7 @@ namespace PositiveEdu.DAL
         /// 一种Coupon只能算一个礼品，
         /// 100张这种Coupon只能算这个礼品库存100
         /// </summary>
-        public int? GiftNo { get; set; }
+        public string GiftNo { get; set; }
         /// <summary>
         /// 礼品简介-一段纯文本，非必填，
         /// 这类介绍性的字段或图片展示类字段 
@@ -84,6 +98,10 @@ namespace PositiveEdu.DAL
         ///0否，1是
         /// </summary>
         public int? IsShelf { get; set; }
+        /// <summary>
+        /// 礼品所属分类
+        /// </summary>
+        public int? T_GiftsTagId { get; set; }
         /// <summary>
         /// 用于批量生成CouponNo的开头编码-最自主券才有用
         /// </summary>

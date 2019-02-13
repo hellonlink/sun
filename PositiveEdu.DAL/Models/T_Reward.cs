@@ -12,7 +12,16 @@ namespace PositiveEdu.DAL
 
     public class T_Reward
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public T_Reward()
+        {
+       
+            //奖项字表，奖的类型 对应 礼品的类型
+            T_RewardChild = new HashSet<T_RewardChild>();
+            // 所获奖项ID-   如果这个人没获奖就是0或者空
+            T_CustomerActivity = new HashSet<T_CustomerActivity>();
 
+        }
         /// <summary>
         /// 活动奖项表ID
         /// </summary>
@@ -29,12 +38,14 @@ namespace PositiveEdu.DAL
 
 
         /// <summary>
-        /// 礼品主表,多对多
+        /// 礼品主表, 活动奖项子表  多对多
         /// </summary>
-        public virtual ICollection<T_Gifts> T_Gifts { get; set; } = new List<T_Gifts>();
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<T_RewardChild> T_RewardChild { get; set; } = new List<T_RewardChild>();
         /// <summary>
         /// 活动会员表,一对多的关系
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_CustomerActivity> T_CustomerActivity { get; set; } = new List<T_CustomerActivity>();
 
 

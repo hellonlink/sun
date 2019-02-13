@@ -4,37 +4,24 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PositiveEdu.DAL
 {
-    /// <summary>
-    /// 活动奖项子表
-    /// </summary>
-
-
-    public class T_RewardChild
+    [Table("T_GiftsTag")]
+    public class T_GiftsTag
     {
+
+
         /// <summary>
-        /// 动奖项子表ID
+        /// 礼品分类表主键
         /// </summary>
         [Key]
-        public int Id { get; set; }
+        public int id { get; set; }
         /// <summary>
-        /// 礼品ID-就是对应的礼品表里面的礼品ID
+        /// 标签名
         /// </summary>
-        public int? T_GiftsId { get; set; }
+        public string TagName { get; set; }
         /// <summary>
-        /// 奖项ID-此礼品对应哪个奖项
+        /// 启用 0是 1否
         /// </summary>
-        public int? T_RewardId { get; set; }
-
-        public virtual T_Reward T_Reward { get; set; }
-        public virtual T_Gifts T_Gifts { get; set; }
-
-
-
-        /// <summary>
-        /// 数量-就是此奖项包含此礼品多少份
-        /// 举个例子就是  XXX活动的 2等奖 里面有 3张 XX券
-        /// </summary>
-        public int? GiftNumber { get; set; }
+        public int? IsUse { get; set; }
         /// <summary>
         /// 是否删除 
         /// </summary>

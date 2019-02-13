@@ -1,0 +1,218 @@
+﻿@using PositiveEdu.DAL
+@using PagedList
+@using PagedList.Mvc
+@model  T_Activity
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            修改活动
+        </h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/ActivityManage">活动管理</a>
+            </li>
+            <li class="active">
+                <strong>
+                    修改活动
+                </strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>
+                        修改活动
+                    </h5>
+                </div>
+                <div class="ibox-content">
+
+                    @using (Html.BeginForm("Edit", "ActivityManage", FormMethod.Post, htmlAttributes: new { @class = "form-inline" }))
+                    {
+
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-group">
+                            <label>活动名称：</label>
+                            <input type="text" placeholder="活动名称" id="InputMobile" class="form-control" name="ActivityName" value="@Model.ActivityName">
+
+                        </div> <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label>活动唯一码：</label>
+                            <input type="text" placeholder="活动唯一码" id="InputMobile" class="form-control" name="GUID" value="@Model.GUID">
+                        </div> <div class="hr-line-dashed"></div>
+
+
+
+
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">活动报名时间段</label>
+                            <div class="col-sm-10">
+                                <div class="input-group date col-lg-3">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    @{
+                                        string dtStr = string.Empty;
+                                        string dtStr2 = string.Empty;
+
+                                        if (Model.RegistrationStartTime.HasValue)
+                                        {
+                                            dtStr = Model.RegistrationStartTime.Value.ToString("yyyy-MM-dd");
+                                        }
+                                        if (Model.RegistrationStopTime.HasValue)
+                                        {
+                                            dtStr2 = Model.RegistrationStartTime.Value.ToString("yyyy-MM-dd");
+                                        }
+                                    }
+                                    <input type="text" style="width:500px " class="form-control input-sm" name="RegistrationStartTime" value="@dtStr">
+                                    <span>~</span>
+
+                                </div>
+
+                                <div class="input-group date col-lg-3">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+
+
+                                    <input type="text" style="width:500px " class="form-control input-sm" name="RegistrationStopTime" value="@dtStr2">
+                                </div>
+                            </div>
+                        </div> <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">活动执行时间段</label>
+                            <div class="col-sm-10">
+                                <div class="input-group date col-lg-3">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    @{
+                                        string dtStr3 = string.Empty;
+                                        string dtStr4 = string.Empty;
+
+                                        if (Model.ActivityStartTime.HasValue)
+                                        {
+                                            dtStr3 = Model.ActivityStartTime.Value.ToString("yyyy-MM-dd");
+                                        }
+                                        if (Model.ActivityStopTime.HasValue)
+                                        {
+                                            dtStr4 = Model.ActivityStopTime.Value.ToString("yyyy-MM-dd");
+                                        }
+                                    }
+                                    <input type="text" style="width:500px " class="form-control input-sm" name="ActivityStartTime" value="@dtStr3">
+                                    <span>~</span>
+
+                                </div>
+
+                                <div class="input-group date col-lg-3">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+
+
+                                    <input type="text" style="width:500px " class="form-control input-sm" name="ActivityStopTime" value="@dtStr4">
+                                </div>
+
+
+                            </div>
+                        </div> <div class="hr-line-dashed"></div>
+
+
+
+
+
+                        <div class="form-group">
+                            <label>报名人数限制：</label>
+                            <input type="text" placeholder="报名人数限制" id="InputMobile" class="form-control" name="RegistrationNumber" value="@Model.RegistrationNumber">
+
+                        </div> <div class="hr-line-dashed"></div>
+
+
+                        <div class="form-group">
+                            <label>是否报名即参与：</label><h3></h3>
+
+                            <input type="radio" id="InputMobile" @(Model.IsAllTake == 0 ? "checked=checked" : "") class="form-control" name="IsAllTake" value="0">是
+
+
+
+                            <input type="radio" id="InputMobile" @(Model.IsAllTake == 1 ? "checked=checked" : "") class="form-control" name="IsAllTake" value="1">否
+
+
+                        </div> <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label>参与人数限制：</label>
+                            <input type="text" placeholder="参与人数限制" id="InputMobile" class="form-control" name="JoinNumber" value="@Model.JoinNumber">
+
+
+                        </div> <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label>活动参与消耗积分：</label>
+                            <input type="text" placeholder="活动参与消耗积分" id="InputMobile" class="form-control" name="NeedIntegral" value="@Model.NeedIntegral">
+
+
+                        </div> <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label>是否参与即获奖：</label><h3></h3>
+
+                            <input type="radio" id="InputMobile" @(Model.IsAllSameReward == 0 ? "checked=checked" : "") class="form-control" name="IsAllSameReward" value="0">是
+
+
+
+                            <input type="radio" id="InputMobile" @(Model.IsAllSameReward == 1 ? "checked=checked" : "") class="form-control" name="IsAllSameReward" value="1">否
+
+
+                        </div> <div class="hr-line-dashed"></div>
+
+
+                        <div class="form-group">
+                            <label>是否启用：</label><h3></h3>
+
+                            <input type="radio" id="InputMobile" @(Model.IsActivityEffective == 0 ? "checked=checked" : "") class="form-control" name="IsActivityEffective" value="0">是
+
+
+
+                            <input type="radio" id="InputMobile" @(Model.IsActivityEffective == 1 ? "checked=checked" : "") class="form-control" name="IsActivityEffective" value="1">否
+
+
+                        </div> <div class="hr-line-dashed"></div>
+                        <button class="btn btn-white" type="submit">保存</button>
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+
+            $('#TmbUploadImg').thumbnail();
+
+            $('.input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true,
+                format: "yyyy-mm-dd",
+                language: 'zh-CN',
+            });
+        });
+    </script>
+}

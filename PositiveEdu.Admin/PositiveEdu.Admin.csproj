@@ -1729,7 +1729,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\ActivityManage\" />
     <Folder Include="Views\ExchangeManage\" />
   </ItemGroup>
   <ItemGroup>
@@ -1788,6 +1787,13 @@
     <Content Include="Views\CustomerManage\CustomerTagCreate.cshtml" />
     <Content Include="Views\CustomerManage\CustomerTagIndex.cshtml" />
     <Content Include="Views\CustomerManage\CustomerCreate.cshtml" />
+    <Content Include="Views\ActivityManage\Index.cshtml" />
+    <Content Include="Views\ActivityManage\Detail.cshtml" />
+    <Content Include="Views\ActivityManage\Edit.cshtml" />
+    <Content Include="Views\ActivityManage\Create.cshtml" />
+    <Content Include="Views\GifiManage\GiftsTagCreate.cshtml" />
+    <Content Include="Views\GifiManage\GiftsTagIndex.cshtml" />
+    <Content Include="Views\GifiManage\TagEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PositiveEdu.Common\PositiveEdu.Common.csproj">

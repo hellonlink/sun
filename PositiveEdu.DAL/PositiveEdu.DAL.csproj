@@ -75,6 +75,7 @@
     <Compile Include="Models\ROLE_FUNCTIONS.cs" />
     <Compile Include="Models\ROLE_FUNCTION_RELATION.cs" />
     <Compile Include="Models\SiteMessage.cs" />
+    <Compile Include="T_GiftsTag.cs" />
     <Compile Include="T_CustomerTag.cs" />
   </ItemGroup>
   <ItemGroup>
