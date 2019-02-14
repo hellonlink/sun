@@ -18,7 +18,7 @@ namespace PositiveEdu.Admin.Controllers
             int pageSize = 15;
             var query = DB.T_Gifts.AsNoTracking().AsQueryable();
             var GiftName = Request.QueryString["GiftName"] == null ? null : (Request.QueryString["GiftName"].ToString());
-            if (!string.IsNullOrEmpty(GiftName))
+            if (!string.IsNullOrEmpty(GiftName)) 
             {
                 query = query.Where(x => x.GiftName.Contains(GiftName));
                 ViewBag.GiftName = GiftName;
