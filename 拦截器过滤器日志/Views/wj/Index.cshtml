@@ -1,0 +1,22 @@
+﻿
+@{
+    Layout = null;
+}
+
+<h2>Index</h2>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    @using (Html.BeginForm("Index", "wj", FormMethod.Post,htmlAttributes: new { @class = "form-inline" }))
+    {
+
+        <div> 姓名<input type="text" name="name" value=" " />  </div>
+        <div> 密码<input type="text" name="password" value=" " />  </div>
+        <div>  <input type="submit"  value="按钮" />  </div>
+
+
+    }
+</body>
+</html>

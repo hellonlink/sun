@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息是通过以下项进行控制的
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("PositiveEdu.Admin")]
+[assembly: AssemblyTitle("拦截器过滤器日志")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("PositiveEdu.Admin")]
-[assembly: AssemblyCopyright("版权所有(C)  2018")]
+[assembly: AssemblyProduct("拦截器过滤器日志")]
+[assembly: AssemblyCopyright("版权所有(C)  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于 typelib 的 ID
-[assembly: Guid("f0da537e-869e-4d94-9595-6e4a292c0f61")]
+[assembly: Guid("354b8ab8-b19d-4a88-8b0c-e5e8071b9651")]
 
 // 程序集的版本信息由下列四个值组成:
 //
@@ -33,4 +33,3 @@ using System.Runtime.InteropServices;
 // 方法是按如下所示使用 "*":
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-[assembly: log4net.Config.XmlConfigurator(ConfigFile = "Log4Net.config", Watch = true)]
