@@ -12,6 +12,15 @@ namespace PositiveEdu.Admin.Controllers
     public class ActivityManageController : BaseController
     {
         // GET: ActivityManage
+
+
+
+        #region 活动管理
+        /// <summary>
+        /// 活动列表
+        /// </summary>
+        /// <param name="page"></param>
+        /// <returns></returns>
         public ActionResult Index(int page = 1)
         {
             int pageSize = 15;
@@ -44,7 +53,11 @@ namespace PositiveEdu.Admin.Controllers
             return View(result);
         }
 
-
+        /// <summary>
+        /// 活动详情
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         public ActionResult Detail(int Id)
         {
 
@@ -54,6 +67,11 @@ namespace PositiveEdu.Admin.Controllers
             return View(result);
         }
 
+        /// <summary>
+        /// 修改活动
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         public ActionResult Edit(int Id)
         {
 
@@ -76,9 +94,9 @@ namespace PositiveEdu.Admin.Controllers
             a.RegistrationNumber = Request.Form["RegistrationNumber"] == "" ? a.RegistrationNumber : Convert.ToInt32(Request.Form["RegistrationNumber"].ToString());
             a.JoinNumber = Request.Form["JoinNumber"] == "" ? a.JoinNumber : Convert.ToInt32(Request.Form["JoinNumber"].ToString());
             a.IsAllTake = Request.Form["IsAllTake"] == "" ? a.IsAllTake : Convert.ToInt32(Request.Form["IsAllTake"].ToString());
-            a.NeedIntegral = Request.Form["NeedIntegral"] == "" ?( a.NeedIntegral=null) : Convert.ToInt32(Request.Form["NeedIntegral"].ToString());
-            a.IsAllSameReward = Request.Form["IsAllSameReward"] == null ?( a.IsAllSameReward =null): Convert.ToInt32(Request.Form["IsAllSameReward"].ToString());
-            a.IsActivityEffective = Request.Form["IsActivityEffective"] == null ? (a.IsActivityEffective=null) : Convert.ToInt32(Request.Form["IsActivityEffective"].ToString());
+            a.NeedIntegral = Request.Form["NeedIntegral"] == "" ? (a.NeedIntegral = null) : Convert.ToInt32(Request.Form["NeedIntegral"].ToString());
+            a.IsAllSameReward = Request.Form["IsAllSameReward"] == null ? (a.IsAllSameReward = null) : Convert.ToInt32(Request.Form["IsAllSameReward"].ToString());
+            a.IsActivityEffective = Request.Form["IsActivityEffective"] == null ? (a.IsActivityEffective = null) : Convert.ToInt32(Request.Form["IsActivityEffective"].ToString());
 
 
 
@@ -99,6 +117,10 @@ namespace PositiveEdu.Admin.Controllers
 
         }
 
+        /// <summary>
+        ///新增活动 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Create()
         {
             var result = new T_Activity();
@@ -110,8 +132,8 @@ namespace PositiveEdu.Admin.Controllers
         {
 
             var a = new T_Activity();
-            a.ActivityName = Request.Form["ActivityName"] == "" ? null: Request.Form["ActivityName"].ToString();
-            a.GUID = Request.Form["GUID"] == "" ? a.GUID : Request.Form["GUID"].ToString(); 
+            a.ActivityName = Request.Form["ActivityName"] == "" ? null : Request.Form["ActivityName"].ToString();
+            a.GUID = Request.Form["GUID"] == "" ? a.GUID : Request.Form["GUID"].ToString();
             a.RegistrationStartTime = Request.Form["RegistrationStartTime"] == "" ? a.RegistrationStartTime : Convert.ToDateTime(Request.Form["RegistrationStartTime"].ToString());
             a.RegistrationStopTime = Request.Form["RegistrationStopTime"] == "" ? a.RegistrationStopTime : Convert.ToDateTime(Request.Form["RegistrationStopTime"].ToString());
             a.ActivityStartTime = Request.Form["ActivityStartTime"] == "" ? a.ActivityStartTime : Convert.ToDateTime(Request.Form["ActivityStartTime"].ToString());
@@ -142,6 +164,11 @@ namespace PositiveEdu.Admin.Controllers
 
 
         }
+        /// <summary>
+        ///移除活动 
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         public ActionResult Delete(int Id)
         {
 
@@ -161,5 +188,8 @@ namespace PositiveEdu.Admin.Controllers
 
 
         }
+        #endregion
+
+
     }
 }

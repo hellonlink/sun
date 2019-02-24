@@ -21,7 +21,7 @@ namespace PositiveEdu.DAL
             T_RewardChild = new HashSet<T_RewardChild>();
             //礼品子表 
             T_GiftsChild = new HashSet<T_GiftsChild>();
-            
+
         }
         /// <summary>
         /// 礼品ID
@@ -50,7 +50,7 @@ namespace PositiveEdu.DAL
         public string GiftName { get; set; }
         /// <summary>
         /// 礼品形式-实体礼品/
-        /// 虚拟礼品 0虚 1实
+        /// 虚拟礼品 1虚 0实
         /// </summary>
         public int? GiftType { get; set; }
         /// <summary>
@@ -95,9 +95,14 @@ namespace PositiveEdu.DAL
         public int? GiftInventory { get; set; }
         /// <summary>
         /// 是否上架/有效- 这个一般也是在积分商城才有用
-        ///0否，1是
+        ///1否，0是
         /// </summary>
         public int? IsShelf { get; set; }
+        /// <summary>
+        /// 是否积分商城可兑换：
+        ///1否，0是
+        /// </summary>
+        public int? IsExchange { get; set; }
         /// <summary>
         /// 礼品所属分类
         /// </summary>

@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PositiveEdu.WebApi", "Posit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TGLog", "PositiveEdu.Log\TGLog.csproj", "{EA0A08B8-8913-46BD-B2AB-0AB177EF5247}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "反射", "..\..\..\..\技术积累\2.反射\反射\反射.csproj", "{F2A0535C-C97B-42DD-90BC-8D7192FA6069}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "反射", "..\..\..\技术积累\2.反射\反射\反射.csproj", "{F2A0535C-C97B-42DD-90BC-8D7192FA6069}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "拦截器过滤器日志", "拦截器过滤器日志\拦截器过滤器日志.csproj", "{61BE740F-AB68-49FD-B106-37CD30127F5C}"
 EndProject
@@ -56,6 +56,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DCADBEF6-382F-4C4D-AABB-2108A6D2EB2A} = {EB38B4CF-0406-4604-AD26-3660655C7BE2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {73DE0B6A-AAE1-4ECC-9C11-571656E5F047}

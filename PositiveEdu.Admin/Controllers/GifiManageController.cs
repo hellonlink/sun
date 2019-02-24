@@ -12,13 +12,19 @@ namespace PositiveEdu.Admin.Controllers
     public class GifiManageController : BaseController
     {
         // GET: GifiManage
+
+        /// <summary>
+        /// 礼品列表
+        /// </summary>
+        /// <param name="page"></param>
+        /// <returns></returns>
         public ActionResult Index(int page = 1)
         {
 
             int pageSize = 15;
             var query = DB.T_Gifts.AsNoTracking().AsQueryable();
             var GiftName = Request.QueryString["GiftName"] == null ? null : (Request.QueryString["GiftName"].ToString());
-            if (!string.IsNullOrEmpty(GiftName)) 
+            if (!string.IsNullOrEmpty(GiftName))
             {
                 query = query.Where(x => x.GiftName.Contains(GiftName));
                 ViewBag.GiftName = GiftName;
@@ -103,6 +109,11 @@ namespace PositiveEdu.Admin.Controllers
 
 
         }
+
+
+
+
+        #region 礼品分类
         public ActionResult TagDelete(int id)
         {
             var item = DB.T_GiftsTag.Where(x => x.id == id).FirstOrDefault();
@@ -188,6 +199,80 @@ namespace PositiveEdu.Admin.Controllers
             var result = query.OrderBy(x => x.id).ToPagedList(page, pageSize);
             return result;
         }
+        #endregion
+
+
+
+        #region 实体礼品
+        public ActionResult RealGiftsCreate()
+        {
+
+            return View(new T_Gifts());
+        }
+        [ValidateAntiForgeryToken, ValidateInput(false), HttpPost]
+        public ActionResult RealGiftsCreate(string TagName, int? IsUse)
+        {
+
+            var a = new T_Gifts();
+            a.GiftName = Request.Form["GiftName"] == "" ? a.GiftName : Request.Form["GiftName"].ToString();
+            a.GiftType = Request.Form["GiftType"] == "" ? a.GiftType : Convert.ToInt32(Request.Form["GiftType"].ToString());
+            a.GiftNo = Request.Form["GiftNo"] == "" ? a.GiftNo : Request.Form["GiftNo"].ToString();
+            a.GiftIntroductionText = Request.Form["GiftIntroductionText"] == "" ? a.GiftIntroductionText : Request.Form["GiftIntroductionText"].ToString();
+            a.GiftIntroductionPT = Request.Form["GiftIntroductionPT"] == "" ? a.GiftIntroductionPT : Request.Form["GiftIntroductionPT"].ToString();
+            a.T_GiftsTagId = Request.Form["T_GiftsTagId"] == "" ? a.T_GiftsTagId : Convert.ToInt32(Request.Form["T_GiftsTagId"].ToString());
+            a.GiftInventory = Request.Form["GiftInventory"] == "" ? a.GiftInventory : Convert.ToInt32(Request.Form["GiftInventory"].ToString());
+            a.IsShelf = Request.Form["IsShelf"] == "" ? a.IsShelf : Convert.ToInt32(Request.Form["IsShelf"].ToString());
+            a.IsExchange = Request.Form["IsExchange"] == "" ? a.IsExchange : Convert.ToInt32(Request.Form["IsExchange"].ToString());
+            a.RedeemPoints = Request.Form["RedeemPoints"] == "" ? a.RedeemPoints : Convert.ToInt32(Request.Form["RedeemPoints"].ToString());
+            a.Tag1 = Request.Form["Tag1"] == "" ? a.Tag1 : Request.Form["Tag1"].ToString();
+            a.Tag2 = Request.Form["Tag2"] == "" ? a.Tag2 : Request.Form["Tag2"].ToString();
+            a.Tag3 = Request.Form["Tag3"] == "" ? a.Tag3 : Request.Form["Tag3"].ToString();
+            a.Tag4 = Request.Form["Tag4"] == "" ? a.Tag4 : Request.Form["Tag4"].ToString();
+            a.Tag5 = Request.Form["Tag5"] == "" ? a.Tag5 : Request.Form["Tag5"].ToString();
+            a.GiftMainPicture = Request.Form["GiftMainPicture"] == "" ? a.GiftMainPicture : Request.Form["GiftMainPicture"].ToString();
+            a.GiftThumbnailPicture = Request.Form["GiftThumbnailPicture"] == "" ? a.GiftThumbnailPicture : Request.Form["GiftThumbnailPicture"].ToString();
+            var u = JsonConvert.DeserializeObject<AuthAdmin>(User.Identity.Name);
+
+
+            DB.T_Gifts.Add(new T_Gifts()
+            {
+                GiftName = a.GiftName,
+                GiftType = a.GiftType,
+                GiftNo = a.GiftNo,
+                GiftIntroductionText = a.GiftIntroductionText,
+                GiftIntroductionPT = a.GiftIntroductionPT,
+                T_GiftsTagId = a.T_GiftsTagId,
+                GiftInventory = a.GiftInventory,
+                IsShelf = a.IsShelf,
+                IsExchange = a.IsExchange,
+                RedeemPoints = a.RedeemPoints,
+                Tag1 = a.Tag1,
+                Tag2 = a.Tag2,
+                Tag3 = a.Tag3,
+                Tag4 = a.Tag4,
+                Tag5 = a.Tag5,
+                GiftMainPicture = a.GiftMainPicture,
+                GiftThumbnailPicture = a.GiftThumbnailPicture,
+                CreatedOn = DateTime.Now,
+                CreatedBy = u.RealName,
+
+            });
+            DB.SaveChanges();
+            return RedirectToAction("Index");
+
+        }
+
+
+        #endregion
+
+        #region 第三方证券
+
+        #endregion
+
+        #region  自主证券
+
+        #endregion
+
 
     }
 }
