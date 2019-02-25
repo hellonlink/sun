@@ -367,11 +367,16 @@ namespace PositiveEdu.Admin.Controllers
             var a = new T_Gifts();
             a.GiftName = Request.Form["GiftName"] == "" ? a.GiftName : Request.Form["GiftName"].ToString();
             a.GiftType = Request.Form["GiftType"] == "" ? a.GiftType : Convert.ToInt32(Request.Form["GiftType"].ToString());
-            a.GiftNo = Request.Form["GiftNo"] == "" ? a.GiftNo : Request.Form["GiftNo"].ToString();
+            a.IsCoupon = Request.Form["IsCoupon"] == "" ? a.IsCoupon : Convert.ToInt32(Request.Form["IsCoupon"].ToString());
+            a.SaveType = Request.Form["SaveType"] == "" ? a.SaveType : Convert.ToInt32(Request.Form["SaveType"].ToString());
+            a.SaveMoney = Request.Form["SaveMoney"] == "" ? a.SaveMoney : Convert.ToInt32(Request.Form["SaveMoney"].ToString());
+            a.BeginTime = Request.Form["BeginTime"] == "" ? a.BeginTime : Convert.ToDateTime(Request.Form["BeginTime"].ToString());
+            a.StopTime = Request.Form["StopTime"] == "" ? a.StopTime : Convert.ToDateTime(Request.Form["StopTime"].ToString());
+            a.MoneyLimit = Request.Form["MoneyLimit"] == "" ? a.MoneyLimit : Convert.ToInt32(Request.Form["MoneyLimit"].ToString());
+            a.OpenCodeCouponNo = Request.Form["OpenCodeCouponNo"] == "" ? a.GiftNo : Request.Form["OpenCodeCouponNo"].ToString();
             a.GiftIntroductionText = Request.Form["GiftIntroductionText"] == "" ? a.GiftIntroductionText : Request.Form["GiftIntroductionText"].ToString();
             a.GiftIntroductionPT = Request.Form["GiftIntroductionPT"] == "" ? a.GiftIntroductionPT : Request.Form["GiftIntroductionPT"].ToString();
             a.T_GiftsTagId = Request.Form["T_GiftsTagId"] == "" ? a.T_GiftsTagId : Convert.ToInt32(Request.Form["T_GiftsTagId"].ToString());
-            a.GiftInventory = Request.Form["GiftInventory"] == "" ? a.GiftInventory : Convert.ToInt32(Request.Form["GiftInventory"].ToString());
             a.IsShelf = Request.Form["IsShelf"] == "" ? a.IsShelf : Convert.ToInt32(Request.Form["IsShelf"].ToString());
             a.IsExchange = Request.Form["IsExchange"] == "" ? a.IsExchange : Convert.ToInt32(Request.Form["IsExchange"].ToString());
             a.RedeemPoints = Request.Form["RedeemPoints"] == "" ? a.RedeemPoints : Convert.ToInt32(Request.Form["RedeemPoints"].ToString());
@@ -406,6 +411,13 @@ namespace PositiveEdu.Admin.Controllers
                 GiftThumbnailPicture = a.GiftThumbnailPicture,
                 CreatedOn = DateTime.Now,
                 CreatedBy = u.RealName,
+                IsCoupon = a.IsCoupon,
+                SaveType = a.SaveType,
+                SaveMoney = a.SaveMoney,
+                BeginTime = a.BeginTime,
+                StopTime = a.StopTime,
+                MoneyLimit = a.MoneyLimit,
+                OpenCodeCouponNo = a.OpenCodeCouponNo
 
             });
             DB.SaveChanges();
