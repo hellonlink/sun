@@ -262,7 +262,91 @@ namespace PositiveEdu.Admin.Controllers
 
         }
 
+        public ActionResult RealGiftsEdit(int? id)
+        {
 
+            return View(DB.T_Gifts.Where(x => x.id == id).FirstOrDefault());
+
+        }
+        [ValidateAntiForgeryToken, ValidateInput(false), HttpPost]
+        public ActionResult RealGiftsEdit()
+        {
+
+            var a = new T_Gifts();
+            a.GiftName = Request.Form["GiftName"] == "" ? a.GiftName : Request.Form["GiftName"].ToString();
+            a.GiftType = Request.Form["GiftType"] == "" ? a.GiftType : Convert.ToInt32(Request.Form["GiftType"].ToString());
+            a.GiftNo = Request.Form["GiftNo"] == "" ? a.GiftNo : Request.Form["GiftNo"].ToString();
+            a.GiftIntroductionText = Request.Form["GiftIntroductionText"] == "" ? a.GiftIntroductionText : Request.Form["GiftIntroductionText"].ToString();
+            a.GiftIntroductionPT = Request.Form["GiftIntroductionPT"] == "" ? a.GiftIntroductionPT : Request.Form["GiftIntroductionPT"].ToString();
+            a.T_GiftsTagId = Request.Form["T_GiftsTagId"] == "" ? a.T_GiftsTagId : Convert.ToInt32(Request.Form["T_GiftsTagId"].ToString());
+            a.GiftInventory = Request.Form["GiftInventory"] == "" ? a.GiftInventory : Convert.ToInt32(Request.Form["GiftInventory"].ToString());
+            a.IsShelf = Request.Form["IsShelf"] == "" ? a.IsShelf : Convert.ToInt32(Request.Form["IsShelf"].ToString());
+            a.IsExchange = Request.Form["IsExchange"] == "" ? a.IsExchange : Convert.ToInt32(Request.Form["IsExchange"].ToString());
+            a.RedeemPoints = Request.Form["RedeemPoints"] == "" ? a.RedeemPoints : Convert.ToInt32(Request.Form["RedeemPoints"].ToString());
+            a.Tag1 = Request.Form["Tag1"] == "" ? a.Tag1 : Request.Form["Tag1"].ToString();
+            a.Tag2 = Request.Form["Tag2"] == "" ? a.Tag2 : Request.Form["Tag2"].ToString();
+            a.Tag3 = Request.Form["Tag3"] == "" ? a.Tag3 : Request.Form["Tag3"].ToString();
+            a.Tag4 = Request.Form["Tag4"] == "" ? a.Tag4 : Request.Form["Tag4"].ToString();
+            a.Tag5 = Request.Form["Tag5"] == "" ? a.Tag5 : Request.Form["Tag5"].ToString();
+            a.GiftMainPicture = Request.Form["GiftMainPicture"] == "" ? a.GiftMainPicture : Request.Form["GiftMainPicture"].ToString();
+            a.GiftThumbnailPicture = Request.Form["GiftThumbnailPicture"] == "" ? a.GiftThumbnailPicture : Request.Form["GiftThumbnailPicture"].ToString();
+            var u = JsonConvert.DeserializeObject<AuthAdmin>(User.Identity.Name);
+            var id = Convert.ToInt32(Request.Form["id"].ToString());
+
+            var ap = DB.T_Gifts.Where(x => x.id == id).FirstOrDefault();
+
+
+            if (ap != null)
+            {
+
+
+                ap.GiftName = a.GiftName;
+                ap.GiftType = a.GiftType;
+                ap.GiftNo = a.GiftNo;
+                ap.GiftIntroductionText = a.GiftIntroductionText;
+                ap.GiftIntroductionPT = a.GiftIntroductionPT;
+                ap.T_GiftsTagId = a.T_GiftsTagId;
+                ap.GiftInventory = a.GiftInventory;
+                ap.IsShelf = a.IsShelf;
+                ap.IsExchange = a.IsExchange;
+                ap.RedeemPoints = a.RedeemPoints;
+                ap.Tag1 = a.Tag1;
+                ap.Tag2 = a.Tag2;
+                ap.Tag3 = a.Tag3;
+                ap.Tag4 = a.Tag4;
+                ap.Tag5 = a.Tag5;
+                ap.GiftMainPicture = a.GiftMainPicture;
+                ap.GiftThumbnailPicture = a.GiftThumbnailPicture;
+                ap.UpdatedOn = DateTime.Now;
+                ap.UpdatedBy = u.RealName;
+
+            }
+            DB.SaveChanges();
+            return RedirectToAction("Index");
+
+        }
+
+        public ActionResult RealGiftsDetail(int? id)
+        {
+
+
+
+            return View(DB.T_Gifts.Where(x => x.id == id).FirstOrDefault());
+        }
+        public ActionResult RealGiftsDete()
+        {
+            var id = Convert.ToInt32(Request.Form["id"].ToString());
+
+            var ap = DB.T_Gifts.Where(x => x.id == id).FirstOrDefault();
+
+
+            DB.T_Gifts.Remove(ap);
+            DB.SaveChanges();
+
+
+            return RedirectToAction("Index");
+
+        }
         #endregion
 
         #region 第三方证券
@@ -270,6 +354,152 @@ namespace PositiveEdu.Admin.Controllers
         #endregion
 
         #region  自主证券
+
+        public ActionResult PrivateGiftsCreate()
+        {
+
+            return View(new T_Gifts());
+        }
+        [ValidateAntiForgeryToken, ValidateInput(false), HttpPost]
+        public ActionResult PrivateGiftsCreate(string TagName, int? IsUse)
+        {
+
+            var a = new T_Gifts();
+            a.GiftName = Request.Form["GiftName"] == "" ? a.GiftName : Request.Form["GiftName"].ToString();
+            a.GiftType = Request.Form["GiftType"] == "" ? a.GiftType : Convert.ToInt32(Request.Form["GiftType"].ToString());
+            a.GiftNo = Request.Form["GiftNo"] == "" ? a.GiftNo : Request.Form["GiftNo"].ToString();
+            a.GiftIntroductionText = Request.Form["GiftIntroductionText"] == "" ? a.GiftIntroductionText : Request.Form["GiftIntroductionText"].ToString();
+            a.GiftIntroductionPT = Request.Form["GiftIntroductionPT"] == "" ? a.GiftIntroductionPT : Request.Form["GiftIntroductionPT"].ToString();
+            a.T_GiftsTagId = Request.Form["T_GiftsTagId"] == "" ? a.T_GiftsTagId : Convert.ToInt32(Request.Form["T_GiftsTagId"].ToString());
+            a.GiftInventory = Request.Form["GiftInventory"] == "" ? a.GiftInventory : Convert.ToInt32(Request.Form["GiftInventory"].ToString());
+            a.IsShelf = Request.Form["IsShelf"] == "" ? a.IsShelf : Convert.ToInt32(Request.Form["IsShelf"].ToString());
+            a.IsExchange = Request.Form["IsExchange"] == "" ? a.IsExchange : Convert.ToInt32(Request.Form["IsExchange"].ToString());
+            a.RedeemPoints = Request.Form["RedeemPoints"] == "" ? a.RedeemPoints : Convert.ToInt32(Request.Form["RedeemPoints"].ToString());
+            a.Tag1 = Request.Form["Tag1"] == "" ? a.Tag1 : Request.Form["Tag1"].ToString();
+            a.Tag2 = Request.Form["Tag2"] == "" ? a.Tag2 : Request.Form["Tag2"].ToString();
+            a.Tag3 = Request.Form["Tag3"] == "" ? a.Tag3 : Request.Form["Tag3"].ToString();
+            a.Tag4 = Request.Form["Tag4"] == "" ? a.Tag4 : Request.Form["Tag4"].ToString();
+            a.Tag5 = Request.Form["Tag5"] == "" ? a.Tag5 : Request.Form["Tag5"].ToString();
+            a.GiftMainPicture = Request.Form["GiftMainPicture"] == "" ? a.GiftMainPicture : Request.Form["GiftMainPicture"].ToString();
+            a.GiftThumbnailPicture = Request.Form["GiftThumbnailPicture"] == "" ? a.GiftThumbnailPicture : Request.Form["GiftThumbnailPicture"].ToString();
+            var u = JsonConvert.DeserializeObject<AuthAdmin>(User.Identity.Name);
+
+
+            DB.T_Gifts.Add(new T_Gifts()
+            {
+                GiftName = a.GiftName,
+                GiftType = a.GiftType,
+                GiftNo = a.GiftNo,
+                GiftIntroductionText = a.GiftIntroductionText,
+                GiftIntroductionPT = a.GiftIntroductionPT,
+                T_GiftsTagId = a.T_GiftsTagId,
+                GiftInventory = a.GiftInventory,
+                IsShelf = a.IsShelf,
+                IsExchange = a.IsExchange,
+                RedeemPoints = a.RedeemPoints,
+                Tag1 = a.Tag1,
+                Tag2 = a.Tag2,
+                Tag3 = a.Tag3,
+                Tag4 = a.Tag4,
+                Tag5 = a.Tag5,
+                GiftMainPicture = a.GiftMainPicture,
+                GiftThumbnailPicture = a.GiftThumbnailPicture,
+                CreatedOn = DateTime.Now,
+                CreatedBy = u.RealName,
+
+            });
+            DB.SaveChanges();
+            return RedirectToAction("Index");
+
+        }
+
+        public ActionResult PrivateGiftsEdit(int? id)
+        {
+
+            return View(DB.T_Gifts.Where(x => x.id == id).FirstOrDefault());
+
+        }
+        [ValidateAntiForgeryToken, ValidateInput(false), HttpPost]
+        public ActionResult PrivateGiftsEdit()
+        {
+
+            var a = new T_Gifts();
+            a.GiftName = Request.Form["GiftName"] == "" ? a.GiftName : Request.Form["GiftName"].ToString();
+            a.GiftType = Request.Form["GiftType"] == "" ? a.GiftType : Convert.ToInt32(Request.Form["GiftType"].ToString());
+            a.GiftNo = Request.Form["GiftNo"] == "" ? a.GiftNo : Request.Form["GiftNo"].ToString();
+            a.GiftIntroductionText = Request.Form["GiftIntroductionText"] == "" ? a.GiftIntroductionText : Request.Form["GiftIntroductionText"].ToString();
+            a.GiftIntroductionPT = Request.Form["GiftIntroductionPT"] == "" ? a.GiftIntroductionPT : Request.Form["GiftIntroductionPT"].ToString();
+            a.T_GiftsTagId = Request.Form["T_GiftsTagId"] == "" ? a.T_GiftsTagId : Convert.ToInt32(Request.Form["T_GiftsTagId"].ToString());
+            a.GiftInventory = Request.Form["GiftInventory"] == "" ? a.GiftInventory : Convert.ToInt32(Request.Form["GiftInventory"].ToString());
+            a.IsShelf = Request.Form["IsShelf"] == "" ? a.IsShelf : Convert.ToInt32(Request.Form["IsShelf"].ToString());
+            a.IsExchange = Request.Form["IsExchange"] == "" ? a.IsExchange : Convert.ToInt32(Request.Form["IsExchange"].ToString());
+            a.RedeemPoints = Request.Form["RedeemPoints"] == "" ? a.RedeemPoints : Convert.ToInt32(Request.Form["RedeemPoints"].ToString());
+            a.Tag1 = Request.Form["Tag1"] == "" ? a.Tag1 : Request.Form["Tag1"].ToString();
+            a.Tag2 = Request.Form["Tag2"] == "" ? a.Tag2 : Request.Form["Tag2"].ToString();
+            a.Tag3 = Request.Form["Tag3"] == "" ? a.Tag3 : Request.Form["Tag3"].ToString();
+            a.Tag4 = Request.Form["Tag4"] == "" ? a.Tag4 : Request.Form["Tag4"].ToString();
+            a.Tag5 = Request.Form["Tag5"] == "" ? a.Tag5 : Request.Form["Tag5"].ToString();
+            a.GiftMainPicture = Request.Form["GiftMainPicture"] == "" ? a.GiftMainPicture : Request.Form["GiftMainPicture"].ToString();
+            a.GiftThumbnailPicture = Request.Form["GiftThumbnailPicture"] == "" ? a.GiftThumbnailPicture : Request.Form["GiftThumbnailPicture"].ToString();
+            var u = JsonConvert.DeserializeObject<AuthAdmin>(User.Identity.Name);
+            var id = Convert.ToInt32(Request.Form["id"].ToString());
+
+            var ap = DB.T_Gifts.Where(x => x.id == id).FirstOrDefault();
+
+
+            if (ap != null)
+            {
+
+
+                ap.GiftName = a.GiftName;
+                ap.GiftType = a.GiftType;
+                ap.GiftNo = a.GiftNo;
+                ap.GiftIntroductionText = a.GiftIntroductionText;
+                ap.GiftIntroductionPT = a.GiftIntroductionPT;
+                ap.T_GiftsTagId = a.T_GiftsTagId;
+                ap.GiftInventory = a.GiftInventory;
+                ap.IsShelf = a.IsShelf;
+                ap.IsExchange = a.IsExchange;
+                ap.RedeemPoints = a.RedeemPoints;
+                ap.Tag1 = a.Tag1;
+                ap.Tag2 = a.Tag2;
+                ap.Tag3 = a.Tag3;
+                ap.Tag4 = a.Tag4;
+                ap.Tag5 = a.Tag5;
+                ap.GiftMainPicture = a.GiftMainPicture;
+                ap.GiftThumbnailPicture = a.GiftThumbnailPicture;
+                ap.UpdatedOn = DateTime.Now;
+                ap.UpdatedBy = u.RealName;
+
+            }
+            DB.SaveChanges();
+            return RedirectToAction("Index");
+
+        }
+
+        public ActionResult PrivateGiftsDetail(int? id)
+        {
+
+
+
+            return View(DB.T_Gifts.Where(x => x.id == id).FirstOrDefault());
+        }
+        public ActionResult PrivateGiftsDete()
+        {
+            var id = Convert.ToInt32(Request.Form["id"].ToString());
+
+            var ap = DB.T_Gifts.Where(x => x.id == id).FirstOrDefault();
+
+
+            DB.T_Gifts.Remove(ap);
+            DB.SaveChanges();
+
+
+            return RedirectToAction("Index");
+
+        }
+
+
 
         #endregion
 
