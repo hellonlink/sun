@@ -1800,6 +1800,9 @@
     <Content Include="Views\GifiManage\TagEdit.cshtml" />
     <Content Include="Views\Uploadtest\Index.cshtml" />
     <Content Include="Views\GifiManage\RealGiftsCreate.cshtml" />
+    <Content Include="Views\GifiManage\RealGiftsDetail.cshtml" />
+    <Content Include="Views\GifiManage\RealGiftsEdit.cshtml" />
+    <Content Include="Views\GifiManage\PrivateGiftsCreate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PositiveEdu.Common\PositiveEdu.Common.csproj">
