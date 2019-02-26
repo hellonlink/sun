@@ -34,6 +34,7 @@ namespace PositiveEdu.DAL
         /// 生效时间-
         /// </summary>
         public DateTime? EffectiveTime { get; set; }
+
         /// <summary>
         /// 失效时间-
         /// </summary>

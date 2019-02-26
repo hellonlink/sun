@@ -55,12 +55,28 @@ namespace PositiveEdu.DAL
         public int? GiftType { get; set; }
         /// <summary>
         /// 礼品是否Coupon-
-        ///不是Coupon      0
+
         ///第三方Coupon    1
-        ///自主Coupon      2
+        ///自主Coupon      0
         ///实际上凡是以唯一编码的方式送人的都可以算作Coupon
         /// </summary>
         public int? IsCoupon { get; set; }
+        /// <summary>
+        /// 礼品兑换券  0
+        /// 现金抵用券    1
+        ///折扣券      2
+        /// </summary>
+        public int? SaveType { get; set; }
+
+        /// <summary>
+        /// 消费金额限制：>=  
+        /// </summary>
+        public int? MoneyLimit { get; set; }
+
+        /// <summary>
+        /// 抵用金额
+        /// </summary>
+        public int? SaveMoney { get; set; }
         /// <summary>
         /// 礼品编号-编号指的不是CouponNo哦，
         /// 一种Coupon只能算一个礼品，
@@ -111,6 +127,14 @@ namespace PositiveEdu.DAL
         /// 用于批量生成CouponNo的开头编码-最自主券才有用
         /// </summary>
         public string OpenCodeCouponNo { get; set; }
+        /// <summary>
+        /// 使用时间限制：开始时间
+        /// </summary>
+        public DateTime? BeginTime { get; set; }
+        /// <summary>
+        /// 使用时间限制：结束时间
+        /// </summary>
+        public DateTime? StopTime { get; set; }
         /// <summary>
         /// 兑换积分- 用户兑换此礼品所需的积分（如果有积分商城的话）
         /// </summary>
