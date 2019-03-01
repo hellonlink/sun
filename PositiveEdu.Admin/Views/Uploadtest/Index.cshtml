@@ -1,22 +1,94 @@
-﻿
-@{
-    Layout = null;
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-    <div>
-        @using (Html.BeginForm("GetUpload", "Uploadtest", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            <div>文件上传：<input type="file" name="myFile" /></div>
-            <input type="submit" value="提交" />
-        }
+
+<div>
+    @using (Html.BeginForm("GetUpload", "Uploadtest", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div>文件上传：<input type="file" name="myFile" /></div>
+        <input type="submit" value="提交" />
+
+    }
+    <input type="button" name="name" value="点击" onclick=" p()" />
+    <input type="button" name="name" value="点击进度" onclick="qq()" />
+
+    <div class="container">
+        <h3> 普通的进度条</h3>
+        <div class="progress">
+            <div class="progress-bar" id="a" style="width: 1px" role="progress-bar" aria-valuesnow="60"
+                 aria-valuesmin="0" aria-vluesmax="100">
+                <span class="sr-only">60% compelete</span>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+</div>
+
+<script>
+
+    var c = 0;
+    function timedCount() {
+
+        $("#a").width(c);
+        c = c +1;
+        console.log(c);
+        t = setTimeout("timedCount()", 800)
+
+    }
+    function stopCount() {
+        clearTimeout(t);
+    }
+
+    function qq() {
+        $("#a").width(0);
+
+    }
+
+
+    function p() {        
+        $.ajax({
+            type: "post",
+            url: "/Uploadtest/GetUpload",   //控制器路径
+            type: 'POST',
+            dataType: 'json',
+            contentType: "application/json",
+            async: false,
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function (r) {
+
+                console.log(r);
+
+
+                q = setTimeout("p()", 5000);
+                if (r == 1000) {
+                    clearTimeout(q)
+
+                    stopCount();
+                    $("#a").width(r);
+                }
+
+
+                if (c == 0) {
+
+                    timedCount();
+                }
+
+            },
+            error: function () {
+
+            }
+        });
+
+
+
+
+
+
+    }
+
+
+</script>
