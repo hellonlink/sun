@@ -1803,6 +1803,13 @@
     <Content Include="Views\GifiManage\RealGiftsDetail.cshtml" />
     <Content Include="Views\GifiManage\RealGiftsEdit.cshtml" />
     <Content Include="Views\GifiManage\PrivateGiftsCreate.cshtml" />
+    <Content Include="Views\GifiManage\PrivateGiftsEdit.cshtml" />
+    <Content Include="Views\GifiManage\PrivateGiftsDetail.cshtml" />
+    <Content Include="Views\GifiManage\OthersGiftsCreate.cshtml" />
+    <Content Include="Views\GifiManage\OthersGiftsEdit.cshtml" />
+    <Content Include="Views\GifiManage\OthersGiftsDetail.cshtml" />
+    <Content Include="Views\GifiManage\PoolIndex.cshtml" />
+    <Content Include="Views\GifiManage\PrivateGiftsCreateMuch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PositiveEdu.Common\PositiveEdu.Common.csproj">

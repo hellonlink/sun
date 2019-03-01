@@ -55,7 +55,6 @@ namespace PositiveEdu.DAL
         public int? GiftType { get; set; }
         /// <summary>
         /// 礼品是否Coupon-
-
         ///第三方Coupon    1
         ///自主Coupon      0
         ///实际上凡是以唯一编码的方式送人的都可以算作Coupon

@@ -49,11 +49,22 @@ namespace PositiveEdu.DAL
         /// </summary>
         public DateTime? ExchangeTime { get; set; }
         /// <summary>
+        /// 使用时间
+        /// </summary>
+        public DateTime? UseTime { get; set; }
+
+        /// <summary>
         /// 赠送/兑换类型-  就是区分下 
         /// 0这个是活动送出去的，
         /// 1还是人家主动积分商城里面换的
         /// </summary>
         public int? ExchangeType { get; set; }
+        /// <summary>
+        /// 使用状态
+        /// 0未使用
+        /// 1已经使用
+        /// </summary>
+        public int? IsUsed { get; set; }
         /// <summary>
         /// 是否删除 
         /// </summary>
