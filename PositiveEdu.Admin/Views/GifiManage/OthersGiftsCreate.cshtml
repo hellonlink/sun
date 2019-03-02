@@ -1,0 +1,222 @@
+﻿@using PositiveEdu.DAL
+@using PagedList
+@using PagedList.Mvc
+@model  T_Gifts
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            新增第三方礼品
+        </h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/GifiManage">礼品管理</a>
+            </li>
+            <li class="active">
+                <strong>
+                    新增第三方礼品
+
+
+                </strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>
+                        新增第三方礼品
+
+                    </h5>
+                </div>
+                <div class="ibox-content">
+                    @using (Html.BeginForm("OthersGiftsCreate", "GifiManage", FormMethod.Post, htmlAttributes: new { @class = "form-inline" }))
+                    {
+
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-group">
+                            <label>礼品名称：</label>
+                            <input type="text" placeholder="礼品名称" id="InputMobile" class="form-control" name="GiftName" value="@Model.GiftName">
+                        </div> <div class="hr-line-dashed"></div>
+                               <div class="form-group">
+                                   <label>是否实体礼品：</label><h3></h3>
+                                   <input type="radio" id="InputMobile" @(Model.GiftType == 0 ? "checked=checked" : "") class="form-control" name="GiftType" value="0">是
+
+
+
+                                   <input type="radio" id="InputMobile" @(Model.GiftType == 1 ? "checked=checked" : "") class="form-control" name="GiftType" value="1">否
+
+
+                               </div> <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label>券证类型：</label>
+                            <input type="radio" id="InputMobile" @(Model.IsCoupon == 0 ? "checked=checked" : "") class="form-control" name="IsCoupon" value="0">自主券证
+
+
+
+                            <input type="radio" id="InputMobile" @(Model.IsCoupon == 1 ? "checked=checked" : "") class="form-control" name="IsCoupon" value="1">第三方券证
+
+
+                        </div> <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label>卷证简介：</label>
+                            <input type="text" placeholder="礼品简介" id="InputMobile" style="width:400px ;height:100px" class="form-control" name="GiftIntroductionText" value="@Model.GiftIntroductionText">
+                        </div> <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label>礼品缩略图：</label>
+                            <div id="GiftThumbnailPicture" class="col-md-10 form-inline">
+                                <span class="btn btn-default fileinput-button">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                    <span>选择文件</span>
+                                    <input type="file" name="tmbImg" class="tmb-input" data-url="/Resource/Picture/Upload">
+                                </span>
+                                <input type="button" class="tmb-start btn btn-default" value="上传" />
+                                <span class="label label-info">jpg / jpeg / gif / png</span>
+                                <span class="help-block tmb-add-name"></span>
+                                <div class="tmb-done-thumb">
+                                    <div class="picture-thumb"><img src="@Model.GiftThumbnailPicture" alt="..." class="img-thumbnail" /></div>
+                                </div>
+                                <input name="GiftThumbnailPicture" type="hidden" value="@Model.GiftThumbnailPicture" class="tmb-done-id required" />
+                            </div>
+                        </div> <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label>礼品大图：</label>
+                            <div id="GiftMainPicture" class="col-md-10 form-inline">
+                                <span class="btn btn-default fileinput-button">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                    <span>选择文件</span>
+                                    <input type="file" name="tmbImg" class="tmb-input" data-url="/Resource/Picture/Upload">
+                                </span>
+                                <input type="button" class="tmb-start btn btn-default" value="上传" />
+                                <span class="label label-info">jpg / jpeg / gif / png</span>
+                                <span class="help-block tmb-add-name"></span>
+                                <div class="tmb-done-thumb">
+                                    <div class="picture-thumb"><img src="@Model.GiftMainPicture" alt="..." class="img-thumbnail" /></div>
+                                </div>
+                                <input name="GiftMainPicture" type="hidden" value="@Model.GiftMainPicture" class="tmb-done-id required" />
+                            </div>
+                        </div> <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">图文介绍：</label>
+                            <div class="col-sm-10">
+                                <script type="text/plain" id="myEditor" name="GiftIntroductionPT" style="width:100%;height:460px;">
+                                    @Html.Raw(HttpUtility.HtmlDecode(@Model.GiftIntroductionPT))
+
+                                </script>
+                            </div>
+                        </div> <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label>所属分类：</label>
+                            <select name="T_GiftsTagId">
+                                @{
+
+                                    PeContext DB = new PeContext();
+                                    var a = DB.T_GiftsTag.ToList();
+
+                                    foreach (var item in a)
+                                    {
+
+
+
+                                        <option value="@item.id" @(Model.T_GiftsTagId == @item.id ? "selected =selected" : "")>@item.TagName</option>
+
+
+
+                                    }
+
+                                    DB.Dispose();
+
+                                }
+                            </select>
+                        </div> <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label>是否有效：</label>
+                            <input type="radio" id="InputMobile" @(Model.IsShelf == 0 ? "checked=checked" : "") class="form-control" name="IsShelf" value="0">是
+
+
+
+                            <input type="radio" id="InputMobile" @(Model.IsShelf == 1 ? "checked=checked" : "") class="form-control" name="IsShelf" value="1">否
+
+
+                        </div> <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label>是否积分商城可以兑换：</label><h3></h3>
+                            <input type="radio" id="InputMobile" @(Model.IsExchange == 0 ? "checked=checked" : "") class="form-control" name="IsExchange" value="0">是
+
+
+
+                            <input type="radio" id="InputMobile" @(Model.IsExchange == 1 ? "checked=checked" : "") class="form-control" name="IsExchange" value="1">否
+
+
+                        </div> <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label>兑换所需积分：</label>
+                            <input type="text" placeholder="兑换所需积分：" id="InputMobile" class="form-control" name="RedeemPoints" value="@Model.RedeemPoints">
+                        </div> <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label>自定义字段1：：</label>
+                            <input type="text" placeholder="自定义字段1" id="InputMobile" class="form-control" name="Tag1" value="@Model.Tag1">
+                        </div> <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+
+                            <label>自定义字段2：：</label>
+                            <input type="text" placeholder="自定义字段2" id="InputMobile" class="form-control" name="Tag2" value="@Model.Tag2">
+                        </div><div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label>自定义字段3：：</label>
+                            <input type="text" placeholder="自定义字段3" id="InputMobile" class="form-control" name="Tag3" value="@Model.Tag3">
+                        </div> <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+
+                            <div class="form-group">
+                                <label>自定义字段4：</label>
+                                <input type="text" placeholder="自定义字段4" id="InputMobile" class="form-control" name="Tag4" value="@Model.Tag4">
+                            </div> <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label>自定义字段5：：</label>
+                                <input type="text" placeholder="自定义字段5" id="InputMobile" class="form-control" name="Tag5" value="@Model.Tag5">
+                            </div> <div class="hr-line-dashed"></div>
+                            <input type="hidden" name="id" value="@Model.id">
+
+                            <button class="btn btn-white" type="submit">保存</button>
+
+
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+
+            $('#GiftMainPicture').thumbnail();
+            $('#GiftThumbnailPicture').thumbnail();
+            $('.input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true,
+                format: "yyyy-mm-dd",
+                language: 'zh-CN',
+            });
+            var um = UM.getEditor('myEditor');
+        });</script>
+}

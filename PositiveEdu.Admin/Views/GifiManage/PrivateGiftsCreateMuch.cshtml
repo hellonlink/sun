@@ -1,0 +1,160 @@
+﻿@using PositiveEdu.DAL
+@using PagedList
+@using PagedList.Mvc
+@model T_Gifts
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>批量生成</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/GifiManage">礼品管理</a>
+            </li>
+            <li class="active">
+                <strong>批量生成</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>批量生成</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="form-group">
+                        <label>当前券证：</label>@Model.GiftName
+                    </div> <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label>抵用金额：</label>@Model.SaveMoney
+                    </div> <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label>使用条件：</label>消费金额>=@Model.MoneyLimit
+                    </div> <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label>有效时间范围：</label>@Model.BeginTime ~@Model.StopTime
+                    </div> <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label>库存：</label>@Model.GiftInventory
+                    </div> <div class="hr-line-dashed"></div>
+
+
+
+                    <div class="form-group">
+                        <label>本次需生成：</label>
+                        <input type="text" placeholder="自主卷数量" id="InputMobile" class="form-control" name="GiftInventory" value="@ViewBag.GiftInventory">
+                    </div>
+
+
+
+                    <button class="btn btn-white" type="submit" onclick="p()">生成</button> <div class="hr-line-dashed"></div>
+
+                    <div class="hr-line-dashed"></div>
+                    <div>
+
+                        <div class="container">
+
+                            <div class="progress">
+                                <div class="progress-bar" id="a" style="width: 1px" role="progress-bar" aria-valuesnow="60"
+                                     aria-valuesmin="0" aria-vluesmax="100">
+                                    <span class="sr-only">60% compelete</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+
+        var c = 0;
+        function timedCount() {
+
+            $("#a").width(c);
+            c = c + 1;
+            console.log(c);
+            t = setTimeout("timedCount()", 800)
+
+        }
+        function stopCount() {
+            clearTimeout(t);
+        }
+
+        function qq() {
+            $("#a").width(0);
+
+        }
+
+
+        function p() {
+
+            var t = $("#InputMobile").val();
+            alert(t);
+            $.ajax({
+                type: "post",
+                url: "/GifiManage/PrivateGiftsCreateMuch",   //控制器路径
+                type: 'POST',
+                dataType: 'json',
+                data: JSON.stringify({
+                    "id": "@Model.id",
+                            "GiftInventory": t
+                }),
+                contentType: "application/json",
+                async: true,
+
+                beforeSend: function () {
+                    if (c == 0) {
+
+                        timedCount();
+                    }
+                },
+                success: function (r) {
+
+                    console.log(r);
+
+
+                    q = setTimeout("p()", 5000);
+                    if (r == 1000) {
+                        clearTimeout(q)
+
+                        stopCount();
+                        $("#a").width("100%");
+                        var t = setTimeout("a1()", 2000);
+         
+                        a1();
+                    }
+
+
+
+
+                },
+                error: function () {
+
+                }
+            });
+            function a1() {
+                alert("生成完毕");
+                location.href = "/GifiManage";
+            }
+
+
+
+
+
+        }
+
+
+    </script>
+}
