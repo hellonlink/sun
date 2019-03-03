@@ -152,7 +152,7 @@
                                     <tr>
                                         <td>@item.T_Gifts.GiftName</td>
                                         <td>@item.CouponNo </td>
-                                        <td>@(item.T_Customer.CustomerId != null ? "是" : "否")</td>
+                                        <td>@(item.T_Customer != null ? "是" : "否")</td>
                                         <td>
 
                                             @(item.T_Gifts.IsCoupon == 0 ? "自主卷" : "第三方卷")
@@ -162,7 +162,7 @@
                                         <td>@( item.IsUsed == 1 ? "是" : "否")</td>
 
 
-                                        <td>@(item.T_Customer.CustomerRealName)  </td>
+                                        <td>@(item.T_Customer!=null? item.T_Customer.CustomerRealName: "")  </td>
                                         <td><input type="checkbox" name="f" value="" />  </td>
 
                                         <td>

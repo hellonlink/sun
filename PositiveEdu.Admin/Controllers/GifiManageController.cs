@@ -761,9 +761,7 @@ namespace PositiveEdu.Admin.Controllers
             return View(q);
         }
 
-        [HttpPost]
-
-
+        [ValidateInput(false), HttpPost]
         public dynamic OthersCreateMuch(HttpPostedFileBase file, int? id)
         {
 
@@ -1114,7 +1112,8 @@ namespace PositiveEdu.Admin.Controllers
 
             return View(q);
         }
-        [HttpPost]
+        [ValidateInput(false), HttpPost]
+
         public ActionResult PrivateGiftsCreateMuch(int? GiftInventory, int? id)
         {
 
@@ -1190,7 +1189,8 @@ namespace PositiveEdu.Admin.Controllers
 
             return View(new T_Gifts());
         }
-        [HttpPost]
+        [ValidateInput(false), HttpPost]
+
         public ActionResult PrivateGiftsCreate(string TagName, int? IsUse)
         {
 

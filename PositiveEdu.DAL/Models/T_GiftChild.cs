@@ -21,7 +21,7 @@ namespace PositiveEdu.DAL
         /// 对应的礼品ID-
         /// </summary>
         public int? T_GiftsId { get; set; }
-        public T_Gifts T_Gifts { get; set; }
+        public virtual T_Gifts T_Gifts { get; set; }
         /// <summary>
         /// Coupon编码-
         /// </summary>
@@ -43,8 +43,8 @@ namespace PositiveEdu.DAL
         /// 会员ID- 就是这个虚拟礼品送给哪个会员了
         /// ，或者积分商城哪个会员兑换了
         /// </summary>
-        public int T_CustomerId { get; set; }
-        public T_Customer T_Customer { get; set; }
+        public int? T_CustomerId { get; set; }
+        public virtual T_Customer T_Customer { get; set; }
 
         /// <summary>
         /// 赠送/兑换时间-
