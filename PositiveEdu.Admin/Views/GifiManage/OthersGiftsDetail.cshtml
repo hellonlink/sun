@@ -18,7 +18,7 @@
             </li>
             <li class="active">
                 <strong>
-      
+
                     第三方是礼卷详情
 
 
@@ -146,6 +146,7 @@
                             <input type="hidden" name="id" value="@Model.id">
 
                             <button class="btn btn-white" type="submit">删除</button>
+                            <a href="@Url.Action("OthersCreateMuch", new { id = Model.id })">批量导入</a>
 
 
                         </div>

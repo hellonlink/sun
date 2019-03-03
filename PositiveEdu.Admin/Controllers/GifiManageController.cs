@@ -1,8 +1,13 @@
 ﻿using Newtonsoft.Json;
+using NPOI.HSSF.UserModel;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
 using PagedList;
 using PositiveEdu.DAL;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -10,6 +15,8 @@ using System.Web.Mvc;
 
 namespace PositiveEdu.Admin.Controllers
 {
+
+
     public class GifiManageController : BaseController
     {
         // GET: GifiManage
@@ -209,12 +216,19 @@ namespace PositiveEdu.Admin.Controllers
         {
 
             int pageSize = 15;
-            var query = DB.T_Gifts.AsNoTracking().AsQueryable();
+            var query = DB.T_GiftChild.AsNoTracking().AsQueryable();
+
+            //券证名称：
             var GiftName = Request.QueryString["GiftName"] == null ? null : (Request.QueryString["GiftName"].ToString());
             if (!string.IsNullOrEmpty(GiftName))
             {
-                query = query.Where(x => x.GiftName.Contains(GiftName));
+
+                query = query.Where(x => x.T_Gifts.GiftName.Contains(GiftName));
                 ViewBag.GiftName = GiftName;
+
+
+                ViewBag.GiftName = GiftName;
+
             }
             else
             {
@@ -222,72 +236,210 @@ namespace PositiveEdu.Admin.Controllers
 
             }
 
-
-
-            var GiftNo = Request.QueryString["GiftNo"] == null ? null : (Request.QueryString["GiftNo"].ToString());
-            if (!string.IsNullOrEmpty(GiftNo))
+            //是否已发送：：
+            var ExchangeTime = Request.QueryString["ExchangeTime"] == null ? null : (Request.QueryString["ExchangeTime"].ToString());
+            if (!string.IsNullOrEmpty(ExchangeTime))
             {
-                query = query.Where(x => x.GiftNo.Contains(GiftNo));
-                ViewBag.GiftNo = GiftNo;
-            }
-            else
-            {
-                ViewBag.GiftNo = null;
-
-            }
-
-            var T_GiftsTagId = Request.QueryString["T_GiftsTagId"] == null ? null : (Request.QueryString["T_GiftsTagId"].ToString());
-            if (!string.IsNullOrEmpty(T_GiftsTagId))
-            {
-                if (T_GiftsTagId == "全部")
+                var c = Convert.ToInt32(ExchangeTime);
+                if (c == 0)
                 {
+                    query = query.Where(x => x.ExchangeTime != null);
+                    ViewBag.ExchangeTime = 0;
 
                 }
                 else
                 {
-                    int? af = ((int?)Convert.ToInt32(T_GiftsTagId));
-                    query = query.Where(x => x.T_GiftsTagId == af);
-                    ViewBag.T_GiftsTagId = T_GiftsTagId;
+                    query = query.Where(x => x.ExchangeTime == null);
+
+                    ViewBag.ExchangeTime = 1;
+
                 }
 
             }
             else
             {
-                ViewBag.T_GiftsTagId = "全部";
+                ViewBag.ExchangeTime = null;
 
             }
 
-            var GiftType = Request.QueryString["GiftType"] == null ? null : (Request.QueryString["GiftType"].ToString());
-            if (!string.IsNullOrEmpty(GiftType))
+
+            //是否已使用：
+            var IsUsed = Request.QueryString["IsUsed"] == null ? null : (Request.QueryString["IsUsed"].ToString());
+            if (!string.IsNullOrEmpty(IsUsed))
+            {
+                var c = Convert.ToInt32(IsUsed);
+
+                query = query.Where(x => x.IsUsed == c);
+                ViewBag.IsUsed = c;
+            }
+            else
+            {
+                ViewBag.IsUsed = null;
+
+            }
+
+
+            //卷证类型：
+            var IsCoupon = Request.QueryString["IsCoupon"] == null ? null : (Request.QueryString["IsCoupon"].ToString());
+            if (!string.IsNullOrEmpty(IsCoupon))
+            {
+                var c = Convert.ToInt32(IsCoupon);
+
+                query = query.Where(x => x.T_Gifts.IsCoupon == c);
+                ViewBag.IsCoupon = c;
+            }
+            else
+            {
+                ViewBag.IsCoupon = null;
+
+            }
+
+
+            //券证编号：
+            var CouponNo = Request.QueryString["CouponNo"] == null ? null : (Request.QueryString["CouponNo"].ToString());
+            if (!string.IsNullOrEmpty(CouponNo))
             {
 
-                int? af = ((int?)Convert.ToInt32(GiftType));
-                query = query.Where(x => x.GiftType == af);
-                ViewBag.GiftType = GiftType;
+                query = query.Where(x => x.CouponNo.Contains(CouponNo));
+                ViewBag.CouponNo = CouponNo;
+
 
 
             }
             else
             {
-                ViewBag.GiftType = null;
+                ViewBag.CouponNo = null;
 
             }
-
-            var IsShelf = Request.QueryString["IsShelf"] == null ? null : (Request.QueryString["IsShelf"].ToString());
-            if (!string.IsNullOrEmpty(IsShelf))
+            //会员姓名：
+            var CustomerRealName = Request.QueryString["CustomerRealName"] == null ? null : (Request.QueryString["CustomerRealName"].ToString());
+            if (!string.IsNullOrEmpty(CustomerRealName))
             {
 
-                int? af = ((int?)Convert.ToInt32(IsShelf));
-                query = query.Where(x => x.IsShelf == af);
-                ViewBag.IsShelf = IsShelf;
+                query = query.Where(x => x.T_Customer.CustomerRealName.Contains(CustomerRealName));
+                ViewBag.CustomerRealName = CustomerRealName;
+
 
 
             }
             else
             {
-                ViewBag.IsShelf = null;
+                ViewBag.CustomerRealName = null;
 
             }
+            //会员编号：
+            var CustomerId = Request.QueryString["CustomerId"] == null ? null : (Request.QueryString["CustomerId"].ToString());
+            if (!string.IsNullOrEmpty(CustomerId))
+            {
+
+                query = query.Where(x => x.T_Customer.CustomerId.Contains(CustomerId));
+                ViewBag.CustomerId = CustomerId;
+
+
+
+            }
+            else
+            {
+                ViewBag.CustomerId = null;
+
+            }
+            //会员手机号：
+            var CustomerPhoneNum = Request.QueryString["CustomerPhoneNum"] == null ? null : (Request.QueryString["CustomerPhoneNum"].ToString());
+            if (!string.IsNullOrEmpty(CustomerPhoneNum))
+            {
+
+                query = query.Where(x => x.T_Customer.CustomerPhoneNum.Contains(CustomerPhoneNum));
+                ViewBag.CustomerPhoneNum = CustomerPhoneNum;
+
+
+
+            }
+            else
+            {
+                ViewBag.CustomerPhoneNum = null;
+
+            }
+            //券证实际发送时间段：
+
+
+
+
+
+            var ExchangeStartTime = Request.QueryString["ExchangeStartTime"] == null ? null : (Request.QueryString["ExchangeStartTime"].ToString());
+            if (!string.IsNullOrEmpty(ExchangeStartTime))
+            {
+
+                var s1 = Convert.ToDateTime(ExchangeStartTime);
+                query = query.Where(x => x.ExchangeTime >= s1);
+                ViewBag.ExchangeStartTime = ExchangeStartTime;
+
+
+
+            }
+            else
+            {
+                ViewBag.ExchangeStartTime = null;
+
+            }
+
+            var ExchangeStopTime = Request.QueryString["ExchangeStopTime"] == null ? null : (Request.QueryString["ExchangeStopTime"].ToString());
+            if (!string.IsNullOrEmpty(ExchangeStopTime))
+            {
+
+                var s1 = Convert.ToDateTime(ExchangeStopTime);
+                query = query.Where(x => x.ExchangeTime <= s1);
+                ViewBag.ExchangeStopTime = ExchangeStopTime;
+
+
+
+            }
+            else
+            {
+                ViewBag.ExchangeStopTime = null;
+
+            }
+
+            //券证实际使用时间：
+
+
+
+            var UseStartTime = Request.QueryString["UseStartTime"] == null ? null : (Request.QueryString["UseStartTime"].ToString());
+            if (!string.IsNullOrEmpty(UseStartTime))
+            {
+
+                var s1 = Convert.ToDateTime(UseStartTime);
+                query = query.Where(x => x.UseTime >= s1);
+                ViewBag.UseStartTime = UseStartTime;
+
+
+
+            }
+            else
+            {
+                ViewBag.UseStartTime = null;
+
+            }
+
+            var UseStoptime = Request.QueryString["UseStoptime"] == null ? null : (Request.QueryString["UseStoptime"].ToString());
+            if (!string.IsNullOrEmpty(UseStoptime))
+            {
+
+                var s1 = Convert.ToDateTime(UseStoptime);
+                query = query.Where(x => x.UseTime <= s1);
+                ViewBag.UseStoptime = UseStoptime;
+
+
+
+            }
+            else
+            {
+                ViewBag.UseStoptime = null;
+
+            }
+
+
+
+
 
             var result = query.OrderBy(x => x.id).ToPagedList(page, pageSize);
 
@@ -602,6 +754,356 @@ namespace PositiveEdu.Admin.Controllers
 
         }
 
+        public ActionResult OthersCreateMuch(int? id)
+        {
+            var q = DB.T_Gifts.Where(x => x.id == id).FirstOrDefault();
+            ViewBag.t = null;
+            return View(q);
+        }
+
+        [HttpPost]
+
+
+        public dynamic OthersCreateMuch(HttpPostedFileBase file, int? id)
+        {
+
+
+            var u = JsonConvert.DeserializeObject<AuthAdmin>(User.Identity.Name);
+
+            List<int> a3 = new List<int> { 1, 2 };
+            a3.Clear();
+            //记录行数
+            int ct = 0;
+            //记录重复行数
+            int cf = 0;
+            int b = 0;
+            //判断列数
+            int b1 = 0;
+            ////使用异步方法
+            var a = Task.Run(
+                 () =>
+                 {
+
+
+
+
+
+                     PeContext d = new PeContext();
+
+                     var g = d.T_Gifts.Where(x => x.id == id).First();
+
+                     var a1 = new List<T_GiftsChild>();
+
+
+                     var r = Request.Form["GiftInventory"];
+
+
+
+                     if (file != null)
+                     {
+
+
+
+                         var filename = Path.Combine(Request.MapPath("~/App_Data"), file.FileName);
+                         file.SaveAs(filename);
+
+                         var dt = Import(filename, 0);
+                         var d1 = dt.CreateDataReader();
+
+
+
+                         if (d1.FieldCount == 1)
+                         {
+
+                             for (int j = 0; j < dt.Columns.Count; j++)
+                             {
+                                 if (dt.Columns[j].ColumnName != "CouponNo")
+                                 {
+                                     b1 = 1;
+                                 }
+                             }
+
+                             if (b1 == 0)
+                             {
+                                 while (d1.Read())
+                                 {
+
+                                     ct++;
+
+                                     var p1 = d1["CouponNo"].ToString();
+                                     var t1 = d.T_GiftChild.Where(x => x.CouponNo.Contains(p1)).ToList();
+
+                                     if (
+                                     t1.Count > 0
+
+
+                                         )
+                                     {
+
+
+                                         cf++;
+                                         a3.Add(cf);
+                                         continue;
+
+                                     }
+
+                                     a1.Add(
+                                   new T_GiftsChild()
+                                   {
+
+                                       CreatedBy = u.RealName,
+                                       CreatedOn = DateTime.Now,
+                                       IsDeleted = false,
+                                       IsUsed = 0,
+                                       GenerationTime = DateTime.Now,
+                                       CouponNo = d1["CouponNo"].ToString()
+
+
+
+                                   });
+
+
+
+                                 }
+
+
+
+                                 d.T_GiftChild.AddRange(a1);
+                                 g.T_GiftsChild = a1;
+                                 if (g.GiftInventory == null)
+                                 {
+                                     g.GiftInventory = 0;
+                                 }
+                                 g.GiftInventory = g.GiftInventory + ct;
+                                 d.SaveChanges();
+
+                             }
+
+
+
+                         }
+                         else
+                         {
+                             b1 = 1;
+                         }
+
+                     }
+                     else
+                     {
+                         b = 1;
+                     }
+
+
+
+
+
+
+
+
+                 }
+
+
+
+                 );
+            //a.Start();
+            a.Wait();
+
+
+            var st = a.Status;
+            if (a.Status == TaskStatus.RanToCompletion)
+            {
+                if (b1 == 1)
+                {
+
+
+                    return Json(new { col = b1 });
+                }
+
+
+
+
+                if (b == 0)
+                {
+
+
+                    dynamic q = new
+                    {
+                        //文件行数
+                        Count = ct,
+                        //重复行数
+                        c = a3,
+
+                        t = ct - a3.Count()
+
+                    };
+
+                    var q1 = new { q, c1 = 1000 };
+
+                    return Json(q1);
+                }
+                else
+                {
+                    return Json(0);
+
+                }
+
+
+
+
+
+
+            }
+            else
+            {
+                return Json(0);
+
+            }
+
+
+
+        }
+
+
+        /// <summary>读取excel
+        /// 默认第一行为表头
+        /// </summary>
+        /// <param name="strFileName">excel文档绝对路径</param>
+        /// <param name="rowIndex">内容行偏移量，第一行为表头，内容行从第二行开始则为1</param>
+        /// <returns></returns>
+        public static DataTable Import(string strFileName, int rowIndex)
+        {
+            DataTable dt = new DataTable();
+
+            IWorkbook hssfworkbook;
+            using (FileStream file = new FileStream(strFileName, FileMode.Open, FileAccess.Read))
+            {
+                hssfworkbook = WorkbookFactory.Create(file);
+            }
+            ISheet sheet = hssfworkbook.GetSheetAt(0);
+            //
+            IRow headRow = sheet.GetRow(0);
+            if (headRow != null)
+            {
+                int colCount = headRow.LastCellNum;
+                for (int i = 0; i < colCount; i++)
+                {
+                    dt.Columns.Add("COL_" + i);
+                }
+            }
+
+            for (int i = (sheet.FirstRowNum + rowIndex); i <= sheet.LastRowNum; i++)
+            {
+                IRow row = sheet.GetRow(i);
+                bool emptyRow = true;
+                object[] itemArray = null;
+
+                if (row != null)
+                {
+                    itemArray = new object[row.LastCellNum];
+
+                    for (int j = row.FirstCellNum; j < row.LastCellNum; j++)
+                    {
+
+                        if (row.GetCell(j) != null)
+                        {
+
+                            switch (row.GetCell(j).CellType)
+                            {
+                                case CellType.Numeric:
+                                    if (HSSFDateUtil.IsCellDateFormatted(row.GetCell(j)))//日期类型
+                                    {
+                                        itemArray[j] = row.GetCell(j).DateCellValue.ToString("yyyy-MM-dd");
+                                    }
+                                    else//其他数字类型
+                                    {
+                                        itemArray[j] = row.GetCell(j).NumericCellValue;
+                                    }
+                                    break;
+                                case CellType.Blank:
+                                    itemArray[j] = string.Empty;
+                                    break;
+                                case CellType.Formula:
+                                    if (Path.GetExtension(strFileName).ToLower().Trim() == ".xlsx")
+                                    {
+                                        XSSFFormulaEvaluator eva = new XSSFFormulaEvaluator(hssfworkbook);
+                                        if (eva.Evaluate(row.GetCell(j)).CellType == CellType.Numeric)
+                                        {
+                                            if (HSSFDateUtil.IsCellDateFormatted(row.GetCell(j)))//日期类型
+                                            {
+                                                itemArray[j] = row.GetCell(j).DateCellValue.ToString("yyyy-MM-dd");
+                                            }
+                                            else//其他数字类型
+                                            {
+                                                itemArray[j] = row.GetCell(j).NumericCellValue;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            itemArray[j] = eva.Evaluate(row.GetCell(j)).StringValue;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        HSSFFormulaEvaluator eva = new HSSFFormulaEvaluator(hssfworkbook);
+                                        if (eva.Evaluate(row.GetCell(j)).CellType == CellType.Numeric)
+                                        {
+                                            if (HSSFDateUtil.IsCellDateFormatted(row.GetCell(j)))//日期类型
+                                            {
+                                                itemArray[j] = row.GetCell(j).DateCellValue.ToString("yyyy-MM-dd");
+                                            }
+                                            else//其他数字类型
+                                            {
+                                                itemArray[j] = row.GetCell(j).NumericCellValue;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            itemArray[j] = eva.Evaluate(row.GetCell(j)).StringValue;
+                                        }
+                                    }
+                                    break;
+                                default:
+                                    itemArray[j] = row.GetCell(j).StringCellValue;
+                                    break;
+
+                            }
+
+                            if (itemArray[j] != null && !string.IsNullOrEmpty(itemArray[j].ToString().Trim()))
+                            {
+                                emptyRow = false;
+                            }
+                        }
+                    }
+
+
+
+
+
+                }
+
+                //非空数据行数据添加到DataTable
+                if (!emptyRow)
+                {
+                    dt.Rows.Add(itemArray);
+
+
+                }
+
+
+            }
+
+            if (dt.Columns.Count > 0)
+            {
+                for (int j = 0; j < dt.Columns.Count; j++)
+                {
+                    dt.Columns[j].ColumnName = dt.Rows[0][j].ToString();
+                }
+
+                dt.Rows.Remove(dt.Rows[0]);
+            }
+
+            return dt;
+        }
 
         #endregion
 
@@ -640,7 +1142,7 @@ namespace PositiveEdu.Admin.Controllers
                                 GenerationTime = DateTime.Now,
                                 EffectiveTime = g.BeginTime,
                                 FailureTime = g.StopTime,
-                                CouponNo = g.OpenCodeCouponNo + 123456,
+                                CouponNo = g.OpenCodeCouponNo + i + "_" + Guid.NewGuid().ToString() + i
 
 
 
@@ -680,6 +1182,9 @@ namespace PositiveEdu.Admin.Controllers
 
 
         }
+
+
+
         public ActionResult PrivateGiftsCreate()
         {
 

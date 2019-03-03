@@ -1268,6 +1268,7 @@
     <Content Include="Scripts\api\typehead_collection.json" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-form.js" />
     <Content Include="Scripts\jQuery.FileUpload\cors\jquery.postmessage-transport.js" />
     <Content Include="Scripts\jQuery.FileUpload\cors\jquery.xdr-transport.js" />
     <Content Include="Scripts\jQuery.FileUpload\jquery.fileupload-angular.js" />
@@ -1810,6 +1811,7 @@
     <Content Include="Views\GifiManage\OthersGiftsDetail.cshtml" />
     <Content Include="Views\GifiManage\PoolIndex.cshtml" />
     <Content Include="Views\GifiManage\PrivateGiftsCreateMuch.cshtml" />
+    <Content Include="Views\GifiManage\OthersCreateMuch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PositiveEdu.Common\PositiveEdu.Common.csproj">

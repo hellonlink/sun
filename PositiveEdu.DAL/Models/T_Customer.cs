@@ -24,6 +24,8 @@ namespace PositiveEdu.DAL
             T_CustomerAccept = new HashSet<T_CustomerAccept>();
             //会员积分修改
             T_CustomerIntegralRecord = new HashSet<T_CustomerIntegralRecord>();
+            //卷池
+            T_GiftsChild = new HashSet<T_GiftsChild>();
 
         }
         /// <summary>
@@ -51,6 +53,11 @@ namespace PositiveEdu.DAL
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_CustomerIntegralRecord> T_CustomerIntegralRecord { get; set; } = new List<T_CustomerIntegralRecord>();
+        /// <summary>
+        /// 卷池表,一对多的关系
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<T_GiftsChild> T_GiftsChild { get; set; } = new List<T_GiftsChild>();
 
 
         /// <summary>

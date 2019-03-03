@@ -43,7 +43,9 @@ namespace PositiveEdu.DAL
         /// 会员ID- 就是这个虚拟礼品送给哪个会员了
         /// ，或者积分商城哪个会员兑换了
         /// </summary>
-        public string CustomerId { get; set; }
+        public int T_CustomerId { get; set; }
+        public T_Customer T_Customer { get; set; }
+
         /// <summary>
         /// 赠送/兑换时间-
         /// </summary>
@@ -61,8 +63,8 @@ namespace PositiveEdu.DAL
         public int? ExchangeType { get; set; }
         /// <summary>
         /// 使用状态
-        /// 0未使用
-        /// 1已经使用
+        /// 1未使用
+        /// 0已经使用
         /// </summary>
         public int? IsUsed { get; set; }
         /// <summary>

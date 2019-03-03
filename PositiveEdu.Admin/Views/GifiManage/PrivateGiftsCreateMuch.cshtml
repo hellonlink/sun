@@ -49,7 +49,7 @@
 
                     <div class="form-group">
                         <label>本次需生成：</label>
-                        <input type="text" placeholder="自主卷数量" id="InputMobile" class="form-control" name="GiftInventory" value="@ViewBag.GiftInventory">
+                        <input type="text" placeholder="自主卷数量"  onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')" id="InputMobile" class="form-control" name="GiftInventory" value="0">
                     </div>
 
 
@@ -78,7 +78,7 @@
 </div>
 @section scripts{
     <script>
-
+        var b = 0;
         var c = 0;
         function timedCount() {
 
@@ -96,12 +96,30 @@
             $("#a").width(0);
 
         }
+        function pp() {
+            console.log("监听中")
+            t1 = setTimeout("pp()", 800);
+            if (b==1) {
+                alert("生成完毕");
 
+
+                location.href = "/GifiManage";
+            }
+
+        }
 
         function p() {
 
             var t = $("#InputMobile").val();
-            alert(t);
+
+
+            if (t=="" ||t==0) {
+                alert("请重新输入")
+                return;;
+            }
+            //alert("确认成" + t + "张吗？");
+
+
             $.ajax({
                 type: "post",
                 url: "/GifiManage/PrivateGiftsCreateMuch",   //控制器路径
@@ -116,7 +134,7 @@
 
                 beforeSend: function () {
                     if (c == 0) {
-
+                        pp();
                         timedCount();
                     }
                 },
@@ -131,9 +149,9 @@
 
                         stopCount();
                         $("#a").width("100%");
-                        var t = setTimeout("a1()", 2000);
-         
-                        a1();
+                        b = 1;
+
+
                     }
 
 
@@ -144,10 +162,7 @@
 
                 }
             });
-            function a1() {
-                alert("生成完毕");
-                location.href = "/GifiManage";
-            }
+
 
 
 
