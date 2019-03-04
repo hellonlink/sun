@@ -32,6 +32,8 @@
                     <a href="@Url.Action("RealGiftsCreate")" class="btn btn-default">新增实体礼品</a>
                     <a href="@Url.Action("PrivateGiftsCreate")" class="btn btn-default">新增自主券证</a>
                     <a href="@Url.Action("OthersGiftsCreate")" class="btn btn-default">新增第三方券证</a>
+                    <a href="@Url.Action("T_OthersGiftsRecordIndex")" class="btn btn-default">第三方券证记录</a>
+                    <a href="@Url.Action("T_PrivateGiftsRecordIndex")" class="btn btn-default">自主券证记录</a>
                     @using (Html.BeginForm("Index", "GifiManage", FormMethod.Get, htmlAttributes: new { @class = "form-inline" }))
                     {
                         <div class="form-group">
@@ -161,7 +163,24 @@
                     <div class="dataTables_paginate">
                         <div class="row">
                             <div class="col-sm-8">
-                                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, mobile = ViewBag.Mobile, payment = ViewBag.Payment }), PositiveEdu.Common.PagerUtility.GetPagedListRenderOptions())
+                                @Html.PagedListPager(Model, page => Url.Action("Index", new { page,
+
+                               GiftName = ViewBag.GiftName,
+                               GiftNo = ViewBag.GiftNo,
+                               T_GiftsTagId = ViewBag.T_GiftsTagId,
+                               GiftType = ViewBag.GiftType,
+                               IsShelf = ViewBag.IsShelf,
+                               mobile = ViewBag.Mobile,
+
+                               payment = ViewBag.Payment
+
+
+
+                           }
+
+
+
+                           ), PositiveEdu.Common.PagerUtility.GetPagedListRenderOptions())
                             </div>
                             <div class="col-sm-4 pagination text-right">
                                 @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount

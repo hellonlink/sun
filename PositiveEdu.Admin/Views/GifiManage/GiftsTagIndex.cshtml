@@ -83,7 +83,11 @@
                     <div class="dataTables_paginate">
                         <div class="row">
                             <div class="col-sm-8">
-                                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, mobile = ViewBag.Mobile, payment = ViewBag.Payment }), PositiveEdu.Common.PagerUtility.GetPagedListRenderOptions())
+                                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, mobile = ViewBag.Mobile,
+
+                               payment = ViewBag.Payment
+
+                           }), PositiveEdu.Common.PagerUtility.GetPagedListRenderOptions())
                             </div>
                             <div class="col-sm-4 pagination text-right">
                                 @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
