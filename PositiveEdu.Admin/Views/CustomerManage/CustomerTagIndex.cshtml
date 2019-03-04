@@ -6,7 +6,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
         <h2>标签列表</h2>
@@ -20,7 +19,6 @@
         </ol>
     </div>
     <div class="col-lg-2">
-
     </div>
 </div>
 <div class="wrapper wrapper-content">
@@ -31,7 +29,6 @@
                     <h5>标签列表</h5>
                 </div>
                 <div class="ibox-content">
-
                     <a href="@Url.Action("CustomerTagCreate")" class="btn btn-default">新增标签</a>
                     @using (Html.BeginForm("CustomerTagIndex", "CustomerManage", FormMethod.Get, htmlAttributes: new { @class = "form-inline" }))
                     {
@@ -43,13 +40,10 @@
 
                         <button class="btn btn-white" type="submit">查询</button>
                     }
-
                     <div class="hr-line-dashed"></div>
-
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-
                                 <th>标签</th>
                                 <th>最近修编时间</th>
                                 <th>操作</th>
@@ -62,13 +56,10 @@
                                 {
 
                                     <tr>
-
                                         <td>@item.TagName</td>
                                         <td>@item.UpdatedOn</td>
-
                                         <td>
                                             <a href="@Url.Action("TagDelete", new { id = item.id })">删除</a>
-
                                         </td>
                                     </tr>
 
@@ -76,11 +67,12 @@
                             }
                         </tbody>
                     </table>
-
                     <div class="dataTables_paginate">
                         <div class="row">
                             <div class="col-sm-8">
-                                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, mobile = ViewBag.Mobile, payment = ViewBag.Payment }), PositiveEdu.Common.PagerUtility.GetPagedListRenderOptions())
+                                @Html.PagedListPager(Model, page => Url.Action("Index", new { page,
+                             
+                           }), PositiveEdu.Common.PagerUtility.GetPagedListRenderOptions())
                             </div>
                             <div class="col-sm-4 pagination text-right">
                                 @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount

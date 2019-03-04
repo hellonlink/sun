@@ -1812,6 +1812,8 @@
     <Content Include="Views\GifiManage\PoolIndex.cshtml" />
     <Content Include="Views\GifiManage\PrivateGiftsCreateMuch.cshtml" />
     <Content Include="Views\GifiManage\OthersCreateMuch.cshtml" />
+    <Content Include="Views\GifiManage\T_OthersGiftsRecordIndex.cshtml" />
+    <Content Include="Views\GifiManage\T_PrivateGiftsRecordIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PositiveEdu.Common\PositiveEdu.Common.csproj">

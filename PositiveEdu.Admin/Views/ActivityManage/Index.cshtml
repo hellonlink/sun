@@ -6,7 +6,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
         <h2>活动列表</h2>
@@ -20,7 +19,6 @@
         </ol>
     </div>
     <div class="col-lg-2">
-
     </div>
 </div>
 <div class="wrapper wrapper-content">
@@ -31,7 +29,6 @@
                     <h5>活动列表</h5>
                 </div>
                 <div class="ibox-content">
-
                     <a href="@Url.Action("Create")" class="btn btn-default">新增活动</a>
                     @using (Html.BeginForm("Index", "ActivityManage", FormMethod.Get, htmlAttributes: new { @class = "form-inline" }))
                     {
@@ -40,22 +37,19 @@
                             <input type="text" placeholder="会员名称" id="InputMobile" class="form-control" name="ActivityName" value="@ViewBag.ActivityName">
                         </div>
                         <div class="form-group">
-                            <label>是否启用：</label> 
-
-                            <input type="radio" id="InputMobile" @( ViewBag.IsActivityEffective == 0+"" ? "checked=checked" : "") class="form-control" name="IsActivityEffective" value="0">是
-
+                            <label>是否启用：</label>
+                            <input type="radio" id="InputMobile" @( ViewBag.IsActivityEffective == 0 + "" ? "checked=checked" : "") class="form-control" name="IsActivityEffective" value="0">是
 
 
-                            <input type="radio" id="InputMobile" @(ViewBag.IsActivityEffective == 1+"" ? "checked=checked" : "") class="form-control" name="IsActivityEffective" value="1">否
+
+                            <input type="radio" id="InputMobile" @(ViewBag.IsActivityEffective == 1 + "" ? "checked=checked" : "") class="form-control" name="IsActivityEffective" value="1">否
 
 
                         </div>
 
                         <button class="btn btn-white" type="submit">查询</button>
                     }
-
                     <div class="hr-line-dashed"></div>
-
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -75,19 +69,16 @@
                                 {
 
                                     <tr>
-
                                         <td>@item.ActivityName</td>
                                         <td>@(item.IsActivityEffective == 0 ? "是" : "否")</td>
                                         <td>@item.ActivityStartTime</td>
                                         <td>@item.ActivityStopTime</td>
-                                        <td>@( item.T_CustomerActivity.Count()+"/" + item.RegistrationNumber)</td>
+                                        <td>@( item.T_CustomerActivity.Count() + "/" + item.RegistrationNumber)</td>
                                         <td>@item.GUID</td>
-
 
                                         <td>
                                             <a href="@Url.Action("Detail", new { id = item.Id })">明细</a>
                                             <a href="@Url.Action("Edit", new { id = item.Id })">编辑</a>
-
                                         </td>
                                     </tr>
 
@@ -95,11 +86,15 @@
                             }
                         </tbody>
                     </table>
-
                     <div class="dataTables_paginate">
                         <div class="row">
                             <div class="col-sm-8">
-                                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, mobile = ViewBag.Mobile, payment = ViewBag.Payment }), PositiveEdu.Common.PagerUtility.GetPagedListRenderOptions())
+                                @Html.PagedListPager(Model, page => Url.Action("Index", new { page,
+                               ActivityName = ViewBag.ActivityName,
+                               IsActivityEffective = ViewBag.IsActivityEffective
+
+
+                           }), PositiveEdu.Common.PagerUtility.GetPagedListRenderOptions())
                             </div>
                             <div class="col-sm-4 pagination text-right">
                                 @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount

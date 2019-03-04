@@ -125,7 +125,29 @@
                     <div class="dataTables_paginate">
                         <div class="row">
                             <div class="col-sm-8">
-                                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, mobile = ViewBag.Mobile, payment = ViewBag.Payment }), PositiveEdu.Common.PagerUtility.GetPagedListRenderOptions())
+                                @Html.PagedListPager(Model, page => Url.Action("Index", new { page,
+
+                               _CustomerRealName = ViewBag._CustomerRealName,
+                               _CustomerPhoneNum = ViewBag._CustomerPhoneNum,
+                               _CustomerWechatNickName = ViewBag._CustomerWechatNickName,
+                               _CustomerCertificateNum = ViewBag._CustomerCertificateNum,
+                               _CustomerSex = ViewBag._CustomerSex,
+                               payment = ViewBag.payment,
+                               role = ViewBag.role,
+                               SelectPayment1 = ViewBag.SelectPayment1,
+                               SelectPayment2 = ViewBag.SelectPayment2,
+                               SelectPayment3 = ViewBag.SelectPayment3,
+                               SelectPayment4 = ViewBag.SelectPayment4,
+                               SelectPayment5 = ViewBag.SelectPayment5,
+                               SelectPayment6 = ViewBag.SelectPayment6,
+                               SelectPayment7 = ViewBag.SelectPayment7,
+                               SelectPayment8 = ViewBag.SelectPayment8,
+                               SelectPayment9 = ViewBag.SelectPayment9,
+                               SelectPayment10 = ViewBag.SelectPayment10
+
+
+
+                           }), PositiveEdu.Common.PagerUtility.GetPagedListRenderOptions())
                             </div>
                             <div class="col-sm-4 pagination text-right">
                                 @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount

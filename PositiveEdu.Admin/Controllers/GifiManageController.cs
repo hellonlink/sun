@@ -206,6 +206,43 @@ namespace PositiveEdu.Admin.Controllers
 
         }
 
+        /// <summary>
+        /// 第三方卷导入记录表列表
+        /// </summary>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        public ActionResult T_OthersGiftsRecordIndex(int page = 1)
+        {
+
+            int pageSize = 15;
+            var query = DB.T_OthersGiftsRecord.AsNoTracking().AsQueryable();
+
+            var result = query.OrderBy(x => x.Id).ToPagedList(page, pageSize);
+
+            return View(result);
+
+
+
+        }
+
+        /// <summary>
+        /// 第三方卷导入记录表列表
+        /// </summary>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        public ActionResult T_PrivateGiftsRecordIndex(int page = 1)
+        {
+
+            int pageSize = 15;
+            var query = DB.T_PrivateGiftsRecord.AsNoTracking().AsQueryable();
+
+            var result = query.OrderBy(x => x.Id).ToPagedList(page, pageSize);
+
+            return View(result);
+
+
+
+        }
 
         /// <summary>
         /// 卷池管理
@@ -227,7 +264,6 @@ namespace PositiveEdu.Admin.Controllers
                 ViewBag.GiftName = GiftName;
 
 
-                ViewBag.GiftName = GiftName;
 
             }
             else
@@ -360,10 +396,6 @@ namespace PositiveEdu.Admin.Controllers
 
             }
             //券证实际发送时间段：
-
-
-
-
 
             var ExchangeStartTime = Request.QueryString["ExchangeStartTime"] == null ? null : (Request.QueryString["ExchangeStartTime"].ToString());
             if (!string.IsNullOrEmpty(ExchangeStartTime))
@@ -813,6 +845,9 @@ namespace PositiveEdu.Admin.Controllers
                          if (d1.FieldCount == 1)
                          {
 
+                             //记录
+                             T_OthersGiftsRecord pd = new T_OthersGiftsRecord();
+
                              for (int j = 0; j < dt.Columns.Count; j++)
                              {
                                  if (dt.Columns[j].ColumnName != "CouponNo")
@@ -856,8 +891,6 @@ namespace PositiveEdu.Admin.Controllers
                                        GenerationTime = DateTime.Now,
                                        CouponNo = d1["CouponNo"].ToString()
 
-
-
                                    });
 
 
@@ -873,6 +906,13 @@ namespace PositiveEdu.Admin.Controllers
                                      g.GiftInventory = 0;
                                  }
                                  g.GiftInventory = g.GiftInventory + ct;
+
+                                 //记录详情
+                                 pd.FileName = file.FileName;
+                                 pd.Count = ct - a3.Count();
+                                 pd.Name = u.RealName;
+                                 pd.Time = DateTime.Now;
+                                 d.T_OthersGiftsRecord.Add(pd);
                                  d.SaveChanges();
 
                              }
@@ -1157,6 +1197,11 @@ namespace PositiveEdu.Admin.Controllers
                          g.GiftInventory = 0;
                      }
                      g.GiftInventory = g.GiftInventory + GiftInventory;
+                     T_PrivateGiftsRecord re = new T_PrivateGiftsRecord();
+                     re.Count = GiftInventory;
+                     re.Time = DateTime.Now;
+                     re.Name = u.RealName;
+                     d.T_PrivateGiftsRecord.Add(re);
                      d.SaveChanges();
                  }
 

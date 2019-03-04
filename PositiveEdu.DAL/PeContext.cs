@@ -74,7 +74,14 @@ namespace PositiveEdu.DAL
         /// </summary>
         public virtual DbSet<T_GiftsTag> T_GiftsTag { get; set; }
 
-        
+        /// <summary>
+        /// 自主卷批量添加记录
+        /// </summary>
+        public virtual DbSet<T_PrivateGiftsRecord> T_PrivateGiftsRecord { get; set; }
+        /// <summary>
+        /// 第三方卷导入记录表
+        /// </summary>
+        public virtual DbSet<T_OthersGiftsRecord> T_OthersGiftsRecord { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ADMIN>()

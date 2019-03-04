@@ -77,6 +77,8 @@
     <Compile Include="Models\SiteMessage.cs" />
     <Compile Include="T_GiftsTag.cs" />
     <Compile Include="T_CustomerTag.cs" />
+    <Compile Include="T_OthersGiftsRecord.cs" />
+    <Compile Include="T_PrivateGiftsRecord.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
