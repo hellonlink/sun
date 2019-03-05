@@ -244,6 +244,8 @@ namespace PositiveEdu.Admin.Controllers
 
         }
 
+
+
         /// <summary>
         /// 卷池管理
         /// </summary>
@@ -482,6 +484,13 @@ namespace PositiveEdu.Admin.Controllers
         }
 
 
+        public ActionResult PoolDetail(int? id)
+        {
+
+
+
+            return View(DB.T_GiftChild.Where(x => x.id == id).FirstOrDefault());
+        }
 
         #region 实体礼品
         public ActionResult RealGiftsCreate()
