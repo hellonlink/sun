@@ -1,0 +1,274 @@
+﻿@using PositiveEdu.DAL
+@using PagedList
+@using PagedList.Mvc
+@model T_Gifts
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>批量导入</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/GifiManage">礼品管理</a>
+            </li>
+            <li class="active">
+                <strong>批量导入</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>批量导入</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="form-group">
+                        <label>当前券证：</label>@Model.GiftName
+                    </div> <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label>抵用金额：</label>@Model.SaveMoney
+                    </div> <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label>使用条件：</label>消费金额>=@Model.MoneyLimit
+                    </div> <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label>有效时间范围：</label>@Model.BeginTime ~@Model.StopTime
+                    </div> <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label>库存：</label>@Model.GiftInventory
+                    </div> <div class="hr-line-dashed"></div>
+
+                    <form id="form1">
+
+                        <div>
+                            选择导入文件：<input type="file" name="file" id="fs" />
+                            <input type="hidden" name="id" value="@Model.id" />
+                            <input type="button" value="提交" onclick="sub()" />
+                        </div>
+                        @*<button class="btn btn-white" type="submit" onclick="p()">导入</button> <div class="hr-line-dashed"></div>*@
+
+
+
+
+
+                    </form>
+
+                    <div class="hr-line-dashed"></div>
+                    <div>
+
+                        <div class="container">
+
+                            <div class="progress">
+                                <div class="progress-bar" id="a" style="width: 1px" role="progress-bar" aria-valuesnow="60"
+                                     aria-valuesmin="0" aria-vluesmax="100">
+                                    <span class="sr-only">60% compelete</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="hr-line-dashed"></div>
+
+                    <textarea id="f" style="white-space:normal;word-wrap:break-word;word-break:break-all ;width:100%;height :600px;display :none " value=" "> </textarea>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+
+    <script src="~/Scripts/jquery-form.js"></script>
+    <script>
+        var b = 0;
+        var c = 0;
+        function timedCount() {
+
+            $("#a").width(c);
+            c = c + 1;
+            console.log(c);
+            t = setTimeout("timedCount()", 800)
+
+        }
+        function stopCount() {
+            clearTimeout(t);
+        }
+
+        function qq() {
+            $("#a").width(0);
+
+        }
+        function pp() {
+            console.log("监听中")
+            t1 = setTimeout("pp()", 800);
+            if (b==1) {
+                alert("读取完毕");
+
+
+                //location.href = "/GifiManage";
+            }
+
+        }
+
+
+
+
+        function sub() {
+
+            var t3 = $("#fs").val();
+            if (t3=="") {
+                alert("请重新选择文件 后缀为 .xlsx ");
+                return;;
+            }
+
+            var t3 = $("#fs").val().split('.')[1];
+            if (t3 != null && t3 != "xlsx") {
+                alert("请重新选择文件 后缀为 .xlsx ");
+                return;
+            }
+
+                        $("#form1").ajaxSubmit({
+                        url: "@Url.Action("OthersCreateMuch", "GifiManage")",
+                            type: "post",
+                            beforeSend: function () {
+                                if (c == 0) {
+                                    pp();
+                                    timedCount();
+                                }
+                            },
+                            success: function (data) {
+
+
+
+                                if (data.col != null && data.col == 1) {
+                                    location.reload(true)
+                                    alert("文件格式错误，请重新输入")
+                                    $("#a").width(0);
+                                    clearTimeout(q)
+                                    clearTimeout(t1)
+                              
+                                    return;
+                                }
+                            console.log(data);
+
+                            console.log(data.c1);
+
+                            q = setTimeout("sub()", 5000);
+                            if (data.c1 !=null) {
+                                clearTimeout(q)
+                                clearTimeout(t1)
+
+                                stopCount();
+                                $("#a").width("100%");
+                                b = 1;
+                                var a1 = data.q.c;
+                                var a4 = data.q.Count;
+                                var a2 = $("#f");
+                                a2.show(true);
+
+                                var a3 = $("#fs").val()+"文件导入成功\n共发现" + a4 + "行";
+                                //console.log(a3)
+                                //XXXXXXXXXXX.xls 文件导入成功
+                                //共发现 800行
+                                //第6行数据格式错误，已跳过
+                                //第457行数据格式错误，已跳过
+                                //第701行数据格式错误，已跳过
+                                //第704行券证编码已存在，已跳过
+                                //导入成功796行
+                                for (var i = 0; i < a1.length; i++) {
+
+
+                                    //console.log(a3)
+
+                                    a3 = a3 + "\n第" + a1[i] + "行券证编码已存在，已跳过";
+
+
+
+
+
+
+                                }
+                                //console.log(a3)
+
+                                a3 = a3 + "\n导入成功" +data.q.t+"行";
+                                //console.log(a3)
+
+                                a2.val(a3);
+
+
+                            }
+
+
+                        },
+                        error: function (aa) {
+                        alert(aa);
+                        }
+                        });
+                                            }
+
+        @*function p() {
+
+            var t = $("#myFile");
+            //alert("确认成" + t + "吗？");
+         var jo=   JSON.stringify(t)
+            console.log(jo)
+            $.ajax({
+                type: "post",
+                url: "/GifiManage/OthersCreateMuch",   //控制器路径
+                type: 'POST',
+                dataType: 'json',
+                data: JSON.stringify({
+                    "id": "@Model.id",
+                    "GiftInventory": jo
+                }),
+                contentType: "application/json",
+                async: true,
+
+                beforeSend: function () {
+                    if (c == 0) {
+                        pp();
+                        timedCount();
+                    }
+                },
+                success: function (r) {
+
+                console.log(r)
+
+                    q = setTimeout("p()", 5000);
+                    if (r.c1 == 1000) {
+                        clearTimeout(q)
+
+                        stopCount();
+                        $("#a").width("100%");
+                        b = 1;
+
+
+                    }
+
+
+
+
+                },
+                error: function () {
+                    return;
+                }
+            });
+
+
+
+
+
+
+        }*@
+
+
+    </script>
+}

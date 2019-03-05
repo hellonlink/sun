@@ -35,28 +35,28 @@
                     {
                         <div class="form-group">
                             <label>券证名称：：</label>
-                            <input type="text" placeholder="礼品名称" id="InputMobile" class="form-control" name="GiftName" value="@ViewBag.GiftName">
+                            <input type="text" placeholder="券证名称" id="InputMobile" class="form-control" name="GiftName" value="@ViewBag.GiftName">
                         </div>
 
                         <div class="form-group">
                             <label>卷证编号：</label>
-                            <input type="text" placeholder="礼品编号" id="InputMobile" class="form-control" name="CouponNo" value="@ViewBag.CouponNo">
+                            <input type="text" placeholder="卷证编号" id="InputMobile" class="form-control" name="CouponNo" value="@ViewBag.CouponNo">
                         </div>
 
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <label>会员编号：</label>
-                            <input type="text" placeholder="礼品编号" id="InputMobile" class="form-control" name="CustomerId" value="@ViewBag.CustomerId">
+                            <input type="text" placeholder="会员编号" id="InputMobile" class="form-control" name="CustomerId" value="@ViewBag.CustomerId">
                         </div>
 
                         <div class="form-group">
                             <label>会员姓名：</label>
-                            <input type="text" placeholder="礼品编号" id="InputMobile" class="form-control" name="CustomerRealName" value="@ViewBag.CustomerRealName">
+                            <input type="text" placeholder="会员姓名" id="InputMobile" class="form-control" name="CustomerRealName" value="@ViewBag.CustomerRealName">
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <label>会员手机号：</label>
-                            <input type="text" placeholder="礼品编号" id="InputMobile" class="form-control" name="CustomerPhoneNum" value="@ViewBag.CustomerPhoneNum">
+                            <input type="text" placeholder="会员手机号" id="InputMobile" class="form-control" name="CustomerPhoneNum" value="@ViewBag.CustomerPhoneNum">
                         </div>
 
                         <div class="form-group">
@@ -171,7 +171,7 @@
                                         <td>
 
 
-                                            <a href="@Url.Action("RealGiftsDetail", new { id = item.id })">明细</a>
+                                            <a href="@Url.Action("PoolDetail", new { id = item.id })">明细</a>
 
                                         </td>
                                     </tr>
