@@ -1816,6 +1816,8 @@
     <Content Include="Views\GifiManage\T_PrivateGiftsRecordIndex.cshtml" />
     <Content Include="Views\GifiManage\PoolDetail.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <Content Include="Views\ActivityManage\ActivityGiftsConfig.cshtml" />
+    <Content Include="Views\Uploadtest\JsTableShow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PositiveEdu.Common\PositiveEdu.Common.csproj">

@@ -188,6 +188,23 @@ namespace PositiveEdu.Admin.Controllers
 
 
         }
+
+
+        /// <summary>
+        ///活动礼品配置
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ActivityGiftsConfig()
+        {
+            var result = new T_Activity();
+            return View(result);
+        }
+
+        #endregion
+
+
+        #region 活动报名管理
+
         #endregion
 
 

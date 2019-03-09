@@ -15,7 +15,7 @@ namespace PositiveEdu.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public T_Reward()
         {
-       
+
             //奖项字表，奖的类型 对应 礼品的类型
             T_RewardChild = new HashSet<T_RewardChild>();
             // 所获奖项ID-   如果这个人没获奖就是0或者空
@@ -27,6 +27,10 @@ namespace PositiveEdu.DAL
         /// </summary>
         [Key]
         public int Id { get; set; }
+        /// <summary>
+        /// 这个唯一ID用于方便让前端程序控制谁获取了什么奖项
+        /// </summary>
+        public int? OnlyId { get; set; }
         /// <summary>
         /// 活动ID-此奖项对应哪个活动
         /// </summary>
@@ -65,6 +69,10 @@ namespace PositiveEdu.DAL
         /// 奖项剩余份数-  就是此奖项还有多少份没送出去
         /// </summary>
         public int? RewardRemaining { get; set; }
+        /// <summary>
+        /// 奖项使用份数
+        /// </summary>
+        public int? RewardUsed { get; set; }
         /// <summary>
         /// 是否删除 
         /// </summary>

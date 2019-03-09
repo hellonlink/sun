@@ -271,6 +271,17 @@ namespace PositiveEdu.Admin.Controllers
             return dt;
         }
 
+        /// <summary>
+        /// js/bootstrap表格渲染
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult JsTableShow()
+        {
+            return View();
+        }
+
+
+
 
 
     }
