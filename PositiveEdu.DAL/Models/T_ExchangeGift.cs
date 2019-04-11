@@ -21,12 +21,12 @@ namespace PositiveEdu.DAL
         /// 礼品ID
         /// </summary>
         public int? T_GiftsId { get; set; }
-        public T_Gifts T_Gifts { get; set; }
+        public virtual T_Gifts T_Gifts { get; set; }
         /// <summary>
         /// 兑换会员ID
         /// </summary>
         public int? T_CustomerId { get; set; }
-        public T_Customer T_Customer { get; set; }
+        public virtual T_Customer T_Customer { get; set; }
         /// <summary>
         /// 消费积分
         /// </summary>
@@ -46,15 +46,15 @@ namespace PositiveEdu.DAL
         /// <summary>
         /// 收件省
         /// </summary>
-        public int? AcceptAddressProvince { get; set; }
+        public string AcceptAddressProvince { get; set; }
         /// <summary>
         /// 收件市
         /// </summary>
-        public int? AcceptAddressCity { get; set; }
+        public string AcceptAddressCity { get; set; }
         /// <summary>
         /// 收件区
         /// </summary>
-        public DateTime? AcceptAddressDistrict { get; set; }
+        public string AcceptAddressDistrict { get; set; }
         /// <summary>
         /// 收件详细地址
         /// </summary>
@@ -62,7 +62,7 @@ namespace PositiveEdu.DAL
         /// <summary>
         /// 收件邮编
         /// </summary>
-        public DateTime? AcceptPostNum { get; set; }
+        public string AcceptPostNum { get; set; }
         /// <summary>
         /// 收件人姓名
         /// </summary>

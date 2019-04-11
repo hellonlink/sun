@@ -48,9 +48,9 @@
                     <form id="form1">
 
                         <div>
-                            选择导入文件：<input type="file" name="file" id="fs" />
+                            选择导入文件：<input  type="file" name="file" id="fs" />
                             <input type="hidden" name="id" value="@Model.id" />
-                            <input type="button" value="提交" onclick="sub()" />
+                            <input class="btn btn-white" type="button" value="提交" onclick="sub()" />
                         </div>
                         @*<button class="btn btn-white" type="submit" onclick="p()">导入</button> <div class="hr-line-dashed"></div>*@
 
@@ -75,11 +75,17 @@
 
 
                     </div>
-                    <div class="hr-line-dashed"></div>
 
+
+                    <div class="hr-line-dashed"></div>
+                    <div id="ts1">   </div>
                     <textarea id="f" style="white-space:normal;word-wrap:break-word;word-break:break-all ;width:100%;height :600px;display :none " value=" "> </textarea>
 
                 </div>
+
+
+
+
             </div>
         </div>
     </div>
@@ -154,7 +160,7 @@
                                     $("#a").width(0);
                                     clearTimeout(q)
                                     clearTimeout(t1)
-                              
+
                                     return;
                                 }
                             console.log(data);
@@ -175,35 +181,30 @@
                                 a2.show(true);
 
                                 var a3 = $("#fs").val()+"文件导入成功\n共发现" + a4 + "行";
-                                //console.log(a3)
-                                //XXXXXXXXXXX.xls 文件导入成功
-                                //共发现 800行
-                                //第6行数据格式错误，已跳过
-                                //第457行数据格式错误，已跳过
-                                //第701行数据格式错误，已跳过
-                                //第704行券证编码已存在，已跳过
-                                //导入成功796行
-                                for (var i = 0; i < a1.length; i++) {
+                                ////console.log(a3)
+                                ////XXXXXXXXXXX.xls 文件导入成功
+                                ////共发现 800行
+                                ////第6行数据格式错误，已跳过
+                                ////第457行数据格式错误，已跳过
+                                ////第701行数据格式错误，已跳过
+                                ////第704行券证编码已存在，已跳过
+                                ////导入成功796行
+                                //for (var i = 0; i < a1.length; i++) {
 
+                                //    //console.log(a3)
 
-                                    //console.log(a3)
+                                //    a3 = a3 + "\n第" + a1[i] + "行券证编码已存在，已跳过";
 
-                                    a3 = a3 + "\n第" + a1[i] + "行券证编码已存在，已跳过";
-
-
-
-
-
-
-                                }
-                                //console.log(a3)
+                                //}
+                                ////console.log(a3)
 
                                 a3 = a3 + "\n导入成功" +data.q.t+"行";
-                                //console.log(a3)
+                                ////console.log(a3)
 
                                 a2.val(a3);
 
-
+                                   $("#ts1").append( "\n<a href ='/CustomerManage/DownloadFile?path=" + data.m + "' > 导入结果下载</a>");
+v       
                             }
 
 

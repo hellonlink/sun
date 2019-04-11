@@ -38,90 +38,127 @@
                     </h5>
                 </div>
                 <div class="ibox-content">
-
                     @using (Html.BeginForm("Edit", "CustomerManage", FormMethod.Post, htmlAttributes: new { @class = "form-inline" }))
                     {
 
                         @Html.AntiForgeryToken()
 
-                        <div class="form-group">
+                        <div style="margin-left:40px;" class="form-group">
                             <label>会员姓名：</label>
                             <input type="text" placeholder="会员名称" id="InputMobile" class="form-control" name="CustomerRealName" value="@Model.CustomerRealName">
-
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
                             <label>会员手机号：</label>
                             <input type="text" placeholder="会员手机号" id="InputMobile" class="form-control" name="CustomerPhoneNum" value="@Model.CustomerPhoneNum">
 
+                        </div>
 
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
+                        <div style="margin-left:40px;" class="form-group">
                             <label>会员编号：</label>
                             <input type="text" placeholder="会员编号" id="InputMobile" class="form-control" name="CustomerId" value="@Model.CustomerId">
-
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>微信号：</label>
+                            <input type="text" placeholder="微信号" id="InputMobile" class="form-control" name="CustomerWechatNum" value=" @Model.CustomerWechatNum">
                         </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>微博号：</label>
+                            <input type="text" placeholder="微博号" id="InputMobile" class="form-control" name="CustomerWeiboNum" value="@Model.CustomerWeiboNum">
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>QQ号：</label>
+                            <input type="text" placeholder="QQ号" id="InputMobile" class="form-control" name="CustomerQQNum" value="@Model.CustomerQQNum">
+                        </div> 
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>Email：</label>
+                            <input type="text" placeholder="Email" id="InputMobile" class="form-control" name="CustomerEmailNum" value="@Model.CustomerEmailNum">
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>当前积分：</label>
+                            <input type="text" placeholder="当前积分" id="InputMobile" class="form-control" name="CustomerCurrentIntegral" value="@Model.CustomerCurrentIntegral">
+                        </div><div class="hr-line-dashed"></div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>自定义字段1</label>
+                            <input type="text" placeholder="自定义字段1" id="InputMobile" class="form-control" name="CustomizeTag1" value="@Model.CustomizeTag1">
+                        </div>  
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>自定义字段2</label>
+                            <input type="text" placeholder="自定义字段2" id="InputMobile" class="form-control" name="CustomizeTag2" value="@Model.CustomizeTag2">
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>自定义字段3</label>
+                            <input type="text" placeholder="自定义字段3" id="InputMobile" class="form-control" name="CustomizeTag3" value="@Model.CustomizeTag3">
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>自定义字段4</label>
+                            <input type="text" placeholder="自定义字段4" id="InputMobile" class="form-control" name="CustomizeTag4" value="@Model.CustomizeTag4">
+
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>自定义字段5</label>
+                            <input type="text" placeholder="自定义字段5" id="InputMobile" class="form-control" name="CustomizeTag5" value="@Model.CustomizeTag5">
+                        </div> <div class="hr-line-dashed"></div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>自定义字段6</label>
+                            <input type="text" placeholder="自定义字段6" id="InputMobile" class="form-control" name="CustomizeTag6" value="@Model.CustomizeTag6">
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>自定义字段7</label>
+                            <input type="text" placeholder="自定义字段7" id="InputMobile" class="form-control" name="CustomizeTag7" value="@Model.CustomizeTag7">
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>自定义字段8</label>
+                            <input type="text" placeholder="自定义字段8" id="InputMobile" class="form-control" name="CustomizeTag8" value="@Model.CustomizeTag8">
+                        </div>  
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>自定义字段9</label>
+                            <input type="text" placeholder="自定义字段9" id="InputMobile" class="form-control" name="CustomizeTag9" value="@Model.CustomizeTag9">
+                        </div>  
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>自定义字段10</label>
+                            <input type="text" placeholder="自定义字段10" id="InputMobile" class="form-control" name="CustomizeTag10" value="@Model.CustomizeTag10">
+                        </div> <div class="hr-line-dashed"></div>
+
+                        <div style="margin-left:40px;" class="form-group">
                             <label>证件编号：</label>
                             <select name="CustomerCertificateType">
-                                <option value="护照"  @(Model.CustomerCertificateType == "护照" ? "selected =selected" : "")>护照</option>
+                                <option value="护照" @(Model.CustomerCertificateType == "护照" ? "selected =selected" : "")>护照</option>
                                 <option value="身份证" @(Model.CustomerCertificateType == "身份证" ? "selected =selected" : "")>身份证</option>
                             </select>
                             <input type="text" placeholder="证件编号" id="InputMobile" class="form-control" name="CustomerCertificateNum" value="@Model.CustomerCertificateNum">
-
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
+                        </div>  
+                        <div style="margin-left:40px;" class="form-group">
                             <label>性别：</label>
                             <select name="CustomerSex">
                                 <option value="男" @(Model.CustomerSex == "男" ? "selected =selected" : "")>男</option>
                                 <option value="女" @(Model.CustomerSex == "女" ? "selected =selected" : "")>女</option>
                                 <option value="未知" @(Model.CustomerSex == "未知" ? "selected =selected" : "")>未知</option>
                             </select>
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
+                        </div>  
+                        <div style="margin-left:40px;" class="form-group">
                             <label>所属区域：</label>
-
                             <select class="select" name="province" id="s1"><option></option></select>
                             <select class="select" name="city" id="s2"><option></option></select>
                             <select class="select" name="town" id="s3"><option></option></select>
                         </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>微信号：</label>
-                            <input type="text" placeholder="微信号" id="InputMobile" class="form-control" name="CustomerWechatNum" value=" @Model.CustomerWechatNum">
 
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>微博号：</label>
-                            <input type="text" placeholder="微博号" id="InputMobile" class="form-control" name="CustomerWeiboNum" value="@Model.CustomerWeiboNum">
 
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>QQ号：</label>
-                            <input type="text" placeholder="QQ号" id="InputMobile" class="form-control" name="CustomerQQNum" value="@Model.CustomerQQNum">
-
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>Email：</label>
-
-                            <input type="text" placeholder="Email" id="InputMobile" class="form-control" name="CustomerEmailNum" value="@Model.CustomerEmailNum">
-
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>账户是否有效：</label><h3></h3>
-
-                            <input type="radio" id="InputMobile"     @(Model.AccountEffect == 0 ? "checked=checked" : "") class="form-control" name="AccountEffect" value="0">是
+                               <div style="margin-left:40px;" class="form-group">
+                                   <label>账户是否有效：</label>
+                                   <input type="radio" id="InputMobile" @(Model.AccountEffect == 0 ? "checked=checked" : "") class="form-control" name="AccountEffect" value="0">否
 
 
 
-                            <input type="radio" id="InputMobile" @(Model.AccountEffect == 1 ? "checked=checked" : "") class="form-control" name="AccountEffect" value="1">否
+                                   <input type="radio"  id="InputMobile" @(Model.AccountEffect == 1 ? "checked=checked" : "") class="form-control" name="AccountEffect" value="1">是
 
 
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
+                               </div>  
+                        <div style="margin-left:40px;" class="form-group">
                             <label>会员标签：</label>
                             @{
 
                                 PeContext DB = new PeContext();
-                                var a = DB.T_CustomerTag.ToList();
+                                var a = DB.T_CustomerTag.Where(x=>x.IsDeleted==false).ToList();
                                 foreach (var item in a)
                                 {
                                     <input type="checkbox" name="CustomerTag"
@@ -133,14 +170,9 @@
 
                             }
 
-
                         </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>当前积分：</label>
-                            <input type="text" placeholder="当前积分" id="InputMobile" class="form-control" name="CustomerCurrentIntegral" value="@Model.CustomerCurrentIntegral">
 
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
+                        <div style="margin-left:40px;" class="form-group">
                             <label class="col-sm-2 control-label">生日</label>
                             <div class="col-sm-10">
                                 <div class="input-group date col-lg-3">
@@ -156,7 +188,7 @@
                                 </div>
                             </div>
                         </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
+                        <div style="margin-left:40px;" class="form-group">
                             <label class="col-sm-2 control-label">加入时间</label>
                             <div class="col-sm-10">
                                 <div class="input-group date col-lg-3">
@@ -172,68 +204,11 @@
                                 </div>
                             </div>
                         </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>自定义字段1</label>
 
-                            <input type="text" placeholder="自定义字段1" id="InputMobile" class="form-control" name="CustomizeTag1" value="@Model.CustomizeTag1">
-
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>自定义字段2</label>
-                            <input type="text" placeholder="自定义字段2" id="InputMobile" class="form-control" name="CustomizeTag2" value="@Model.CustomizeTag2">
-
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>自定义字段3</label>
-                            <input type="text" placeholder="自定义字段3" id="InputMobile" class="form-control" name="CustomizeTag3" value="@Model.CustomizeTag3">
-
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>自定义字段4</label>
-                            <input type="text" placeholder="自定义字段4" id="InputMobile" class="form-control" name="CustomizeTag4" value="@Model.CustomizeTag4">
-
-
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>自定义字段5</label>
-                            <input type="text" placeholder="自定义字段5" id="InputMobile" class="form-control" name="CustomizeTag5" value="@Model.CustomizeTag5">
-
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>自定义字段6</label>
-
-                            <input type="text" placeholder="自定义字段6" id="InputMobile" class="form-control" name="CustomizeTag6" value="@Model.CustomizeTag6">
-
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>自定义字段7</label>
-
-                            <input type="text" placeholder="自定义字段7" id="InputMobile" class="form-control" name="CustomizeTag7" value="@Model.CustomizeTag7">
-
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>自定义字段8</label>
-
-                            <input type="text" placeholder="自定义字段8" id="InputMobile" class="form-control" name="CustomizeTag8" value="@Model.CustomizeTag8">
-
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>自定义字段9</label>
-
-                            <input type="text" placeholder="自定义字段9" id="InputMobile" class="form-control" name="CustomizeTag9" value="@Model.CustomizeTag9">
-
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>自定义字段10</label>
-
-                            <input type="text" placeholder="自定义字段10" id="InputMobile" class="form-control" name="CustomizeTag10" value="@Model.CustomizeTag10">
-
-                        </div> <div class="hr-line-dashed"></div>
 
 
                         <button class="btn btn-white" type="submit">保存</button>
                     }
-
 
                 </div>
             </div>

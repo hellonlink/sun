@@ -65,6 +65,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="NPOI, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
       <HintPath>..\packages\NPOI.2.3.0\lib\net40\NPOI.dll</HintPath>
       <Private>True</Private>
@@ -149,11 +152,6 @@
     <Reference Include="Antlr3.Runtime">
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -1734,7 +1732,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\ExchangeManage\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -1818,6 +1815,17 @@
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Views\ActivityManage\ActivityGiftsConfig.cshtml" />
     <Content Include="Views\Uploadtest\JsTableShow.cshtml" />
+    <Content Include="Views\ActivityManage\CreadReward.cshtml" />
+    <Content Include="Views\CustomerManage\ImportCustomes.cshtml" />
+    <Content Include="Views\ActivityManage\TakeActivity.cshtml" />
+    <Content Include="Views\ActivityManage\HumanTakeActivity.cshtml" />
+    <Content Include="Views\ActivityManage\ImportTakeActivity.cshtml" />
+    <Content Include="Views\ActivityManage\T_CustomerActivityEdit.cshtml" />
+    <Content Include="Views\CustomerManage\T_CustomerIntegralRecords.cshtml" />
+    <Content Include="Views\CustomerManage\T_GiftsChildRecords.cshtml" />
+    <Content Include="Views\ExchangeManage\Index.cshtml" />
+    <Content Include="Views\ExchangeManage\T_ExchangeGiftEdit.cshtml" />
+    <Content Include="Views\CustomerManage\TagEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PositiveEdu.Common\PositiveEdu.Common.csproj">

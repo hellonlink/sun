@@ -21,7 +21,7 @@ namespace PositiveEdu.DAL
         /// 会员ID
         /// </summary>
         public int? T_CustomerId { get; set; }
-        public T_Customer T_Customer { get; set; }
+        public virtual T_Customer T_Customer { get; set; }
         /// <summary>
         /// 收件信息名称- 
         /// 例如家  公司啊 之类

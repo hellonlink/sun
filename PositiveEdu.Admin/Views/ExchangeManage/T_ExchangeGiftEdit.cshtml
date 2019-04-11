@@ -1,0 +1,167 @@
+﻿@using PositiveEdu.DAL
+@using PagedList
+@using PagedList.Mvc
+@model  T_ExchangeGifts
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            收件信息修改
+        </h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/CustomerManage">兑换管理</a>
+            </li>
+            <li class="active">
+                <strong>
+                    收件信息修改
+                </strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>
+                        收件信息修改
+
+                    </h5>
+                </div>
+                <div class="ibox-content">
+                    @using (Html.BeginForm("T_ExchangeGiftEdit", "ExchangeManage", FormMethod.Post, htmlAttributes: new { @class = "form-inline" }))
+                    {
+
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            <label>收件人姓名：</label>
+                            <input type="text" placeholder="收件人姓名" id="InputMobile" class="form-control" name="AcceptName" value="@Model.AcceptName">
+                            <input type="hidden" placeholder="收件人姓名" name="id" value="@Model.Id">
+                        </div> <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label>收件人联系电话：</label>
+                            <input type="text" placeholder="收件人联系电话" id="InputMobile" class="form-control" name="AcceptPhoneNum" value="@Model.AcceptPhoneNum">
+                        </div> <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label>快递公司：</label>
+                            <input type="text" placeholder="会员编号" id="InputMobile" class="form-control" name="CourierCompany" value="@Model.CourierCompany">
+                        </div> <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label>所属区域：</label>
+                            <select class="select" name="province" id="s1"><option></option></select>
+                            <select class="select" name="city" id="s2"><option></option></select>
+                            <select class="select" name="town" id="s3"><option></option></select>
+                        </div> <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label>快递单号：</label>
+                            <input type="text" placeholder="快递单号" id="InputMobile" class="form-control" name="CourierNum" value=" @Model.CourierNum">
+                        </div> <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label>收件邮编：</label>
+                            <input type="text" placeholder="收件邮编" id="InputMobile" class="form-control" name="AcceptPostNum" value="@Model.AcceptPostNum">
+                        </div> <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label>收件详细地址：</label>
+                            <input type="text" placeholder="收件详细地址" id="InputMobile" class="form-control" name="AcceptAddressDetail" value="@Model.AcceptAddressDetail">
+                        </div> <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">完成时间</label>
+                            <div class="col-sm-10">
+                                <div class="input-group date col-lg-3">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    @{
+                                        string dtStr = string.Empty;
+                                        if (Model.CompleteTime.HasValue)
+                                        {
+                                            dtStr = Model.CompleteTime.Value.ToString("yyyy-MM-dd");
+                                        }
+                                    }
+                                    <input type="text" style="width:500px " class="form-control input-sm" name="CompleteTime" value="@dtStr">
+                                </div>
+                            </div>
+                        </div> <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">自提/发货时间</label>
+                            <div class="col-sm-10">
+                                <div class="input-group date col-lg-3">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    @{
+                                        string dtStrs = string.Empty;
+                                        if (Model.ObtainTime.HasValue)
+                                        {
+                                            dtStrs = Model.ObtainTime.Value.ToString("yyyy-MM-dd");
+                                        }
+                                    }
+                                    <input type="text" style="width:500px " class="form-control input-sm" name="ObtainTime" value="@dtStrs">
+                                </div>
+                            </div>
+                        </div> <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label>兑换转态：</label>
+                            <select name="CourierStatus">
+                                <option value="0" @(Model.CourierStatus == 0 ? "selected =selected" : "")>已经完成</option>
+                                <option value="1" @(Model.CourierStatus == 1 ? "selected =selected" : "")>已经做费废</option>
+                                <option value="2" @(Model.CourierStatus == 2 ? "selected =selected" : "")>待自提</option>
+                                <option value="3" @(Model.CourierStatus == 3 ? "selected =selected" : "")>待发货</option>
+                            </select>
+
+                        </div> <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label>提货方式：</label>
+                            <select name="PickType">
+                                <option value="0" @(Model.PickType == 0 ? "selected =selected" : "")>自提</option>
+                                <option value="1" @(Model.PickType == 1 ? "selected =selected" : "")>快递</option>
+
+                            </select>
+
+                        </div> <div class="hr-line-dashed"></div>
+                        <button class="btn btn-white" type="submit">保存</button>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Myscripts{
+    <script src="~/Scripts/Address.js" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+                window.onload = function () {
+
+                    var a ="@(Model.AcceptAddressProvince != null ? Model.AcceptAddressProvince : "湖南省")"
+                           var b =      "@(Model.AcceptAddressCity != null ? Model.AcceptAddressCity : "永州市")"
+                            var c =     "@(Model.AcceptAddressDistrict != null ? Model.AcceptAddressDistrict : "双牌县")"
+
+
+
+                    p(a, b, c)
+                }
+    </script>
+}
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+
+            $('#TmbUploadImg').thumbnail();
+
+            $('.input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true,
+                format: "yyyy-mm-dd",
+                language: 'zh-CN',
+            });
+        });</script>
+}

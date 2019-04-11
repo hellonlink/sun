@@ -7,30 +7,23 @@ namespace PositiveEdu.DAL
     /// <summary>
     /// 活动会员表
     /// </summary>
- 
-
     public class T_CustomerActivity
     {
-
-
-
         /// <summary>
         /// 活动会员ID
         /// </summary>
         [Key]
         public int Id { get; set; }
-
         /// <summary>
         /// 活动表ID
         /// </summary>
         public int? T_ActivityId { get; set; }
-
-        public T_Activity T_Activity { get; set; }
+        public virtual T_Activity T_Activity { get; set; }
         /// <summary>
         /// 会员ID
         /// </summary>
         public int? T_CustomerId { get; set; }
-        public T_Customer T_Customer { get; set; }
+        public virtual T_Customer T_Customer { get; set; }
         /// <summary>
         /// 报名时间/导入时间
         /// </summary>
@@ -40,10 +33,14 @@ namespace PositiveEdu.DAL
         /// </summary>
         public bool? IsSuccessTake { get; set; }
         /// <summary>
+        /// 参与资格 1 有，0无
+        /// </summary>
+        public int? IsCanTake { get; set; }
+        /// <summary>
         /// 所获奖项ID-   如果这个人没获奖就是0或者空
         /// </summary>
         public int? T_RewardId { get; set; }
-        public T_Reward T_Reward { get; set; }
+        public virtual T_Reward T_Reward { get; set; }
         /// <summary>
         /// 获奖的时间- 
         /// </summary>
@@ -106,5 +103,30 @@ namespace PositiveEdu.DAL
         /// 更新人
         /// </summary>
         public string UpdatedBy { get; set; }
+
+        /// <summary>
+        ///   扩展字段1
+        /// </summary>
+        public string Tag1 { get; set; }
+        /// <summary>
+        /// 扩展字段2
+        /// </summary>
+        public string Tag2 { get; set; }
+        /// <summary>
+        /// 扩展字段3
+        /// </summary>
+        public string Tag3 { get; set; }
+        /// <summary>
+        /// 扩展字段4
+        /// </summary>
+        public string Tag4 { get; set; }
+        /// <summary>
+        /// 扩展字段5
+        /// </summary>
+        public string Tag5 { get; set; }
+        /// <summary>
+        /// 收件邮编
+        /// </summary>
+        public string AcceptAddressPostCode { get; set; }
     }
 }

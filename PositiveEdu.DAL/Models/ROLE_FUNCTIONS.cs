@@ -1,5 +1,6 @@
 namespace PositiveEdu.DAL
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -38,7 +39,7 @@ namespace PositiveEdu.DAL
         public string Controller { get; set; }
 
         public string Action { get; set; }
-
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ROLE_FUNCTION_RELATION> ROLE_FUNCTION_RELATION { get; set; }
     }

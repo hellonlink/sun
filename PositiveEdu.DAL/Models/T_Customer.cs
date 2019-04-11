@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -36,26 +37,31 @@ namespace PositiveEdu.DAL
         /// <summary>
         /// 活动表， 活动会员表 多对多的关系
         /// </summary>
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_CustomerActivity> T_CustomerActivity { get; set; } = new List<T_CustomerActivity>();
         /// <summary>
         ///  礼品主表，礼品兑换表 多对多的关系 
         /// </summary>
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_ExchangeGifts> T_ExchangeGifts { get; set; } = new List<T_ExchangeGifts>();
         /// <summary>
         /// 会员收件信息表,一对多的关系
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [JsonIgnore]
         public virtual ICollection<T_CustomerAccept> T_CustomerAccept { get; set; } = new List<T_CustomerAccept>();
         /// <summary>
         /// 会员积分记录表,一对多的关系
         /// </summary>
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_CustomerIntegralRecord> T_CustomerIntegralRecord { get; set; } = new List<T_CustomerIntegralRecord>();
         /// <summary>
         /// 卷池表,一对多的关系
         /// </summary>
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_GiftsChild> T_GiftsChild { get; set; } = new List<T_GiftsChild>();
 
@@ -143,7 +149,7 @@ namespace PositiveEdu.DAL
         /// </summary>
         public string CustomerTag { get; set; }
         /// <summary>
-        /// 账户是否有效    0有效，1无效
+        /// 账户是否有效    1有效，0无效
         /// </summary>
         public int? AccountEffect { get; set; }
         /// <summary>

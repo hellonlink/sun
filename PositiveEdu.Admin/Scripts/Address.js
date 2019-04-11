@@ -55,7 +55,7 @@ function change(v) {
 
     var ss = document.getElementById(s[v]);
 
-    with (ss) {
+    with(ss) {
 
         length = 0;
 

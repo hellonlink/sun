@@ -11,14 +11,17 @@ namespace PositiveEdu.Admin.Controllers
     [Authorize]
     public abstract class BaseController : Controller
     {
+
         private PeContext db = null;
         protected PeContext DB
         {
             get
             {
                 if (db == null)
-                    db = new PeContext();
 
+
+                    db = new PeContext();
+ 
                 return db;
             }
         }
@@ -70,4 +73,5 @@ namespace PositiveEdu.Admin.Controllers
         }
 
     }
+    
 }

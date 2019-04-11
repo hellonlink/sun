@@ -41,12 +41,81 @@
 
                         @Html.AntiForgeryToken()
 
-                        <div class="form-group">
+                        <div style="margin-left:40px;" class="form-group">
                             <label>礼品名称：</label>
                             <input type="text" placeholder="礼品名称" id="InputMobile" class="form-control" name="GiftName" value="@Model.GiftName">
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>兑换所需积分：</label>
+                            <input type="text" placeholder="兑换所需积分：" id="InputMobile" class="form-control" name="RedeemPoints" value="@Model.RedeemPoints">
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>自定义字段1：：</label>
+                            <input type="text" placeholder="自定义字段1" id="InputMobile" class="form-control" name="Tag1" value="@Model.Tag1">
                         </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>是否实体礼品：</label><h3></h3>
+                        <div style="margin-left:40px;" class="form-group">
+
+                            <label>自定义字段2：</label>
+                            <input type="text" placeholder="自定义字段2" id="InputMobile" class="form-control" name="Tag2" value="@Model.Tag2">
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>自定义字段3：</label>
+                            <input type="text" placeholder="自定义字段3" id="InputMobile" class="form-control" name="Tag3" value="@Model.Tag3">
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>自定义字段4：</label>
+                            <input type="text" placeholder="自定义字段4" id="InputMobile" class="form-control" name="Tag4" value="@Model.Tag4">
+                        </div><div class="hr-line-dashed"></div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>自定义字段5：</label>
+                            <input type="text" placeholder="自定义字段5" id="InputMobile" class="form-control" name="Tag5" value="@Model.Tag5">
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+
+
+                            <label>抵用金额：</label>
+                            <input type="text" placeholder="抵用金额：" id="InputMobile" class="form-control" name="SaveMoney" value="@Model.SaveMoney">
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+
+
+                            <label>消费金额限制：>=  ：</label>
+                            <input type="text" placeholder="消费金额限制" id="InputMobile" class="form-control" name="MoneyLimit" value="@Model.MoneyLimit">
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+
+
+                            <label>批量生成标记：</label>
+                            <input type="text" placeholder="礼品编号" id="InputMobile" class="form-control" name="OpenCodeCouponNo" value="@Model.OpenCodeCouponNo">
+                        </div><div class="hr-line-dashed"></div>
+
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>所属分类：</label>
+                            <select name="T_GiftsTagId">
+                                @{
+
+                                    PeContext DB = new PeContext();
+                                    var a = DB.T_GiftsTag.ToList();
+
+                                    foreach (var item in a)
+                                    {
+
+
+
+                                        <option value="@item.id" @(Model.T_GiftsTagId == @item.id ? "selected =selected" : "")>@item.TagName</option>
+
+
+
+                                    }
+
+                                    DB.Dispose();
+
+                                }
+                            </select>
+                        </div>
+
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>是否实体礼品：</label>
                             <input type="radio" id="InputMobile" @(Model.GiftType == 0 ? "checked=checked" : "") class="form-control" name="GiftType" value="0">是
 
 
@@ -54,8 +123,29 @@
                             <input type="radio" id="InputMobile" @(Model.GiftType == 1 ? "checked=checked" : "") class="form-control" name="GiftType" value="1">否
 
 
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>是否有效：</label>
+                            <input type="radio" id="InputMobile" @(Model.IsShelf == 0 ? "checked=checked" : "") class="form-control" name="IsShelf" value="0">否
+
+
+
+                            <input type="radio" id="InputMobile" @(Model.IsShelf == 1 ? "checked=checked" : "") class="form-control" name="IsShelf" value="1">是
+
+
+                        </div>
+
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>是否积分商城可以兑换：</label>
+                            <input type="radio" id="InputMobile" @(Model.IsExchange == 0 ? "checked=checked" : "") class="form-control" name="IsExchange" value="0">否
+
+
+
+                            <input type="radio" id="InputMobile" @(Model.IsExchange == 1 ? "checked=checked" : "") class="form-control" name="IsExchange" value="1">是
+
+
                         </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
+                        <div style="margin-left:40px;" class="form-group">
                             <label>券证类型：</label>
                             <input type="radio" id="InputMobile" @(Model.IsCoupon == 0 ? "checked=checked" : "") class="form-control" name="IsCoupon" value="0">自主券证
 
@@ -64,22 +154,18 @@
                             <input type="radio" id="InputMobile" @(Model.IsCoupon == 1 ? "checked=checked" : "") class="form-control" name="IsCoupon     " value="1">第三方券证
 
 
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>优惠类型：</label><h3></h3>
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>优惠类型：</label>
                             <input type="radio" id="InputMobile" @(Model.SaveType == 0 ? "checked=checked" : "") class="form-control" name="SaveType" value="0"> 礼品兑换券
                             <input type="radio" id="InputMobile" @(Model.SaveType == 1 ? "checked=checked" : "") class="form-control" name="SaveType" value="1">现金抵用券
                             <input type="radio" id="InputMobile" @(Model.SaveType == 2 ? "checked=checked" : "") class="form-control" name="SaveType" value="1">折扣券
 
 
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
+                        </div>
 
 
-                            <label>抵用金额：</label>
-                            <input type="text" placeholder="抵用金额：" id="InputMobile" class="form-control" name="SaveMoney" value="@Model.SaveMoney">
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
+                        <div style="margin-left:40px;" class="form-group">
                             <label class="col-sm-2 control-label">使用时间限制：</label>
                             <div class="col-sm-10">
                                 <div class="input-group date col-lg-3">
@@ -107,23 +193,12 @@
                                 </div>
                             </div>
                         </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
 
-
-                            <label>消费金额限制：>=  ：</label>
-                            <input type="text" placeholder="消费金额限制" id="InputMobile" class="form-control" name="MoneyLimit" value="@Model.MoneyLimit">
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-
-
-                            <label>批量生成标记：</label>
-                            <input type="text" placeholder="礼品编号" id="InputMobile" class="form-control" name="OpenCodeCouponNo" value="@Model.OpenCodeCouponNo">
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
+                        <div style="margin-left:40px;" class="form-group">
                             <label>卷证简介：</label>
                             <input type="text" placeholder="礼品简介" id="InputMobile" style="width:400px ;height:100px" class="form-control" name="GiftIntroductionText" value="@Model.GiftIntroductionText">
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
+                        </div><div class="hr-line-dashed"></div>
+                        <div style="margin-left:40px;" class="form-group">
                             <label>礼品缩略图：</label>
                             <div id="GiftThumbnailPicture" class="col-md-10 form-inline">
                                 <span class="btn btn-default fileinput-button">
@@ -139,8 +214,8 @@
                                 </div>
                                 <input name="GiftThumbnailPicture" type="hidden" value="@Model.GiftThumbnailPicture" class="tmb-done-id required" />
                             </div>
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
+                        </div><div class="hr-line-dashed"></div>
+                        <div style="margin-left:40px;" class="form-group">
                             <label>礼品大图：</label>
                             <div id="GiftMainPicture" class="col-md-10 form-inline">
                                 <span class="btn btn-default fileinput-button">
@@ -157,7 +232,7 @@
                                 <input name="GiftMainPicture" type="hidden" value="@Model.GiftMainPicture" class="tmb-done-id required" />
                             </div>
                         </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
+                        <div style="margin-left:40px;" class="form-group">
                             <label class="col-sm-2 control-label">图文介绍：</label>
                             <div class="col-sm-10">
                                 <script type="text/plain" id="myEditor" name="GiftIntroductionPT" style="width:100%;height:460px;">
@@ -166,83 +241,17 @@
                                 </script>
                             </div>
                         </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>所属分类：</label>
-                            <select name="T_GiftsTagId">
-                                @{
-
-                                    PeContext DB = new PeContext();
-                                    var a = DB.T_GiftsTag.ToList();
-
-                                    foreach (var item in a)
-                                    {
 
 
-
-                                        <option value="@item.id" @(Model.T_GiftsTagId == @item.id ? "selected =selected" : "")>@item.TagName</option>
-
+                        <div style="margin-left:40px;" class="form-group">
 
 
-                                    }
+                            <input type="hidden" name="id" value="@Model.id">
 
-                                    DB.Dispose();
-
-                                }
-                            </select>
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>是否有效：</label>
-                            <input type="radio" id="InputMobile" @(Model.IsShelf == 0 ? "checked=checked" : "") class="form-control" name="IsShelf" value="0">是
+                            <button class="btn btn-white" type="submit">保存</button>
 
 
-
-                            <input type="radio" id="InputMobile" @(Model.IsShelf == 1 ? "checked=checked" : "") class="form-control" name="IsShelf" value="1">否
-
-
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>是否积分商城可以兑换：</label><h3></h3>
-                            <input type="radio" id="InputMobile" @(Model.IsExchange == 0 ? "checked=checked" : "") class="form-control" name="IsExchange" value="0">是
-
-
-
-                            <input type="radio" id="InputMobile" @(Model.IsExchange == 1 ? "checked=checked" : "") class="form-control" name="IsExchange" value="1">否
-
-
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>兑换所需积分：</label>
-                            <input type="text" placeholder="兑换所需积分：" id="InputMobile" class="form-control" name="RedeemPoints" value="@Model.RedeemPoints">
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>自定义字段1：：</label>
-                            <input type="text" placeholder="自定义字段1" id="InputMobile" class="form-control" name="Tag1" value="@Model.Tag1">
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-
-                            <label>自定义字段2：：</label>
-                            <input type="text" placeholder="自定义字段2" id="InputMobile" class="form-control" name="Tag2" value="@Model.Tag2">
-                        </div><div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>自定义字段3：：</label>
-                            <input type="text" placeholder="自定义字段3" id="InputMobile" class="form-control" name="Tag3" value="@Model.Tag3">
-                        </div> <div class="hr-line-dashed"></div>
-                               <div class="form-group">
-
-                                   <div class="form-group">
-                                       <label>自定义字段4：</label>
-                                       <input type="text" placeholder="自定义字段4" id="InputMobile" class="form-control" name="Tag4" value="@Model.Tag4">
-                                   </div> <div class="hr-line-dashed"></div>
-                                   <div class="form-group">
-                                       <label>自定义字段5：：</label>
-                                       <input type="text" placeholder="自定义字段5" id="InputMobile" class="form-control" name="Tag5" value="@Model.Tag5">
-                                   </div> <div class="hr-line-dashed"></div>
-                                   <input type="hidden" name="id" value="@Model.id">
-
-                                   <button class="btn btn-white" type="submit">保存</button>
-
-
-                               </div>
+                        </div>
                     }
                 </div>
 

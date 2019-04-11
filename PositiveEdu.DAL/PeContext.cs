@@ -21,7 +21,6 @@ namespace PositiveEdu.DAL
         public virtual DbSet<ROLE_FUNCTION_RELATION> ROLE_FUNCTION_RELATION { get; set; }
         public virtual DbSet<ROLE_FUNCTIONS> ROLE_FUNCTIONS { get; set; }
         public virtual DbSet<SiteMessage> SiteMessage { get; set; }
-
         public virtual DbSet<AREA> AREA { get; set; }
 
         /// <summary>

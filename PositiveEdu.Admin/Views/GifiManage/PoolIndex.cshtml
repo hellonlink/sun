@@ -3,9 +3,9 @@
 @using PagedList.Mvc
 @model PagedList<T_GiftsChild>
 @{
-                /**/
+    /**/
 
-                Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="row wrapper border-bottom white-bg page-heading">
@@ -33,35 +33,30 @@
                 <div class="ibox-content">
                     @using (Html.BeginForm("PoolIndex", "GifiManage", FormMethod.Get, htmlAttributes: new { @class = "form-inline" }))
                     {
-                        <div class="form-group">
+                        <div style="margin-left:40px;" class="form-group">
                             <label>券证名称：：</label>
                             <input type="text" placeholder="券证名称" id="InputMobile" class="form-control" name="GiftName" value="@ViewBag.GiftName">
                         </div>
-
-                        <div class="form-group">
+                        <div style="margin-left:40px;" class="form-group">
                             <label>卷证编号：</label>
                             <input type="text" placeholder="卷证编号" id="InputMobile" class="form-control" name="CouponNo" value="@ViewBag.CouponNo">
                         </div>
-
-                        <div class="hr-line-dashed"></div>
-                        <div class="form-group">
+                        <div style="margin-left:40px;" class="form-group">
                             <label>会员编号：</label>
                             <input type="text" placeholder="会员编号" id="InputMobile" class="form-control" name="CustomerId" value="@ViewBag.CustomerId">
                         </div>
-
-                        <div class="form-group">
+                        <div style="margin-left:40px;" class="form-group">
                             <label>会员姓名：</label>
                             <input type="text" placeholder="会员姓名" id="InputMobile" class="form-control" name="CustomerRealName" value="@ViewBag.CustomerRealName">
                         </div>
-                        <div class="hr-line-dashed"></div>
-                        <div class="form-group">
+                        <div style="margin-left:40px;" class="form-group">
                             <label>会员手机号：</label>
                             <input type="text" placeholder="会员手机号" id="InputMobile" class="form-control" name="CustomerPhoneNum" value="@ViewBag.CustomerPhoneNum">
-                        </div>
+                        </div> <div class="hr-line-dashed"></div>
 
-                        <div class="form-group">
+                        <div style="margin-left:40px;" class="form-group">
                             <label>是否已发送：</label>
-                            <input type="radio" id="InputMobile" @( ViewBag.ExchangeTime == 0 ? "checked=checked" : "") class="form-control" name="ExchangeTime" value="0">是
+                            <input type="radio" id="InputMobile" @( ViewBag.ExchangeTime == 0 ? "checked=checked" : "") class="form-control" checked="checked" name="ExchangeTime" value="0">是
 
 
 
@@ -69,10 +64,10 @@
 
 
                         </div>
-                        <div class="hr-line-dashed"></div>
-                        <div class="form-group">
+
+                        <div style="margin-left:40px;" class="form-group">
                             <label>是否已使用：</label>
-                            <input type="radio" id="InputMobile" @( ViewBag.IsUsed == 1 ? "checked=checked" : "") class="form-control" name="IsUsed" value="1">是
+                            <input type="radio" checked="checked" id="InputMobile" @(ViewBag.IsUsed == 1 ? "checked=checked" : "") class="form-control" name="IsUsed" value="1">是
 
 
 
@@ -81,7 +76,7 @@
 
                         </div>
 
-                        <div class="form-group">
+                        <div style="margin-left:40px;" class="form-group">
                             <label>卷证类型：</label>
                             <select name="IsCoupon">
 
@@ -96,7 +91,7 @@
 
 
                         <div class="hr-line-dashed"></div>
-                        <div class="form-group">
+                        <div style="margin-left:40px;" class="form-group">
                             <label class="col-sm-2 control-label">券证实际发送时间：</label>
                             <div class="col-sm-10">
                                 <div class="input-group date col-lg-3">
@@ -114,7 +109,7 @@
                             </div>
                         </div> <div class="hr-line-dashed"></div>
 
-                        <div class="form-group">
+                        <div style="margin-left:40px;" class="form-group">
                             <label class="col-sm-2 control-label">券证实际使用时间：</label>
                             <div class="col-sm-10">
                                 <div class="input-group date col-lg-3">
@@ -128,11 +123,11 @@
                                     <input type="text" style="width:500px " class="form-control input-sm" name="UseStoptimes" value="@ViewBag.UseStoptime">
                                 </div>
                             </div>
-                        </div> <div class="hr-line-dashed"></div>
+                        </div>
 
-                        <button class="btn btn-white" type="submit">查询</button>
+                        <button style="float:right;height:50px;width:100px" class="btn btn-white" type="submit">查询</button>
                     }
-                    <div class="hr-line-dashed"></div>
+                    <div class="hr-line-dashed">  </div> <button style="float:right; " class="btn btn-white" onclick="ad()">删除所选券证</button>
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -146,9 +141,9 @@
                                 <th>操作</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tb">
                             @{
-
+                                var t = 0;
                                 foreach (var item in Model)
                                 {
 
@@ -166,7 +161,7 @@
 
 
                                         <td>@(item.T_Customer != null ? item.T_Customer.CustomerRealName : "")  </td>
-                                        <td><input type="checkbox" name="f" value="" />  </td>
+                                        <td><input type="checkbox" name="f" value="@(item.id)" id="a@(t)" />  </td>
 
                                         <td>
 
@@ -175,7 +170,7 @@
 
                                         </td>
                                     </tr>
-
+                                    t++;
                                 }
                             }
                         </tbody>
@@ -204,13 +199,73 @@
                                 @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
                             </div>
                         </div>
+
                     </div>
+
+
                 </div>
             </div>
         </div>
     </div>
 </div>
 @section scripts{
+
+    <script>
+
+
+
+        function ad() {
+            var b = ""
+            //获取复选框
+            for (var i = 0; i < $("#tb").children().length; i++) {
+                var ck = $("#a" + i);
+
+                if (ck.prop("checked")) {
+                    console.log(ck.val())
+                    b = b + ck.val() + ",";
+                }
+            }
+            if (b == "") {
+                alert("请至少选择一项！")
+                return;
+            }
+
+
+            $.ajax({
+                type: "post",
+                url: "/GifiManage/Remove",   //控制器路径
+                type: 'POST',
+                dataType: 'json',
+                data: JSON.stringify({
+                    data: b,
+                   
+                }),
+                contentType: "application/json",
+                async: true,
+
+                beforeSend: function () {
+
+                },
+                success: function (r) {
+
+                 
+                    setInterval("window.location.reload()", 2000)
+
+                },
+                error: function () {
+
+                }
+            });
+
+
+
+
+
+
+        }
+
+
+    </script>
     <script type="text/javascript">
         $(function () {
             $('.i-checks').iCheck({

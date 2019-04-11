@@ -29,25 +29,26 @@
                     <h5>礼品列表</h5>
                 </div>
                 <div class="ibox-content">
-                    <a href="@Url.Action("RealGiftsCreate")" class="btn btn-default">新增实体礼品</a>
-                    <a href="@Url.Action("PrivateGiftsCreate")" class="btn btn-default">新增自主券证</a>
 
-                    <a href="@Url.Action("OthersGiftsCreate")" class="btn btn-default">新增第三方券证</a>    <div class="hr-line-dashed"></div>
-                    <a href="@Url.Action("T_OthersGiftsRecordIndex")" class="btn btn-default">第三方券证记录</a>
-                    <a href="@Url.Action("T_PrivateGiftsRecordIndex")" class="btn btn-default">自主券证记录</a>
+
+                    <div  >
+                        <a href="@Url.Action("RealGiftsCreate")" class="btn btn-default">新增实体礼品</a>
+                        <a style="margin-left:40px;"href="@Url.Action("PrivateGiftsCreate")" class="btn btn-default">新增自主券证</a>                       
+                        <a style="margin-left:40px;"href="@Url.Action("OthersGiftsCreate")" class="btn btn-default">新增第三方券证</a>
+                        <a style="margin-left:40px;"href="@Url.Action("T_OthersGiftsRecordIndex")" class="btn btn-default">第三方券证记录</a>
+                        <a style="margin-left:40px;"href="@Url.Action("T_PrivateGiftsRecordIndex")" class="btn btn-default">自主券证记录</a>
+                    </div>
                     @using (Html.BeginForm("Index", "GifiManage", FormMethod.Get, htmlAttributes: new { @class = "form-inline" }))
                     {
                         <div class="form-group">
                             <label>礼品名称：</label>
                             <input type="text" placeholder="礼品名称" id="InputMobile" class="form-control" name="GiftName" value="@ViewBag.GiftName">
                         </div>
-
-                        <div class="form-group">
+                        <div style="margin-left:40px;" class="form-group">
                             <label>礼品编号：</label>
                             <input type="text" placeholder="礼品编号" id="InputMobile" class="form-control" name="GiftNo" value="@ViewBag.GiftNo">
-                        </div> <div class="hr-line-dashed"></div>
-
-                        <div class="form-group">
+                        </div>
+                        <div  style="margin-left:40px;" class="form-group">
                             <label>所属分类：</label>
                             <select class="form-control" name="T_GiftsTagId" id="sex">
                                 <option value="全部" @(ViewBag.T_GiftsTagId == "全部" ? "selected =selected" : "")>全部</option>
@@ -56,7 +57,7 @@
                                     PeContext d = new PeContext();
 
                                     ;
-                                    foreach (var item in d.T_GiftsTag.ToList())
+                                    foreach (var item in d.T_GiftsTag.Where(x=>x.IsDeleted==false&&x.IsUse==1).ToList())
                                     {
                                         <option value="@item.id" @(ViewBag.T_GiftsTagId == item.id + "" ? "selected =selected" : "")>@item.TagName</option>
                                     }
@@ -66,30 +67,28 @@
                                 }
 
                             </select>
-                        </div>
-                        <div class="form-group">
-                            <label>是否实体礼品：</label>
-                            <input type="radio" id="InputMobile" @( ViewBag.GiftType == 0 + "" ? "checked=checked" : "") class="form-control" name="GiftType" value="0">是
+                        </div> 
+                              <div style="margin-left:40px;" class="form-group">
+                                  <label>是否实体礼品：</label>
+                                  <input type="radio" id="InputMobile" checked="checked" @( ViewBag.GiftType == 0 + "" ? "checked=checked" : "") class="form-control" name="GiftType" value="0">否
 
 
 
-                            <input type="radio" id="InputMobile" @(ViewBag.GiftType == 1 + "" ? "checked=checked" : "") class="form-control" name="GiftType" value="1">否
+                                  <input type="radio" id="InputMobile" @(ViewBag.GiftType == 1 + "" ? "checked=checked" : "") class="form-control" name="GiftType" value="1">是
 
 
-                        </div>
-
-                        <div class="form-group">
-                            <label>是否启用：</label>
-                            <input type="radio" id="InputMobile" @( ViewBag.IsShelf == 0 + "" ? "checked=checked" : "") class="form-control" name="IsShelf" value="0">是
-
+                              </div>
+                              <div style="margin-left:40px;" class="form-group">
+                                  <label>是否启用：</label>
+                                  <input type="radio" id="InputMobile" checked="checked" @( ViewBag.IsShelf == 0 + "" ? "checked=checked" : "") class="form-control" name="IsShelf" value="0">否
 
 
-                            <input type="radio" id="InputMobile" @(ViewBag.IsShelf == 1 + "" ? "checked=checked" : "") class="form-control" name="IsShelf" value="1">否
+
+                                  <input type="radio" id="InputMobile" @(ViewBag.IsShelf == 1 + "" ? "checked=checked" : "") class="form-control" name="IsShelf" value="1">是
 
 
-                        </div> <div class="hr-line-dashed"></div>
-
-                        <button class="btn btn-white" type="submit">查询</button>
+                              </div>
+                        <button style="float:right;width:110px;height:54px" class="btn btn-white" type="submit">查询</button>
                     }
                     <div class="hr-line-dashed"></div>
                     <table class="table table-bordered">
@@ -113,7 +112,7 @@
                                     <tr>
                                         <td>@item.GiftName</td>
                                         <td>@item.GiftNo </td>
-                                        <td>@(item.IsShelf == 0 ? "是" : "否")</td>
+                                        <td>@(item.IsShelf == 1 ? "是" : "否")</td>
                                         <td>
                                             @{
 
@@ -126,36 +125,36 @@
                                                     {
                                                         @c[0].TagName ;
                                                     }
-
-
-
                                                 }
                                             }
                                         </td>
                                         <td>@( item.GiftType == 0 ? "是" : "否")</td>
                                         <td>@item.GiftInventory</td>
 
-                                        <td>
-                                            @{ if (item.IsCoupon == null)
+                                        <td style="text-align:center">
+                                            @{
+                                                if (item.IsCoupon == null)
                                                 {
 
                                                     <a href="@Url.Action("RealGiftsDetail", new { id = item.id })">明细</a>
-                                                    <a href="@Url.Action("RealGiftsEdit", new { id = item.id })">编辑</a>
-
+                                                    <a href="@Url.Action("RealGiftsEdit", new { id = item.id })">编辑</a> 
                                                 }
                                                 else if (item.IsCoupon == 0)
                                                 {
                                                     <a href="@Url.Action("PrivateGiftsDetail", new { id = item.id })">明细</a>
-                                                    <a href="@Url.Action("PrivateGiftsEdit", new { id = item.id })">编辑</a>
-
+                                                    <a href="@Url.Action("PrivateGiftsEdit", new { id = item.id })">编辑</a> 
                                                 }
                                                 else if (item.IsCoupon == 1)
                                                 {
 
                                                     <a href="@Url.Action("OthersGiftsDetail", new { id = item.id })">明细</a>
-                                                    <a href="@Url.Action("OthersGiftsEdit", new { id = item.id })">编辑</a>
-
-                                                } }
+                                                    <a href="@Url.Action("OthersGiftsEdit", new { id = item.id })">编辑</a> 
+                                                }
+                                                //确认已启用
+                                                if (item.IsShelf == 1)
+                                                {
+                                                    <a href="@Url.Action("TakeActivity", new { id = item.id })">查看报名</a>
+                                                }}
 
                                         </td>
                                     </tr>
@@ -168,22 +167,14 @@
                         <div class="row">
                             <div class="col-sm-8">
                                 @Html.PagedListPager(Model, page => Url.Action("Index", new { page,
-
                                GiftName = ViewBag.GiftName,
                                GiftNo = ViewBag.GiftNo,
                                T_GiftsTagId = ViewBag.T_GiftsTagId,
                                GiftType = ViewBag.GiftType,
                                IsShelf = ViewBag.IsShelf,
                                mobile = ViewBag.Mobile,
-
                                payment = ViewBag.Payment
-
-
-
-                           }
-
-
-
+                                                          }
                            ), PositiveEdu.Common.PagerUtility.GetPagedListRenderOptions())
                             </div>
                             <div class="col-sm-4 pagination text-right">

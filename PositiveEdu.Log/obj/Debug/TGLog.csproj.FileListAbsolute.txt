@@ -25,3 +25,12 @@ D:\mycode\22点00分mycode\trunk\PositiveEdu.Log\obj\Debug\TGLog.csproj.CoreComp
 D:\mycode\22点00分mycode\trunk\PositiveEdu.Log\obj\Debug\TGLog.csproj.CopyComplete
 D:\mycode\22点00分mycode\trunk\PositiveEdu.Log\obj\Debug\TGLog.dll
 D:\mycode\22点00分mycode\trunk\PositiveEdu.Log\obj\Debug\TGLog.pdb
+D:\接活\1\trunk\PositiveEdu.Log\bin\Debug\TGLog.dll
+D:\接活\1\trunk\PositiveEdu.Log\bin\Debug\TGLog.pdb
+D:\接活\1\trunk\PositiveEdu.Log\bin\Debug\log4net.dll
+D:\接活\1\trunk\PositiveEdu.Log\bin\Debug\log4net.xml
+D:\接活\1\trunk\PositiveEdu.Log\obj\Debug\TGLog.csprojAssemblyReference.cache
+D:\接活\1\trunk\PositiveEdu.Log\obj\Debug\TGLog.csproj.CoreCompileInputs.cache
+D:\接活\1\trunk\PositiveEdu.Log\obj\Debug\TGLog.csproj.CopyComplete
+D:\接活\1\trunk\PositiveEdu.Log\obj\Debug\TGLog.dll
+D:\接活\1\trunk\PositiveEdu.Log\obj\Debug\TGLog.pdb

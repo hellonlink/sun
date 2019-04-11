@@ -32,23 +32,34 @@
                 </div>
                 <div class="ibox-content">
                     <a href="@Url.Action("CustomerCreate")" class="btn btn-default">新增会员</a>
+                    <a href="@Url.Action("ImportCustomes")" class="btn btn-default">批量导入会员</a>
+                    <a href="@Url.Action("T_OthersGiftsRecordIndex","GifiManage",new { id=1})" class="btn btn-default">批量导入会员记录</a>
 
                     @using (Html.BeginForm("Index", "CustomerManage", FormMethod.Get, htmlAttributes: new { @class = "form-inline" }))
                     {
+                        <div class="hr-line-dashed"></div>
                         <div class="form-group">
-                            <label for="InputMobile" class="sr-only">会员名称</label>
+                            <label>会员名称</label>
                             <input type="text" placeholder="会员名称" id="InputMobile" class="form-control" name="CustomerRealName" value="@ViewBag._CustomerRealName">
                         </div>
                         <div class="form-group">
-                            <label for="InputMobile" class="sr-only">会员手机号</label>
+                            <label>会员手机号</label>
                             <input type="text" placeholder="会员手机号" id="InputMobile" class="form-control" name="CustomerPhoneNum" value="@ViewBag._CustomerPhoneNum">
                         </div>
                         <div class="form-group">
-                            <label for="InputMobile" class="sr-only">微信昵称</label>
+                            <label>微信昵称</label>
                             <input type="text" placeholder="微信昵称" id="InputMobile" class="form-control" name="CustomerWechatNickName" value="@ViewBag._CustomerWechatNickName">
                         </div>
                         <div class="form-group">
-                            <label for="SelectPayment" class="sr-only">性别</label>
+                            <label>会员编号</label>
+                            <input type="text" placeholder="会员编号" id="InputMobile" class="form-control" name="CustomerId" value="@ViewBag._CustomerId">
+                        </div>
+                        <div class="form-group">
+                            <label>证件号</label>
+                            <input type="text" placeholder="证件号" id="InputMobile" class="form-control" name="CustomerCertificateNum" value="@ViewBag._CustomerCertificateNum">
+                        </div>
+                        <div class="form-group">
+                            <label>性别</label>
 
                             <select class="form-control" name="payment" id="sex">
                                 <option value="全部" @(ViewBag.payment == "全部" ? "selected =selected" : "")>全部</option>
@@ -57,31 +68,22 @@
                                 <option value="未知" @(ViewBag.payment == "未知" ? "selected =selected" : "")>未知</option>
 
                             </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="InputMobile" class="sr-only">证件号</label>
-                            <input type="text" placeholder="证件号" id="InputMobile" class="form-control" name="CustomerCertificateNum" value="@ViewBag._CustomerCertificateNum">
-                        </div>
-                        <div class="form-group">
-                            <label for="InputMobile" class="sr-only">会员编号</label>
-                            <input type="text" placeholder="会员编号" id="InputMobile" class="form-control" name="CustomerId" value="@ViewBag._CustomerId">
-                        </div>
-                        <div></div>
+                        </div><div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <label for="SelectPayment" class="sr-only">会员标签</label>
                             <label>自定义字段1 <input type="checkbox" value="1" name="role" @(((String[])ViewBag.role).Contains(1 + "") ? "checked=checked" : "")><input type="text" placeholder="标签1内容" id="InputMobile" class="form-control" name="SelectPayment1" value="@ViewBag.SelectPayment1"><i></i>  </label>
                             <label>自定义字段2 <input type="checkbox" value="2" name="role" @(((String[])ViewBag.role).Contains(2 + "") ? "checked=checked" : "")><input type="text" placeholder="标签2内容" id="InputMobile" class="form-control" name="SelectPayment2" value="@ViewBag.SelectPayment2"><i></i>  </label>
                             <label>自定义字段3 <input type="checkbox" value="3" name="role" @(((String[])ViewBag.role).Contains(3 + "") ? "checked=checked" : "")><input type="text" placeholder="标签3内容" id="InputMobile" class="form-control" name="SelectPayment3" value="@ViewBag.SelectPayment3"><i></i>  </label>
                             <label>自定义字段4 <input type="checkbox" value="4" name="role" @(((String[])ViewBag.role).Contains(4 + "") ? "checked=checked" : "")><input type="text" placeholder="标签4内容" id="InputMobile" class="form-control" name="SelectPayment4" value="@ViewBag.SelectPayment4"><i></i>  </label>
-                            <label>自定义字段5 <input type="checkbox" value="5" name="role" @(((String[])ViewBag.role).Contains(5 + "") ? "checked=checked" : "")><input type="text" placeholder="标签5内容" id="InputMobile" class="form-control" name="SelectPayment5" value="@ViewBag.SelectPayment5"><i></i>  </label>
+                            <label>自定义字段5 <input type="checkbox" value="5" name="role" @(((String[])ViewBag.role).Contains(5 + "") ? "checked=checked" : "")><input type="text" placeholder="标签5内容" id="InputMobile" class="form-control" name="SelectPayment5" value="@ViewBag.SelectPayment5"><i></i>  </label><div class="hr-line-dashed"></div>
                             <label>自定义字段6 <input type="checkbox" value="6" name="role" @(((String[])ViewBag.role).Contains(6 + "") ? "checked=checked" : "")><input type="text" placeholder="标签6内容" id="InputMobile" class="form-control" name="SelectPayment6" value="@ViewBag.SelectPayment6"><i></i>  </label>
                             <label>自定义字段7 <input type="checkbox" value="7" name="role" @(((String[])ViewBag.role).Contains(7 + "") ? "checked=checked" : "")><input type="text" placeholder="标签7内容" id="InputMobile" class="form-control" name="SelectPayment7" value="@ViewBag.SelectPayment7"><i></i>  </label>
                             <label>自定义字段8 <input type="checkbox" value="8" name="role" @(((String[])ViewBag.role).Contains(8 + "") ? "checked=checked" : "")><input type="text" placeholder="标签8内容" id="InputMobile" class="form-control" name="SelectPayment8" value="@ViewBag.SelectPayment8"><i></i>  </label>
                             <label>自定义字段9 <input type="checkbox" value="9" name="role" @(((String[])ViewBag.role).Contains(9 + "") ? "checked=checked" : "")><input type="text" placeholder="标签9内容" id="InputMobile" class="form-control" name="SelectPayment9" value="@ViewBag.SelectPayment9"><i></i>  </label>
                             <label> 自定义字段10<input type="checkbox" value="10" name="role" @(((String[])ViewBag.role).Contains(10 + "") ? "checked=checked" : "")> <input type="text" placeholder="标签10内容" id="InputMobile" class="form-control" name="SelectPayment10" value="@ViewBag.SelectPayment10"> <i></i>  </label>
                         </div>
-
-                        <button class="btn btn-white" type="submit">查询</button>
+                        <div class="hr-line-dashed"></div>
+                        <button style="float:right;width:110px;height:54px" class="btn btn-white" type="submit">查询</button>
                     }
 
                     <div class="hr-line-dashed"></div>
@@ -111,9 +113,19 @@
                                         <td>@item.CustomerId</td>
                                         <td>@item.CustomerCertificateNum</td>
                                         <td>@item.CustomerSex</td>
-                                        <td>
+                                        <td style="text-align:center">
                                             <a href="@Url.Action("Detail", new { id = item.Id })">查看</a>
                                             <a href="@Url.Action("Edit", new { id = item.Id })">编辑</a>
+                                            @{ if (item.T_CustomerIntegralRecord.Count() >= 0)
+                                                {
+
+                                                    <a href="@Url.Action("T_CustomerIntegralRecords", new { id = item.Id })">会员积分记录表</a>
+                                                }}
+                                            @{ if (item.T_GiftsChild.Count() == 0)
+                                                {
+
+                                                    <a href="@Url.Action("T_GiftsChildRecords", new { id = item.Id })">会员礼品</a>
+                                                }}
                                         </td>
                                     </tr>
 
@@ -133,7 +145,7 @@
                                _CustomerCertificateNum = ViewBag._CustomerCertificateNum,
                                _CustomerSex = ViewBag._CustomerSex,
                                payment = ViewBag.payment,
-                               role = ViewBag.role,
+
                                SelectPayment1 = ViewBag.SelectPayment1,
                                SelectPayment2 = ViewBag.SelectPayment2,
                                SelectPayment3 = ViewBag.SelectPayment3,

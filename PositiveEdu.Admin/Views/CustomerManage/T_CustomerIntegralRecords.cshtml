@@ -1,0 +1,130 @@
+﻿@using PositiveEdu.DAL
+@using PagedList
+@using PagedList.Mvc
+@model PagedList<T_CustomerIntegralRecord>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>会员积分记录</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/CustomerManage">会员管理</a>
+            </li>
+            <li class="active">
+                <strong>会员积分记录</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>会员积分记录</h5>
+                </div>
+                <div class="ibox-content">
+
+                    <div class="form-group" style="font-size:10px">
+                        @{T_Customer c = (T_Customer)ViewBag.a;}
+                        <br /> <label>会员姓名：  @c.CustomerRealName </label>
+                        <br /> <label>会员手机号  @c.CustomerPhoneNum</label>
+                        <br /> <label>会员编号：  @c.CustomerId   </label>
+                        <br /> <label>证件编号：  @c.CustomerCertificateType _ @c.CustomerCertificateNum  </label>
+                        <br /> <label>当前积分：  @c.CustomerCurrentIntegral   </label>
+
+                    </div>
+
+
+                    <div class="hr-line-dashed"></div>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th> 积分变更       </th>
+                                <th> 剩余积分       </th>
+                                <th> 类型       </th>
+                                <th> 操作人       </th>
+                                <th> 原因       </th>
+                                <th> 发生时间       </th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+
+                                foreach (var item in Model)
+                                {
+
+                                    <tr>
+                                        <td>   @item.integralExchangeValue     </td>
+                                        <td>   @item.AfterExchangeintegralValue     </td>
+                                        <td>
+                                            @{
+                                                if (item.ExchangeType == 0)
+                                                {
+                                                    <text>兑换消费积分</text>
+                                                }
+                                                else if (item.ExchangeType == 1)
+                                                {
+                                                    <text> 手工增减积分</text>
+                                                }
+                                                else if (item.ExchangeType == 2)
+                                                {
+                                                    <text> 2手工增减积分。</text>
+                                                }
+
+                                            }
+                                        </td>
+                                        <td>   @item.CreatedBy      </td>
+                                        <td>   @item.ExchangeReason      </td>
+                                        <td>   @item.ExchangeTime    </td>
+
+                                    </tr>
+
+                                }
+                            }
+                        </tbody>
+                    </table>
+                    <div class="dataTables_paginate">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                @Html.PagedListPager(Model, page => Url.Action("T_CustomerIntegralRecords", new { page
+
+                                                          }
+                           ), PositiveEdu.Common.PagerUtility.GetPagedListRenderOptions())
+                            </div>
+                            <div class="col-sm-4 pagination text-right">
+                                @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                @using (Html.BeginForm("T_CustomerIntegralRecords", "CustomerManage", FormMethod.Post, htmlAttributes: new { @class = "form-inline" }))
+                {
+                    <div class="form-group">
+                        <label  >积分变更值:</label>
+                        <input type="text" placeholder="积分变更值" id="InputMobile" class="form-control" name="integralExchangeValue">
+                        <input type="text"   hidden="hidden" value="@c.Id" name="id">
+                        <text style="color:blue;">加积分就填正数，减积分就填负数</text>
+                    </div><br />
+                    <div class="form-group">
+                        <label  >操作原因: <br /><text style="color:red">必填</text></label>
+                        <textarea class="form-control" name="ExchangeReason"
+                                  style=" width:400px;height:400px;"></textarea>
+
+                    </div><br />
+                    <button style="float:right" class="btn btn-white" type="submit">确认修改</button>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+

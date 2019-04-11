@@ -43,36 +43,99 @@
 
                         @Html.AntiForgeryToken()
 
-                        <div class="form-group">
+                        <div style="margin-left:40px;" class="form-group">
                             <label>礼品名称：</label>@Model.GiftName
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>是否实体礼品：</label><h3></h3>
-                            @(Model.GiftType == 0 ? "是" : "否")
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>兑换所需积分：</label>@Model.RedeemPoints
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
 
 
+                            <label>批量生成标记：</label>
+                            @Model.OpenCodeCouponNo
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>卷证简介：</label>@Model.GiftIntroductionText
+                        </div><div class="hr-line-dashed"></div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>自定义字段1：</label>@Model.Tag1
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
 
+                            <label>自定义字段2：</label>@Model.Tag2
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>自定义字段3：</label>@Model.Tag3
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>自定义字段4：</label>@Model.Tag4
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>自定义字段5：</label>@Model.Tag5
+                        </div><div class="hr-line-dashed"></div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>是否实体礼品：</label>
+                            @(Model.GiftType == 11 ? "是" : "否")
 
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
                             <label>券证类型：</label>
                             @(Model.IsCoupon == 0 ? "自主券证" : "第三方券证")
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
                             <label>优惠类型：</label>
-                            @(Model.SaveType == 0 ? "自主券证" : (Model.SaveType == 1 ? "现金抵用券" : "折扣券"));
+                            @(Model.SaveType == 0 ? "礼品兑换券" : (Model.SaveType == 1 ? "现金抵用券" : "折扣券"));
+
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
 
 
+                            <label>消费金额限制：>=  ：</label>
+                            @Model.MoneyLimit
+                        </div><div class="hr-line-dashed"></div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>所属分类：</label>
+
+                            @{
+
+                                PeContext DB = new PeContext();
+                                var a = DB.T_GiftsTag.ToList();
+
+                                foreach (var item in a)
+                                {
 
 
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
+                                    if (Model.T_GiftsTagId == item.id)
+                                    {
+                                        @item.TagName
+                                    }
+
+                                }
+
+                                DB.Dispose();
+
+                            }
+
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>是否有效：</label>
+                            @(Model.IsShelf == 1 ? "是" : "否")
+
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>是否积分商城可以兑换：</label>
+                            @(Model.GiftType == 1? "是" : "否")
+
+
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
 
 
                             <label>抵用金额：</label>@Model.SaveMoney
 
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
+                        </div><div class="hr-line-dashed"></div>
+                        <div style="margin-left:40px;" class="form-group">
                             <label class="col-sm-2 control-label">使用时间限制：</label>
                             <div class="col-sm-10">
                                 <div class="input-group date col-lg-3">
@@ -99,36 +162,23 @@
                                     <input type="text" style="width:500px " class="form-control input-sm" name="StopTime" value="@dtStr2">
                                 </div>
                             </div>
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
+                        </div>
 
 
-                            <label>消费金额限制：>=  ：</label>
-                            @Model.MoneyLimit
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-
-
-                            <label>批量生成标记：</label>
-                            @Model.OpenCodeCouponNo
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>卷证简介：</label>@Model.GiftIntroductionText
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
+                        <div style="margin-left:40px;" class="form-group">
                             <label>礼品缩略图：</label>
 
                             <img src="@Model.GiftThumbnailPicture" alt="..." class="img-thumbnail" />
 
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
+                        </div><div class="hr-line-dashed"></div>
+                        <div style="margin-left:40px;" class="form-group">
                             <label>礼品大图：</label>
 
                             <img src="@Model.GiftMainPicture" alt="..." class="img-thumbnail" />
 
 
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
+                        </div><div class="hr-line-dashed"></div>
+                        <div style="margin-left:40px;" class="form-group">
                             <label class="col-sm-2 control-label">图文介绍：</label>
                             <div class="col-sm-10">
                                 <script type="text/plain" id="myEditor" name="GiftIntroductionPT" style="width:100%;height:460px;">
@@ -136,64 +186,10 @@
 
                                 </script>
                             </div>
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>所属分类：</label>
-
-                            @{
-
-                                PeContext DB = new PeContext();
-                                var a = DB.T_GiftsTag.ToList();
-
-                                foreach (var item in a)
-                                {
-
-
-                                    if (Model.T_GiftsTagId == item.id)
-                                    {
-                                        @item.TagName
-                                    }
-
-                                }
-
-                                DB.Dispose();
-
-                            }
-
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>是否有效：</label>
-                            @(Model.GiftType == 0 ? "是" : "否")
-
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>是否积分商城可以兑换：</label><h3></h3>
-                            @(Model.GiftType == 0 ? "是" : "否")
-
-
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>兑换所需积分：</label>@Model.RedeemPoints
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>自定义字段1：：</label>@Model.Tag1
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-
-                            <label>自定义字段2：：</label>@Model.Tag2
                         </div><div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>自定义字段3：：</label>@Model.Tag3
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
+                        <div style="margin-left:40px;" class="form-group">
 
-                            <div class="form-group">
-                                <label>自定义字段4：</label>@Model.Tag4
-                            </div> <div class="hr-line-dashed"></div>
 
-                            <div class="form-group">
-                                <label>自定义字段5：：</label>@Model.Tag5
-                            </div> <div class="hr-line-dashed"></div>
 
                             <input type="hidden" name="id" value="@Model.id">
 

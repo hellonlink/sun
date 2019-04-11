@@ -1,0 +1,235 @@
+﻿@using PositiveEdu.DAL
+@using PagedList
+@using PagedList.Mvc
+@model PagedList<T_Customer>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>报名列表</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="###">会员管理</a>
+            </li>
+            <li class="active">
+                <strong>报名列表</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>报名列表</h5>
+                </div>
+                <div class="ibox-content">
+                    <h2>当前活动：@ViewBag.Name</h2>
+
+
+                    @using (Html.BeginForm("HumanTakeActivity", "ActivityManage", FormMethod.Get, htmlAttributes: new { @class = "form-inline" }))
+                    {
+                        <div class="form-group">
+                            <label for="InputMobile" class="sr-only">会员名称</label>
+                            <input type="text" placeholder="会员名称" id="InputMobile" class="form-control" name="CustomerRealName" value="@ViewBag._CustomerRealName">
+                        </div>
+                        <div class="form-group">
+                            <label for="InputMobile" class="sr-only">会员手机号</label>
+                            <input type="text" placeholder="会员手机号" id="InputMobile" class="form-control" name="CustomerPhoneNum" value="@ViewBag._CustomerPhoneNum">
+                        </div>
+                        <div class="form-group">
+                            <label for="InputMobile" class="sr-only">微信昵称</label>
+                            <input type="text" placeholder="微信昵称" id="InputMobile" class="form-control" name="CustomerWechatNickName" value="@ViewBag._CustomerWechatNickName">
+                        </div>
+                        <div class="form-group">
+                            <label for="SelectPayment" class="sr-only">性别</label>
+
+                            <select class="form-control" name="payment" id="sex">
+                                <option value="全部" @(ViewBag.payment == "全部" ? "selected =selected" : "")>全部</option>
+                                <option value="男" @(ViewBag.payment == "男" ? "selected =selected" : "")>男</option>
+                                <option value="女" @(ViewBag.payment == "女" ? "selected =selected" : "")>女</option>
+                                <option value="未知" @(ViewBag.payment == "未知" ? "selected =selected" : "")>未知</option>
+
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="InputMobile" class="sr-only">证件号</label>
+                            <input type="text" placeholder="证件号" id="InputMobile" class="form-control" name="CustomerCertificateNum" value="@ViewBag._CustomerCertificateNum">
+                        </div>
+                        <div class="form-group">
+                            <label for="InputMobile" class="sr-only">会员编号</label>
+                            <input type="text" placeholder="会员编号" id="InputMobile" class="form-control" name="CustomerId" value="@ViewBag._CustomerId">
+                        </div>
+                        <div></div>
+
+                        <button class="btn btn-white" type="submit">查询</button>
+                    }
+
+                    <div class="hr-line-dashed"></div>
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+
+                                <th>会员</th>
+                                <th>手机号</th>
+                                <th>会员号</th>
+                                <th>证件号</th>
+                                <th>是否已报名</th>
+                                <th>选择</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tb">
+                            @{
+                                var h = 0;
+                                foreach (var item in Model)
+                                {
+
+                                    <tr>
+
+                                        <td>@item.CustomerRealName</td>
+                                        <td>@item.CustomerPhoneNum</td>
+                                        <td>@item.CustomerId</td>
+                                        <td>@item.CustomerCertificateNum</td>
+                                        <td>
+                                            @{
+                                                int ad = ViewBag.ad;
+                                                var t = item.T_CustomerActivity.Where(x => x.T_ActivityId == ad).ToList();
+                                                if (t.Count > 0)
+                                                {
+                                                    <text>是</text>
+                                                }
+                                                else
+                                                {
+                                                    <text>否</text>
+                                                }
+                                            }
+                                        </td>
+                                        <td>
+                                            @{
+
+                                                if (t.Count > 0)
+                                                {
+                                                    <text>该会员已经加入</text>
+                                                    <input hidden="hidden" value="@item.Id" type="checkbox" id="a@(h)" />
+                                                }
+                                                else
+                                                {
+                                                    <input type="checkbox" value="@item.Id" id="a@(h)" />
+                                                }
+                                            }
+                                        </td>
+                                    </tr>
+                                    h++;
+                                }
+
+                            }
+                        </tbody>
+                    </table>
+                    <div class="dataTables_paginate">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                @Html.PagedListPager(Model, page => Url.Action("HumanTakeActivity", new { page,
+
+                               _CustomerRealName = ViewBag._CustomerRealName,
+                               _CustomerPhoneNum = ViewBag._CustomerPhoneNum,
+                               _CustomerWechatNickName = ViewBag._CustomerWechatNickName,
+                               _CustomerCertificateNum = ViewBag._CustomerCertificateNum,
+                               _CustomerSex = ViewBag._CustomerSex,
+                               payment = ViewBag.payment,
+                               role = ViewBag.role,
+                               id = ViewBag.ad
+
+                           }), PositiveEdu.Common.PagerUtility.GetPagedListRenderOptions())
+                            </div>
+                            <div class="col-sm-4 pagination text-right">
+                                @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="ad()">所选会员加入报名</button>
+                    <div id="t">@ViewBag.txt</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+
+
+
+        function ad() {
+            var b = ""
+            //获取复选框
+            for (var i = 0; i < $("#tb").children().length; i++) {
+                var ck = $("#a" + i);
+
+                if (ck.prop("checked")) {
+                    console.log(ck.val())
+                    b = b + ck.val() + ",";
+                }
+            }
+            if (b == "") {
+                alert("请至少选择一项！")
+                return;
+            }
+
+
+            $.ajax({
+                type: "post",
+                url: "/ActivityManage/TakeActivityByHuman",   //控制器路径
+                type: 'POST',
+                dataType: 'json',
+                data: JSON.stringify({
+                    data: b,
+                    id:@(ViewBag.ad)+""
+                }),
+                contentType: "application/json",
+                async: true,
+
+                beforeSend: function () {
+
+                },
+                success: function (r) {
+
+                    //console.log(r);
+                    //var b = "<h2>此次加入:" + r.s + "名 失败:" + r.f + "名</h2>";
+                    //$("#t").append(b);
+                    //window.location.reload()
+
+                    console.log(r);
+                    var b = "此次加入:" + r.s + "名 失败:" + r.f + "名";
+                    if (r.m != "") {
+                        //alert(r.m);
+                        alert(b + "原因:" + r.m);
+
+                    } else {
+                        alert(b);
+                    }
+                    setInterval("window.location.reload()", 2000)
+                  
+                },
+                error: function () {
+
+                }
+            });
+
+
+
+
+
+
+        }
+
+
+    </script>
+}

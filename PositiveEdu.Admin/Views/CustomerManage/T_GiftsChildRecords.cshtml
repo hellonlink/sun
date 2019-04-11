@@ -1,0 +1,228 @@
+﻿@using PositiveEdu.DAL
+@using PagedList
+@using PagedList.Mvc
+@model PagedList<T_GiftsChild>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>会员礼品</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/CustomerManage">会员管理</a>
+            </li>
+            <li class="active">
+                <strong>会员礼品</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>会员礼品</h5>
+                </div>
+                <div class="ibox-content">
+                    @{T_Customer c = (T_Customer)ViewBag.a;}
+                    <div class="form-group">
+                        <br /> <label>会员姓名：   @c.CustomerRealName </label>
+                        <br /> <label>会员手机号   @c.CustomerPhoneNum</label>
+                        <br /> <label>会员编号：   @c.CustomerId   </label>
+                        <br /> <label>证件编号：   @c.CustomerCertificateType _ @c.CustomerCertificateNum  </label>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th> 礼品       </th>
+                                <th> 类型       </th>
+                                <th> 获取渠道       </th>
+                                <th> 操作人       </th>
+                                <th> 原因       </th>
+                                <th> 获得时间       </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+
+                                foreach (var item in Model)
+                                {
+
+                                    <tr>
+                                        <td>   @item.T_Gifts.GiftName     </td>
+                                        <td>   @item.T_Gifts.GiftType==0?"虚拟":"实物"     </td>
+                                        <td>
+                                            @{
+                                                if (item.ExchangeType == 0)
+                                                {
+                                                    <text>@item.T_Activity.ActivityName</text>
+                                                }
+                                                else if (item.ExchangeType == 1)
+                                                {
+                                                    <text> 积分商城兑换</text>
+                                                }
+                                                else if (item.ExchangeType == 2)
+                                                {
+                                                    <text> 手工赠送。</text>
+                                                }
+                                                else if (item.ExchangeType == 3)
+                                                {
+                                                    <text> 外部发生</text>
+                                                }
+                                            }
+                                        </td>
+                                        <td>   @item.CreatedBy      </td>
+                                        <td>   @item.GetReason      </td>
+                                        <td>   @item.ExchangeTime    </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                    <div class="dataTables_paginate">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                @Html.PagedListPager(Model, page => Url.Action("T_CustomerIntegralRecords", new { page
+
+                                                          }
+                           ), PositiveEdu.Common.PagerUtility.GetPagedListRenderOptions())
+                            </div>
+                            <div class="col-sm-4 pagination text-right">
+                                @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @using (Html.BeginForm("T_GiftsChildRecords", "CustomerManage", FormMethod.Get, htmlAttributes: new { @class = "form-inline" }))
+                {
+                    <div>
+                        礼品选择:
+                        <select id="s1" name="s1"></select>
+                        &nbsp;
+                        <select id="s2" name="s2"></select>
+                        数量&nbsp;<input type="text" name="s3" id="ct2" value="0" onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')" />
+                        <input type="hidden" name="id" value="@c.Id" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>操作原因：：<br /><text style="color:red">必填</text></label>
+                        <textarea class="form-control" name="GetReason"
+                                  style=" width:324px;height:400px;"></textarea>
+                    </div><br />
+                    <button style="float:right;width:400px;font-size:40px" class="btn btn-white" type="submit">确认修改</button>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+
+    <script type="text/javascript">
+
+        //数据源绑定
+        //下拉列表数据源
+        var Get_date = null;
+        //奖项列表数据源
+        var Get_date1 = null;
+        //分类下拉列表对象
+        var s1 = $("#s1");
+        //礼品下拉列表对象
+        var s2 = $("#s2");
+        //奖品列表对象
+        var tb = $("#tb");
+        //奖项列表对象
+        var tb1 = $("#tb1");
+        //数量控制
+        var ct1 = 0;
+        //下拉列表数据源获取
+        function GetDate() {
+            $.ajax({
+                url: "/ActivityManage/GetGifts",   //控制器路径
+                type: 'POST',
+                dataType: 'json',
+                data: JSON.stringify({
+                }),
+                contentType: "application/json",
+                async: true,
+                beforeSend: function () {
+                },
+                success: function (r) {
+                    Get_date = JSON.parse(r);
+                    console.log(Get_date);
+                    for (var i = 0; i < Get_date.length; i++) {
+                        //礼品分类填充
+                        s1.append("<option value='" + i + "'>" + Get_date[i].Key.TagName + "</option>");
+                        for (var j = 0; j < Get_date[i].Value.length; j++) {
+                            if (i == 0) {
+                                //礼品填充,填充第一次
+                                s2.append(" <option value='" + Get_date[i].Value[j].GiftInventory + "'>" + Get_date[i].Value[j].GiftName + "</option>");
+                                //数量
+                                $("#ct2").val(Get_date[i].Value[j].GiftInventory);
+                            }
+                        }
+                    }
+                },
+                error: function () {
+                }
+            });
+        }
+        //s1下拉列表事件
+        $("select#s1").change(function () {
+            var c1 = $('#s1 option:selected').text();//选中的文本
+            var c2 = $('#s1 option:selected').val();//选中的值
+            console.log(c1);
+            s2.empty();
+            for (var i = 0; i < Get_date.length; i++) {
+                //礼品分类填充
+                //s1.append("<option value='value'>" + Get_date[i].Key.TagName + "</option>");
+                for (var j = 0; j < Get_date[i].Value.length; j++) {
+                    if (i == c2) {
+                        //礼品填充,填充第一次
+                        console.log(Get_date[i].Value[j].GiftName)
+                        s2.append(" <option value='" + Get_date[i].Value[j].GiftInventory + "_'" + Get_date[i].Value[j].id + ">" + Get_date[i].Value[j].GiftName + "</option>");
+                        //默认第一项
+                        if (j == 0) {
+                            $("#ct2").val(Get_date[i].Value[j].GiftInventory);
+                        }
+                    }
+
+                }
+            }
+        });
+        //s2下拉列表事件
+        $("select#s2").change(function () {
+            var c1 = $('#s2 option:selected').text();//选中的文本
+            var c2 = $('#s2 option:selected').val();//选中的值
+            $("#ct2").val(c2);
+            //console.log(c2);
+        })
+
+        //加载事件
+        $(function () {
+            GetDate()
+
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+            $('#TmbUploadImg').thumbnail();
+            $('.input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true,
+                format: "yyyy-mm-dd",
+                language: 'zh-CN',
+            });
+        });
+
+    </script>
+}

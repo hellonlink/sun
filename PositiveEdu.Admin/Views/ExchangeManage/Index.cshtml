@@ -1,0 +1,191 @@
+﻿@using PositiveEdu.DAL
+@using PagedList
+@using PagedList.Mvc
+@model PagedList<T_ExchangeGifts>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>兑换列表</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="###">兑换管理</a>
+            </li>
+            <li class="active">
+                <strong>兑换列表</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>兑换列表</h5>
+                </div>
+                <div class="ibox-content">
+                    @using (Html.BeginForm("Index", "CustomerManage", FormMethod.Get, htmlAttributes: new { @class = "form-inline" }))
+                    {
+                        <div class="form-group">
+                            <label for="InputMobile" class="sr-only">会员名称</label>
+                            <input type="text" placeholder="会员名称" id="InputMobile" class="form-control" name="CustomerRealName" value="@ViewBag._CustomerRealName">
+                        </div><div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label for="InputMobile" class="sr-only">会员编号</label>
+                            <input type="text" placeholder="会员编号" id="InputMobile" class="form-control" name="CustomerId" value="@ViewBag._CustomerId">
+                        </div><div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label>礼品名称：</label>
+                            <input type="text" placeholder="礼品名称" id="InputMobile" class="form-control" name="GiftName" value="@ViewBag.GiftName">
+                        </div><div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label>礼品编号：</label>
+                            <input type="text" placeholder="礼品编号" id="InputMobile" class="form-control" name="GiftNo" value="@ViewBag.GiftNo">
+                        </div> <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label>所属分类：</label>
+                            <select class="form-control" name="T_GiftsTagId" id="sex">
+                                <option value="全部" @(ViewBag.T_GiftsTagId == "全部" ? "selected =selected" : "")>全部</option>
+                                @{
+
+                                    PeContext d = new PeContext();
+
+                                    ;
+                                    foreach (var item in d.T_GiftsTag.ToList())
+                                    {
+                                        <option value="@item.id" @(ViewBag.T_GiftsTagId == item.id + "" ? "selected =selected" : "")>@item.TagName</option>
+                                    }
+
+
+
+                                }
+
+                            </select>
+                        </div> <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label>是否实体礼品：</label>
+                            <input type="radio" id="InputMobile" @( ViewBag.GiftType == 0 + "" ? "checked=checked" : "") class="form-control" name="GiftType" value="0">是
+
+
+
+                            <input type="radio" id="InputMobile" @(ViewBag.GiftType == 1 + "" ? "checked=checked" : "") class="form-control" name="GiftType" value="1">否
+
+
+                        </div> <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">券证兑换时间：</label>
+                            <div class="col-sm-10">
+                                <div class="input-group date col-lg-3">
+
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+
+                                    <input type="text" style="width:500px " class="form-control input-sm" name="ExchangeStartTime" value="@ViewBag.ExchangeStartTime">
+                                    <span>~</span>
+                                </div>
+                                <div class="input-group date col-lg-3">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+
+                                    <input type="text" style="width:500px " class="form-control input-sm" name="ExchangeStopTime" value="@ViewBag.ExchangeStopTime">
+                                </div>
+                            </div>
+                        </div> <div class="hr-line-dashed"></div>
+
+
+                        <button class="btn btn-white" type="submit">查询</button>
+                    }
+
+                    <div class="hr-line-dashed"></div>
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+
+                                <th>礼品名称</th>
+                                <th>兑换人</th>
+                                <th>配送状态</th>
+
+                                <th>是否虚拟礼品</th>
+                                <th>兑换时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+
+                                foreach (var item in Model)
+                                {
+
+                                    <tr>
+                                        <td>@item.T_Gifts.GiftName</td>
+                                        <td>@item.T_Customer.CustomerRealName</td>
+                                        <td>
+                                            @{
+
+                                                if (item.CourierStatus == 0)
+                                                {
+                                                    <text>已经完成</text>
+                                                }
+                                                else if (item.CourierStatus == 1)
+                                                {
+                                                    <text>已经做费废</text>
+
+                                                }
+                                                else if (item.CourierStatus == 2)
+                                                {
+                                                    <text>待自提</text>
+
+                                                }
+                                                else if (item.CourierStatus == 3)
+                                                {
+                                                    <text>待发货</text>
+
+                                                }
+
+                                            }
+                                        </td>
+
+                                        <td>@( item.T_Gifts.GiftType == 0 ? "是" : "否" )</td>
+                                        <td>>@item.CreatedOn</td>
+                                        <td>
+                                            <a href="@Url.Action("Detail", new { id = item.Id })">查看</a>
+                                            <a href="@Url.Action("Edit", new { id = item.Id })">编辑</a>
+                                        </td>
+                                    </tr>
+
+                                }
+                            }
+                        </tbody>
+                    </table>
+
+                    <div class="dataTables_paginate">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                @Html.PagedListPager(Model, page => Url.Action("Index", new { page,
+
+                               _CustomerRealName = ViewBag._CustomerRealName,
+                               _CustomerId=   ViewBag._CustomerId,
+                               GiftName = ViewBag.GiftName,
+                               GiftNo= ViewBag.GiftNo,
+                               GiftType = ViewBag.GiftType,
+                               T_GiftsTagId= ViewBag.T_GiftsTagId,
+                               ExchangeStartTime = ViewBag.ExchangeStartTime,
+                               ExchangeStopTime = ViewBag.ExchangeStopTime
+                           }), PositiveEdu.Common.PagerUtility.GetPagedListRenderOptions())
+                            </div>
+                            <div class="col-sm-4 pagination text-right">
+                                @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

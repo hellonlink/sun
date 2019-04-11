@@ -75,7 +75,7 @@
                         <label>券证获取时间：</label> @Model.ExchangeTime
                     </div> <div class="hr-line-dashed"></div>
                     <div class="form-group">
-                        <label>券证是否已使用：</label> @(Model.IsUsed == 0 ? "已使用" : "未使用")
+                        <label>券证是否已使用：</label> @(Model.IsUsed == 1 ? "已使用" : "未使用")
                     </div> <div class="hr-line-dashed"></div>
                     <div class="form-group">
                         <label>券证使用时间：</label> @Model.UseTime

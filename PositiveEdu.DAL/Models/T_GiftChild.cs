@@ -45,6 +45,11 @@ namespace PositiveEdu.DAL
         /// </summary>
         public int? T_CustomerId { get; set; }
         public virtual T_Customer T_Customer { get; set; }
+        /// <summary>
+        /// 参与活动
+        /// </summary>
+        public int? T_ActivityId { get; set; }
+        public virtual T_Activity T_Activity { get; set; }
 
         /// <summary>
         /// 赠送/兑换时间-
@@ -57,14 +62,23 @@ namespace PositiveEdu.DAL
 
         /// <summary>
         /// 赠送/兑换类型-  就是区分下 
-        /// 0这个是活动送出去的，
-        /// 1还是人家主动积分商城里面换的
+        /// 0 活动送出去的，
+        /// 1 主动积分商城里面换的
+        /// 2 手工赠送
+        /// 3 外部发生
         /// </summary>
         public int? ExchangeType { get; set; }
+
+
+        /// <summary>
+        /// 获得原因
+        /// </summary>
+        public string GetReason { get; set; }
+
         /// <summary>
         /// 使用状态
-        /// 1未使用
-        /// 0已经使用
+        /// 0未使用
+        /// 1已经使用
         /// </summary>
         public int? IsUsed { get; set; }
         /// <summary>

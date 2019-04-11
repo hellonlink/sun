@@ -19,7 +19,7 @@ namespace PositiveEdu.DAL
         /// </summary>
         public string TagName { get; set; }
         /// <summary>
-        /// 启用 0是 1否
+        /// 启用 1是 0否
         /// </summary>
         public int? IsUse { get; set; }
         /// <summary>

@@ -1,0 +1,326 @@
+﻿@using PositiveEdu.DAL
+@using PagedList
+@using PagedList.Mvc
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>批量导入</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/CustomerManage">会员管理</a>
+            </li>
+            <li class="active">
+                <strong>批量导入</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>批量导入</h5>
+                </div>
+
+                <div class="ibox-content">
+                    <form id="form1">
+
+                        <div>
+                            选择导入文件：<input type="file" name="file" id="fs" />
+                            <input type="text" name="files" hidden="hidden" id="fs1" />
+                            <input type="text" name="Rfiles" hidden="hidden" id="fs2" />
+                            <input type="button" value="提交" onclick="sub()" />
+                        </div>
+                    </form>
+
+
+                    @*数据匹配*@
+                    <h2>数据匹配：                   <p style="color:red"> 系统会自动读取数据文件第二行的各列数据至于左侧，请根据实际情况选择右侧的字段进行匹配，如果是不需要导入的无关字段，则不需要打勾。</p></h2>
+
+                    <div id="ts" p style="color:red;font-size:35px;float:right"></div>
+                    <div class="hr-line-dashed"></div>
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <td>读取列</td>
+                                <td>列匹配</td>
+                                <td>确认框</td>
+                            </tr>
+                        </thead>
+                        <tbody id="tb"></tbody>
+                    </table>
+                    <div>
+                        <div>
+                            <h3>唯一标识选择:</h3>  <p style="color:blue">唯一标识用于导入时区别是否存在重复的会员账号</p><select id="s1"> </select><button onclick="p()">开始导入</button>
+
+
+                        </div>
+                    </div>
+
+                    <div class="hr-line-dashed"></div>
+
+                    <textarea id="f" style="white-space:normal;word-wrap:break-word;word-break:break-all ;width:100%;height :600px;display :none " value=" "> </textarea>
+                    <div class="hr-line-dashed"></div>
+                    <div>
+
+                        <div class="container">
+
+                            <div class="progress">
+                                <div class="progress-bar" id="a" style="width: 0px" role="progress-bar" aria-valuesnow="60"
+                                     aria-valuesmin="0" aria-vluesmax="100">
+                                    <span class="sr-only">60% compelete</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div style="color:red;background-color:antiquewhite" id="c1">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Scripts/jquery-form.js"></script>
+
+    <script>
+        var b = 0;
+        var c = 0;
+        var tb = $("#tb");
+        function timedCount() {
+
+            $("#a").width(c);
+            c = c + 1;
+            console.log(c);
+            t = setTimeout("timedCount()", 800)
+
+        }
+        function stopCount() {
+            clearTimeout(t);
+        }
+        function qq() {
+            $("#a").width(0);
+
+        }
+        function pp() {
+            console.log("监听中")
+            t1 = setTimeout("pp()", 400);
+            if (b==1) {
+                alert("读取完毕");
+
+
+                //location.href = "/GifiManage";
+            }
+
+        }
+
+        var tc = 0;
+        //第一次文件上传
+        function sub() {
+            if (tc>0) {
+                alert("请勿要重复提交");
+                tc = 0;
+                window.location.reload();
+                return;
+            }
+            var t3 = $("#fs").val();
+            if (t3=="") {
+                alert("请重新选择文件 后缀为 .xlsx ");
+                return;;
+            }
+            var t3 = $("#fs").val().split('.')[1];
+            if (t3 != null && t3 != "xlsx") {
+                alert("请重新选择文件 后缀为 .xlsx ");
+                return;
+            }
+
+            tc++;
+                        $("#form1").ajaxSubmit({
+                        url: "@Url.Action("ReadFile", "CustomerManage")",
+                            type: "post",
+                            async:true,
+                            beforeSend: function () {
+
+                            },
+                            success: function (data) {
+
+                                console.log(data[0]);
+                                //数据回显
+                                $("#ts").empty();
+                                $("#ts").append("此文件共有:" + data.length+"列" )
+                                for (var i = 0; i < data.length; i++) {
+                                    tb.append(" <tr><td>" + data[i] + "</td > <td><select id='b"+i+"'> </select></td><td><input type='checkbox' id='a"+i+"'/></td></tr >")
+                                    FullS1("b" + i);
+                                                                    }
+                                FullS1("s1");
+
+
+
+
+                        },
+                        error: function (aa) {
+                        alert(aa);
+                        }
+                        });
+                                            }
+
+
+
+
+//下拉列表数据数据填充
+        function FullS1(r) {
+            //获取对象
+            var s1 = $("#"+r);
+           //数据填充
+            s1.append("<option value='CustomerPhoneNum'>会员手机号</option> ");
+            s1.append("<option value='CustomerId'>会员编号</option> ");
+            s1.append("<option value='CustomerCurrentIntegral'>当前积分</option> ");
+            s1.append("<option value='CustomerWechatNickName'>会员微信昵称</option> ");
+            //s1.append("<option value='CustomerWechatHeadPhoto'>会员微信头像</option> ");
+            s1.append("<option value='CustomerRealName'>会员真实姓名</option> ");
+            s1.append("<option value='CustomerSex'>性别</option> ");
+            //s1.append("<option value='CustomerCertificateType'>证件类型-身份证、护照啥</option> ");
+            s1.append("<option value='CustomerCertificateNum'>证件号码</option> ");
+            s1.append("<option value='CustomerBirthday'>生日</option> ");
+            s1.append("<option value='CustomerAddressProvince'>所属省</option> ");
+            s1.append("<option value='CustomerAddressCity'>所属市</option> ");
+            s1.append("<option value='CustomerAddressDistrict'>所属区</option> ");
+            s1.append("<option value='CustomerTakeTime'>会员入会时间</option> ");
+            s1.append("<option value='CustomerWechatNum'>微信号</option> ");
+            s1.append("<option value='CustomerWeiboNum'>微博号</option> ");
+            s1.append("<option value='CustomerQQNum'>QQ号</option> ");
+            s1.append("<option value='CustomerEmailNum'>Email</option> ");
+            s1.append("<option value='CustomizeTag1'>客户自定义标签Tag1</option> ");
+            s1.append("<option value='CustomizeTag2'>客户自定义标签Tag2</option> ");
+            s1.append("<option value='CustomizeTag3'>客户自定义标签Tag3</option> ");
+            s1.append("<option value='CustomizeTag4'>客户自定义标签Tag4</option> ");
+            s1.append("<option value='CustomizeTag5'>客户自定义标签Tag5</option> ");
+            s1.append("<option value='CustomizeTag6'>客户自定义标签Tag6</option> ");
+            s1.append("<option value='CustomizeTag7'>客户自定义标签Tag7</option> ");
+            s1.append("<option value='CustomizeTag8'>客户自定义标签Tag8</option> ");
+            s1.append("<option value='CustomizeTag9'>客户自定义标签Tag9</option> ");
+            s1.append("<option value='CustomizeTag10'>客户自定义标签Tag10</option> ");
+        }
+//导入
+        function p() {
+
+            //初始化提交数据
+            var b = [];
+
+            var p = 0;
+            for (var i = 0; i < tb.children().length; i++) {
+                if ($("#a" + i).prop("checked")) {
+                    var c = {};
+                    //获取下标
+                    c.index = i;
+                    //获取类型
+                    c.name = $("#b" + i).val();
+                    b[p] = c;
+                    p++;
+                }
+            }
+    
+
+           
+ 
+            //去除相同项
+            for (var i = 0; i < b.length; i++) {
+                for (var j = 0; j < b.length; j++) {
+                    if (i != j) {
+
+                        if (b[i].name == b[j].name) {
+                            alert("列匹配不能相同！！！")
+
+                            return;
+                        }
+                    }
+
+                }
+            }
+            console.log(b);
+            //提交数据不完整，返回
+            if (b.length < 1) {
+                alert("请勾选！！")
+                return;
+            }
+            $("#fs2").val($("#s" + 1).val())
+            //数据复制
+            $("#fs1").val(JSON.stringify(b));
+            //数据提交
+            timedCount();
+                        $("#form1").ajaxSubmit({
+                        url: "@Url.Action("ReadFiles", "CustomerManage")",
+                            type: "post",
+                            beforeSend: function () {
+
+                            },
+                            success: function (r1) {
+
+                                if (r != 0) {
+                                    var r = JSON.parse(r1);
+                                    console.log(r);
+                                    stopCount();
+                                    $("#a").width("100%");
+
+
+                                      //数据回显
+                                    var c1 = $("#c1");
+                                    c1.empty();
+                                    for (var i = 0; i < r.a1.length; i++) {
+                                        var st = "";
+                                        for (var j = 0; j < r.a1[i].col.length; j++) {
+
+
+                                            var p = r.a1[i].col[j].message + "";
+
+                                            st = st + p+"<br/>";
+
+
+                                        }
+
+                                        if (i == 0) {
+                                            //添加结果
+                                            c1.append("<div style='color:blue ;font-size:50px'>此次共计添加" + r.a3 + "行添加成功！该文件共" + r.a1.length + "行</div> <br/><br/>");
+
+                                            c1.append("<a href ='/CustomerManage/DownloadFile?path="+r.a5+"' > 导入结果下载</a>");
+
+                                        }
+                                        //if (st == "") {
+                                        //    //如果添加成功
+                                        //    c1.append("<div style='color:red'>第" + (i + 2) + "行，此行添加成功！</div> <br/><br/>");
+                                        //} else {
+                                        //    //如果添加失败
+
+                                        //    c1.append("<div style='color:red'>第" + (i + 2) + "行，此行添加失败！，原因如下<br/>" + st + "</div> <br/><br/>");
+
+                                        //}
+                                        st = "";
+
+
+                                    }
+                                }
+
+
+
+                        },
+                        error: function (aa) {
+                        alert(aa);
+                        }
+                        });
+
+        }
+    </script>
+}

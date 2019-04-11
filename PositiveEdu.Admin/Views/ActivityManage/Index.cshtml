@@ -30,6 +30,8 @@
                 </div>
                 <div class="ibox-content">
                     <a href="@Url.Action("Create")" class="btn btn-default">新增活动</a>
+                    <a href="@Url.Action("T_OthersGiftsRecordIndex","GifiManage",new { id=2})" class="btn btn-default">会员报名批量导入记录</a>
+
                     @using (Html.BeginForm("Index", "ActivityManage", FormMethod.Get, htmlAttributes: new { @class = "form-inline" }))
                     {
                         <div class="form-group">
@@ -39,9 +41,6 @@
                         <div class="form-group">
                             <label>是否启用：</label>
                             <input type="radio" id="InputMobile" @( ViewBag.IsActivityEffective == 0 + "" ? "checked=checked" : "") class="form-control" name="IsActivityEffective" value="0">是
-
-
-
                             <input type="radio" id="InputMobile" @(ViewBag.IsActivityEffective == 1 + "" ? "checked=checked" : "") class="form-control" name="IsActivityEffective" value="1">否
 
 
@@ -76,9 +75,13 @@
                                         <td>@( item.T_CustomerActivity.Count() + "/" + item.RegistrationNumber)</td>
                                         <td>@item.GUID</td>
 
-                                        <td>
+                                        <td style="text-align:center">
                                             <a href="@Url.Action("Detail", new { id = item.Id })">明细</a>
                                             <a href="@Url.Action("Edit", new { id = item.Id })">编辑</a>
+                                            <a href="@Url.Action("CreadReward", new { id = item.Id })">奖项配置</a>
+                                            <a href="@Url.Action("HumanTakeActivity", new { id = item.Id })">手工报名</a>
+                                            <a href="@Url.Action("ImportTakeActivity", new { id = item.Id })">批量导入</a>
+                                            <a href="@Url.Action("TakeActivity", new { id = item.Id })">报名列表</a>
                                         </td>
                                     </tr>
 

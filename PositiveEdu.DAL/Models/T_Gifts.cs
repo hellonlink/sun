@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -31,16 +32,19 @@ namespace PositiveEdu.DAL
         /// <summary>
         ///       会员主表    ,礼品兑换表 多对多的关系
         /// </summary>
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_ExchangeGifts> T_ExchangeGifts { get; set; } = new List<T_ExchangeGifts>();
         /// <summary>
         /// 活动奖项表,   活动奖项子表  多对多的关系
         /// </summary>
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_RewardChild> T_RewardChild { get; set; } = new List<T_RewardChild>();
         /// <summary>
         /// 礼品子表,一对多的关系
         /// </summary>
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_GiftsChild> T_GiftsChild { get; set; } = new List<T_GiftsChild>();
 
@@ -50,7 +54,7 @@ namespace PositiveEdu.DAL
         public string GiftName { get; set; }
         /// <summary>
         /// 礼品形式-实体礼品/
-        /// 虚拟礼品 1虚 0实
+        /// 虚拟礼品 0虚 1实
         /// </summary>
         public int? GiftType { get; set; }
         /// <summary>
@@ -110,12 +114,12 @@ namespace PositiveEdu.DAL
         public int? GiftInventory { get; set; }
         /// <summary>
         /// 是否上架/有效- 这个一般也是在积分商城才有用
-        ///1否，0是
+        ///0否，1是
         /// </summary>
         public int? IsShelf { get; set; }
         /// <summary>
         /// 是否积分商城可兑换：
-        ///1否，0是
+        ///0否，1是
         /// </summary>
         public int? IsExchange { get; set; }
         /// <summary>

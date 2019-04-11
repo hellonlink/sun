@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -30,7 +31,7 @@ namespace PositiveEdu.DAL
         /// <summary>
         /// 这个唯一ID用于方便让前端程序控制谁获取了什么奖项
         /// </summary>
-        public int? OnlyId { get; set; }
+        public string  OnlyId { get; set; }
         /// <summary>
         /// 活动ID-此奖项对应哪个活动
         /// </summary>
@@ -39,16 +40,16 @@ namespace PositiveEdu.DAL
         /// 一对多，一个活动对应多个奖励
         /// </summary>
         public virtual T_Activity T_Activity { get; set; }
-
-
         /// <summary>
         /// 礼品主表, 活动奖项子表  多对多
         /// </summary>
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_RewardChild> T_RewardChild { get; set; } = new List<T_RewardChild>();
         /// <summary>
         /// 活动会员表,一对多的关系
         /// </summary>
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_CustomerActivity> T_CustomerActivity { get; set; } = new List<T_CustomerActivity>();
 

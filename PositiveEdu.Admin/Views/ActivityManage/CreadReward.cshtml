@@ -1,0 +1,411 @@
+﻿@using PositiveEdu.DAL
+@using PagedList
+@using PagedList.Mvc
+@model  T_Activity
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            礼品配置
+        </h2>`
+        <ol class="breadcrumb">
+            <li>
+                <a href="/ActivityManage">活动管理</a>
+            </li>
+            <li class="active">
+                <strong>
+                    礼品配置
+                </strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>
+                        礼品配置
+                    </h5>
+                </div>
+                <div>
+                    <div class="form-group">
+                        <label>活动名称</label><text>@Model.ActivityName</text>
+
+
+                        <label>是否参与即获奖</label><text>@(Model.IsAllSameReward == 0 ? "是" : "否")</text>
+                    </div>
+                    <div>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <td>奖项名称</td>
+                                    <td>奖项唯一ID</td>
+                                    <td>奖品列表</td>
+                                    <td>获奖人数</td>
+                                    <td>操作</td>
+                                </tr>
+                            </thead>
+                            <tbody id="tb1"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div>
+                    <h2>新增奖项</h2>
+                    <hr />
+                    <div>
+                        <div class="form-group">
+                            <text>奖项名称</text><input class="form-control" type="text" id="RewardName" value="" />         <br />
+                            <text>唯一ID</text><input class="form-control" type="text" id="OnlyId" value="" />           <br />
+                            <text>获奖人数限制</text><input class="form-control" type="text" id="RewardNumber" value="" onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')" />
+                        </div>
+                        <br />
+                    </div>
+                    <div>
+                        <text>奖品列表</text>
+                        <div>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td>礼品名称</td>
+                                        <td>数量</td>
+                                        <td>操作</td>
+                                    </tr>
+                                </thead>
+                                <tbody id="tb"></tbody>
+                            </table>
+                        </div>
+                        <div>
+                            礼品选择:
+                            <select id="s1"></select>
+                            &nbsp;
+                            <select id="s2"></select>
+                            数量&nbsp;<input type="text" id="ct2" value="0" onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')" />
+                            <button onclick="adtb()">加入列表</button>
+                            <div>               <button onclick="Sub()">保存奖项</button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+
+    <script type="text/javascript">
+
+        //数据源绑定
+        //下拉列表数据源
+        var Get_date = null;
+        //奖项列表数据源
+        var Get_date1 = null;
+        //分类下拉列表对象
+        var s1 = $("#s1");
+        //礼品下拉列表对象
+        var s2 = $("#s2");
+        //奖品列表对象
+        var tb = $("#tb");
+       //奖项列表对象
+        var tb1 = $("#tb1");
+        //数量控制
+        var ct1 = 0;
+        //下拉列表数据源获取
+        function GetDate() {
+            $.ajax({
+                url: "/ActivityManage/GetGifts",   //控制器路径
+                type: 'POST',
+                dataType: 'json',
+                data: JSON.stringify({
+                }),
+                contentType: "application/json",
+                async: true,
+                beforeSend: function () {
+                },
+                success: function (r) {
+                    Get_date = JSON.parse(r);
+                    console.log(Get_date);
+                    for (var i = 0; i < Get_date.length; i++) {
+                        //礼品分类填充
+                        s1.append("<option value='" + i + "'>" + Get_date[i].Key.TagName + "</option>");
+                        for (var j = 0; j < Get_date[i].Value.length; j++) {
+                            if (i == 0) {
+                                //礼品填充,填充第一次
+                                s2.append(" <option value='" + Get_date[i].Value[j].GiftInventory + "'>" + Get_date[i].Value[j].GiftName + "</option>");
+                                //数量
+                                $("#ct2").val(Get_date[i].Value[j].GiftInventory);
+                            }
+                        }
+                    }
+                },
+                error: function () {
+                }
+            });
+        }
+        //s1下拉列表事件
+        $("select#s1").change(function () {
+            var c1 = $('#s1 option:selected').text();//选中的文本
+            var c2 = $('#s1 option:selected').val();//选中的值
+            console.log(c1);
+            s2.empty();
+            for (var i = 0; i < Get_date.length; i++) {
+                //礼品分类填充
+                //s1.append("<option value='value'>" + Get_date[i].Key.TagName + "</option>");
+                for (var j = 0; j < Get_date[i].Value.length; j++) {
+                    if (i == c2) {
+                        //礼品填充,填充第一次
+                        console.log(Get_date[i].Value[j].GiftName)
+                        s2.append(" <option value='" + Get_date[i].Value[j].GiftInventory + "'>" + Get_date[i].Value[j].GiftName + "</option>");
+                        //默认第一项
+                        if (j == 0) {
+                            $("#ct2").val(Get_date[i].Value[j].GiftInventory);
+                        }
+                    }
+
+                }
+            }
+        });
+        //s2下拉列表事件
+        $("select#s2").change(function () {
+            var c1 = $('#s2 option:selected').text();//选中的文本
+            var c2 = $('#s2 option:selected').val();//选中的值
+            $("#ct2").val(c2);
+            //console.log(c2);
+        })
+        //移除表格子对象
+        function rem(r) {
+            //遍历表格每一列
+            for (var i = 0; i < tb.children().length; i++) {
+                //获取点击并且移除
+                if (tb.children()[i].children[0].innerHTML == r) {
+                    var pt = parseInt(tb.children()[i].children[1].innerHTML)
+                    // 移除
+                    tb.children()[i].remove();
+                    //修改数据源
+                    for (var i = 0; i < Get_date.length; i++) {
+                        for (var j = 0; j < Get_date[i].Value.length; j++) {
+                            if (Get_date[i].Value[j].GiftName == r) {
+                                //数量增加
+                                Get_date[i].Value[j].GiftInventory = Get_date[i].Value[j].GiftInventory + pt;
+                                ReFlesh();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //重新加载下拉列表数据
+        function ReFlesh() {
+            s1.empty();
+            s2.empty();
+            for (var i = 0; i < Get_date.length; i++) {
+                //礼品分类填充
+                s1.append("<option value='" + i + "'>" + Get_date[i].Key.TagName + "</option>");
+                for (var j = 0; j < Get_date[i].Value.length; j++) {
+                    if (i == 0) {
+                        //礼品填充,填充第一次
+                        s2.append(" <option value='" + Get_date[i].Value[j].GiftInventory + "'>" + Get_date[i].Value[j].GiftName + "</option>");
+                        //数量
+                        $("#ct2").val(Get_date[i].Value[j].GiftInventory);
+                    }
+                }
+            }
+        }
+        //加入表格
+        function adtb() {
+            var c3 = $('#s2 option:selected').text();//选中的文本
+            var c4 = $('#s2 option:selected').val();//选中的值
+            if (parseInt($("#ct2").val()) < 0) {
+                alert("输入错误，请重新输入!!!")
+                return;
+            }
+            var y = 0;
+            //修改数据源
+            for (var i = 0; i < Get_date.length; i++) {
+                for (var j = 0; j < Get_date[i].Value.length; j++) {
+                    if (Get_date[i].Value[j].GiftName == c3) {
+                        if (Get_date[i].Value[j].GiftInventory == 0) {
+                            alert("库存不足!!!")
+                            $("#ct2").val(Get_date[i].Value[j].GiftInventory)
+                            return;
+                        }
+                        if (Get_date[i].Value[j].GiftInventory < parseInt($("#ct2").val())) {
+                            alert("输入错误，请重新输入!!!")
+                            $("#ct2").val(Get_date[i].Value[j].GiftInventory)
+                            return;
+                        }
+                        y = 1;
+                        //数量减少
+                        console.log(Get_date[i].Value[j].GiftInventory)
+                        ct1 = parseInt($("#ct2").val());
+                        Get_date[i].Value[j].GiftInventory = Get_date[i].Value[j].GiftInventory - ct1;
+                        $("#ct2").val(Get_date[i].Value[j].GiftInventory)
+                        console.log(Get_date[i].Value[j].GiftInventory)
+                    }
+                }
+            }
+            if (y==0) {
+                alert("不存在，请重新输入！！");
+                $("#ct2").val(0)
+                return;
+            }
+            var t = 0;
+            //为表格追加节点,如果存在数量加1
+            for (var i = 0; i < tb.children().length; i++) {
+                // 如果存在就加一
+                if (tb.children()[i].children[0].innerHTML == c3) {
+                    tb.children()[i].children[1].innerHTML = parseInt(tb.children()[i].children[1].innerHTML) + ct1;
+                    t = 1;
+                }
+            }
+            //如果不存在就新增
+            if (t == 0) {
+                tb.append("<tr><td>" + c3 + "</td><td>" + ct1 + "</td> <td><button  onclick=rem('" + c3 + "')>删除</button></td></tr>");
+
+            } else {
+                t = 0;
+            }
+
+        }
+        //保存奖项
+        function Sub() {
+            //获取数据源
+            //遍历表格每一列
+            var a1 = [];
+            for (var i = 0; i < tb.children().length; i++) {
+                //获取点击并且移除
+                var a = {};
+                a.GiftName=tb.children()[i].children[0].innerHTML;
+                a.GiftInventory =parseInt( tb.children()[i].children[1].innerHTML);
+                a1[i] = a;
+            }
+            //确认提交的奖品列表不为空
+            if (tb.children().length==0) {
+             alert("奖品列表不能为空");
+                return
+            }
+                var t1=$("#RewardName").val()   ;
+                var t2=$("#RewardNumber").val() ;
+                var t3 = $("#OnlyId").val();
+            if (t1==""||t2==""||t3=="") {
+              alert("输入有误，请重新输入");
+                return;
+            }
+             //提交数据源
+            $.ajax({
+                url: "/ActivityManage/CreadRewards",   //控制器路径
+                type: 'post',
+                dataType: 'json',
+                data: JSON.stringify({
+                    id: @Model.Id+"",
+                    date: JSON.stringify(a1),
+                    RewardName: $("#RewardName").val(),
+                    RewardNumber: $("#RewardNumber").val(),
+                    OnlyId: $("#OnlyId").val()
+                }),
+                contentType: "application/json",
+                async: true,
+                beforeSend: function () {
+                },
+                success: function (r) {
+
+                    Get_date1 = JSON.parse(r)
+                    console.log(Get_date1);
+                    //数据填充
+                    for (var i = 0; i < Get_date1.length; i++) {
+                        tb1.append(" <tr> < td >" + Get_date1[i].T_Reward.RewardName + "</td ><td>" + Get_date1[i].T_Reward.OnlyId + "</td><td> </td><td>" + Get_date1[i].T_Reward.RewardUsed + "/" + Get_date1[i].T_Reward.RewardNumber +"</td><td><button onclick=re()>移除</button></td></tr >")
+                    }
+                    window.location.reload();
+                },
+                error: function () {
+                }
+            });
+
+
+        }
+        //获取当前活动奖项
+        function GetRC() {
+                        $.ajax({
+                            url: "/ActivityManage/GetRewards",   //控制器路径
+                type: 'post',
+                dataType: 'json',
+                            data: JSON.stringify({
+                        id: @Model.Id+""
+                                   }),
+                contentType: "application/json",
+                async: true,
+                beforeSend: function () {
+                },
+                success: function (r) {
+                    Get_date1 = JSON.parse(r)
+                    console.log(Get_date1);
+                    //清空数据
+                    tb1.empty();
+                    //数据填充
+                    for (var i = 0; i < Get_date1.length; i++) {
+                        tb1.append(" <tr>  <td>" + Get_date1[i].T_Reward.RewardName + "</td><td>" + Get_date1[i].T_Reward.OnlyId + "</td><td></td><td>" + Get_date1[i].T_Reward.RewardUsed + "/" + Get_date1[i].T_Reward.RewardNumber + "</td><td><button onclick=re(" + Get_date1[i].T_Reward.Id+")>移除</button></td></tr >")
+                        console.log(Get_date1[i].T_RewardChild.length);
+                        for (var j = 0; j < Get_date1[i].T_RewardChild.length; j++) {
+                            $(tb1.children()[i]).children()[2].innerHTML += "<div>" + Get_date1[i].T_RewardChild[j].T_Gifts.GiftName+": 数量："+ Get_date1[i].T_RewardChild[j].GiftNumber+"</div>";
+                        }
+
+                    }
+                                     },
+                error: function () {
+                }
+            });
+        }
+        //移除奖项
+        function re(r) {
+            //获取提交数据
+            console.log(r);
+            //提交数据
+       $.ajax({
+           url: "/ActivityManage/RemoveRewards",   //控制器路径
+                type: 'post',
+                dataType: 'json',
+                            data: JSON.stringify({
+                        id: r+""
+                                   }),
+                contentType: "application/json",
+                async: true,
+                beforeSend: function () {
+                },
+                success: function (r) {
+
+                    if (r=="1") {
+                        window.location.reload()
+                    }
+
+                },
+                error: function () {
+                }
+            });
+        }
+        //加载事件
+        $(function () {
+            GetDate()
+            GetRC();
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+            $('#TmbUploadImg').thumbnail();
+            $('.input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true,
+                format: "yyyy-mm-dd",
+                language: 'zh-CN',
+            });
+        });
+
+    </script>
+}

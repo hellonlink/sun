@@ -40,56 +40,56 @@
 
                         @Html.AntiForgeryToken()
 
-                        <div class="form-group">
+                        <div style="margin-right:50px" class="form-group">
                             <label>礼品名称：</label>
                             <input type="text" placeholder="礼品名称" id="InputMobile" class="form-control" name="GiftName" value="@Model.GiftName">
-                            <label>礼品编号：</label>
+                            <label style="margin-left:40px;">礼品编号：</label>
                             <input type="text" placeholder="礼品编号" id="InputMobile" class="form-control" name="GiftNo" value="@Model.GiftNo">
-                            <label>当前剩余库存：</label>
-                            <input type="text" placeholder="当前剩余库存：" id="InputMobile" class="form-control" name="GiftInventory" value="@Model.GiftInventory">
-                            <label>兑换所需积分：</label>
-                            <input type="text" placeholder="兑换所需积分：" id="InputMobile" class="form-control" name="RedeemPoints" value="@Model.RedeemPoints">
+                            <label style="margin-left:40px;">当前剩余库存：</label>
+                            <input type="text" placeholder="当前剩余库存：" id="InputMobile" onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')" class="form-control" name="GiftInventory" value="@Model.GiftInventory">
+                            <label style="margin-left:40px;">兑换所需积分：</label>
+                            <input type="text" placeholder="兑换所需积分：" id="InputMobile" onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')" class="form-control" name="RedeemPoints" value="@Model.RedeemPoints">
                             <div class="hr-line-dashed"></div>
-                            <label>自定义字段1： </label>
+                            <label  >自定义字段1： </label>
                             <input type="text" placeholder="自定义字段1" id="InputMobile" class="form-control" name="Tag1" value="@Model.Tag1">
 
 
-                            <label>自定义字段2： </label>
+                            <label style="margin-left:40px;">自定义字段2： </label>
                             <input type="text" placeholder="自定义字段2" id="InputMobile" class="form-control" name="Tag2" value="@Model.Tag2">
 
-                            <label>自定义字段3： </label>
+                            <label style="margin-left:40px;">自定义字段3： </label>
                             <input type="text" placeholder="自定义字段3" id="InputMobile" class="form-control" name="Tag3" value="@Model.Tag3">
 
-                            <label>自定义字段4：</label>
+                            <label style="margin-left:40px;">自定义字段4：</label>
                             <input type="text" placeholder="自定义字段4" id="InputMobile" class="form-control" name="Tag4" value="@Model.Tag4">
 
-                            <label>自定义字段5： </label>
+                            <label style="margin-left:40px;">自定义字段5： </label>
                             <input type="text" placeholder="自定义字段5" id="InputMobile" class="form-control" name="Tag5" value="@Model.Tag5">
                         </div> <div class="hr-line-dashed"></div>
 
 
 
-                        <div class="form-group">
+                        <div style="" class="form-group">
 
 
                             <label>是否实体礼品：</label>
-                            <input type="radio" id="InputMobile" @(Model.GiftType == 0 ? "checked=checked" : "") class="form-control" name="GiftType" value="0">是
+                            <input type="radio" id="InputMobile" checked="checked" @(Model.GiftType == 0 ? "checked=checked" : "") class="form-control" name="GiftType" value="1">是
 
 
 
-                            <input type="radio" id="InputMobile" @(Model.GiftType == 1 ? "checked=checked" : "") class="form-control" name="GiftType" value="1">否
-                            <div class="hr-line-dashed"></div>
-                            <label>是否有效：</label>
-                            <input type="radio" id="InputMobile" @(Model.IsShelf == 0 ? "checked=checked" : "") class="form-control" name="IsShelf" value="0">是
+                            <input type="radio" id="InputMobile" @(Model.GiftType == 1 ? "checked=checked" : "") class="form-control" name="GiftType" value="0">否
+
+                            <label style="margin-left:40px;">是否有效：</label>
+                            <input  type="radio" id="InputMobile" checked="checked" @(Model.IsShelf == 0 ? "checked=checked" : "") class="form-control" name="IsShelf" value="1">是
 
 
 
-                            <input type="radio" id="InputMobile" @(Model.IsShelf == 1 ? "checked=checked" : "") class="form-control" name="IsShelf" value="1">否
+                            <input type="radio" id="InputMobile" @(Model.IsShelf == 1 ? "checked=checked" : "") class="form-control" name="IsShelf" value="0" >否
 
-                            <div class="hr-line-dashed"></div>
 
-                            <label>是否积分商城可以兑换：</label>
-                            <input type="radio" id="InputMobile" @(Model.IsExchange == 0 ? "checked=checked" : "") class="form-control" name="IsExchange" value="0">是
+
+                            <label style="margin-left:40px;">是否积分商城可以兑换：</label>
+                            <input type="radio" id="InputMobile" checked="checked" @(Model.IsExchange == 0 ? "checked=checked" : "") class="form-control" name="IsExchange" value="0">是
 
 
 
@@ -164,7 +164,7 @@
                                 @{
 
                                     PeContext DB = new PeContext();
-                                    var a = DB.T_GiftsTag.ToList();
+                                    var a = DB.T_GiftsTag.Where(x => x.IsDeleted == false && x.IsUse == 1).ToList();
 
                                     foreach (var item in a)
                                     {

@@ -58,8 +58,9 @@
                                     <tr>
                                         <td>@item.TagName</td>
                                         <td>@item.UpdatedOn</td>
-                                        <td>
+                                        <td style="text-align:center">
                                             <a href="@Url.Action("TagDelete", new { id = item.id })">删除</a>
+                                            <a href="@Url.Action("TagEdit", new { id = item.id })">编辑</a>
                                         </td>
                                     </tr>
 
@@ -71,7 +72,7 @@
                         <div class="row">
                             <div class="col-sm-8">
                                 @Html.PagedListPager(Model, page => Url.Action("Index", new { page,
-                             
+                               _TagName=@ViewBag._TagName
                            }), PositiveEdu.Common.PagerUtility.GetPagedListRenderOptions())
                             </div>
                             <div class="col-sm-4 pagination text-right">

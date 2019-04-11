@@ -65,7 +65,7 @@
                                     <tr>
 
                                         <td>@item.TagName</td>
-                                        <td>@(item.IsUse == 0 ? "是" : "否")</td>
+                                        <td>@(item.IsUse == 1 ? "是" : "否")</td>
                                         <td>@item.UpdatedOn</td>
 
                                         <td>
@@ -83,9 +83,9 @@
                     <div class="dataTables_paginate">
                         <div class="row">
                             <div class="col-sm-8">
-                                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, mobile = ViewBag.Mobile,
+                                @Html.PagedListPager(Model, page => Url.Action("GiftsTagIndex", new { page, mobile = ViewBag.Mobile,
 
-                               payment = ViewBag.Payment
+                               _TagName=  ViewBag._TagName
 
                            }), PositiveEdu.Common.PagerUtility.GetPagedListRenderOptions())
                             </div>

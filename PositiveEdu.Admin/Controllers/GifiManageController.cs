@@ -25,11 +25,15 @@ namespace PositiveEdu.Admin.Controllers
         #region 礼品分类
         public ActionResult TagDelete(int id)
         {
+            //软删除，逻辑删除
+            var u = JsonConvert.DeserializeObject<AuthAdmin>(User.Identity.Name);
             var item = DB.T_GiftsTag.Where(x => x.id == id).FirstOrDefault();
+            //判断是否存在
             if (item != null)
             {
-                DB.T_GiftsTag.Remove(item);
-
+                item.IsDeleted = true;
+                item.UpdatedBy = u.RealName;
+                item.UpdatedOn = DateTime.Now;
                 DB.SaveChanges();
             }
 
@@ -50,10 +54,11 @@ namespace PositiveEdu.Admin.Controllers
             DB.T_GiftsTag.Add(new T_GiftsTag()
             {
                 TagName = TagName,
-
                 CreatedOn = DateTime.Now,
                 CreatedBy = u.RealName,
-                IsUse = IsUse
+                IsDeleted = false,
+                IsUse = IsUse,
+
             });
             DB.SaveChanges();
             return RedirectToAction("GiftsTagIndex");
@@ -82,11 +87,6 @@ namespace PositiveEdu.Admin.Controllers
                 a.UpdatedBy = u.RealName;
                 DB.SaveChanges();
             }
-
-
-
-
-
             return RedirectToAction("GiftsTagIndex");
 
         }
@@ -105,6 +105,8 @@ namespace PositiveEdu.Admin.Controllers
                 ViewBag._TagName = null;
 
             }
+            //已删除数据不显示
+            query = query.Where(x => x.IsDeleted == false);
             var result = query.OrderBy(x => x.id).ToPagedList(page, pageSize);
             return result;
         }
@@ -197,7 +199,7 @@ namespace PositiveEdu.Admin.Controllers
                 ViewBag.IsShelf = null;
 
             }
-
+            query = query.Where(x => x.IsDeleted == false);
             var result = query.OrderBy(x => x.id).ToPagedList(page, pageSize);
 
             return View(result);
@@ -205,18 +207,31 @@ namespace PositiveEdu.Admin.Controllers
 
 
         }
-
         /// <summary>
         /// 第三方卷导入记录表列表
         /// </summary>
         /// <param name="page"></param>
         /// <returns></returns>
-        public ActionResult T_OthersGiftsRecordIndex(int page = 1)
+        public ActionResult T_OthersGiftsRecordIndex(int page = 1, int? id = 0)
         {
 
             int pageSize = 15;
             var query = DB.T_OthersGiftsRecord.AsNoTracking().AsQueryable();
+            if (id == 1)
+            {
+                query = query.Where(x => x.Name == "T_Customer");
+            }
+            else if (id == 2)
+            {
 
+                query = query.Where(x => x.Name == "T_CustomerActivity");
+
+            }
+            else
+            {
+                query = query.Where(x => x.Name != "T_CustomerActivity" && x.Name != "T_Customer");
+
+            }
             var result = query.OrderBy(x => x.Id).ToPagedList(page, pageSize);
 
             return View(result);
@@ -224,7 +239,6 @@ namespace PositiveEdu.Admin.Controllers
 
 
         }
-
         /// <summary>
         /// 第三方卷导入记录表列表
         /// </summary>
@@ -243,9 +257,6 @@ namespace PositiveEdu.Admin.Controllers
 
 
         }
-
-
-
         /// <summary>
         /// 卷池管理
         /// </summary>
@@ -475,15 +486,13 @@ namespace PositiveEdu.Admin.Controllers
 
 
 
-            var result = query.OrderBy(x => x.id).ToPagedList(page, pageSize);
+            var result = query.Where(x => x.IsDeleted == false).OrderBy(x => x.id).ToPagedList(page, pageSize);
 
             return View(result);
 
 
 
         }
-
-
         public ActionResult PoolDetail(int? id)
         {
 
@@ -491,7 +500,61 @@ namespace PositiveEdu.Admin.Controllers
 
             return View(DB.T_GiftChild.Where(x => x.id == id).FirstOrDefault());
         }
+        /// <summary>
+        /// 批量移除卷
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [ValidateInput(false), HttpPost]
+        public ActionResult Remove(string data)
+        {
+            int s = 0;//成功行数
+            int f = 0;//失败行数
+            //获取数组
+            var b = data.Split(',');
+            //获取当前操作用户
+            var u = JsonConvert.DeserializeObject<AuthAdmin>(User.Identity.Name);
 
+            //遍历添加
+            var m = "";
+            for (int i = 0; i < b.Length - 1; i++)
+            {
+                try
+                {
+                    //获取卷
+                    var id = Convert.ToInt32(b[i]); ;
+                    var a1 = DB.T_GiftChild.Where(x => x.id == id).FirstOrDefault();
+                    //规则验证
+                    if (a1.IsUsed == 1 || a1.T_Customer != null)
+                    {
+                        continue;
+                    }
+
+                    //礼品主表操作
+                    a1.T_Gifts.UpdatedOn = DateTime.Now;
+                    a1.T_Gifts.UpdatedBy = u.RealName;
+                    //库存减少1
+                    a1.T_Gifts.GiftInventory = a1.T_Gifts.GiftInventory - 1;
+
+
+                    //礼品子表操作
+                    a1.UpdatedOn = DateTime.Now;
+                    a1.UpdatedBy = u.RealName;
+                    //逻辑删除
+                    a1.IsDeleted = true;
+                    DB.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    continue;
+
+                }
+
+            }
+
+
+            return Json(0);
+        }
         #region 实体礼品
         public ActionResult RealGiftsCreate()
         {
@@ -544,7 +607,7 @@ namespace PositiveEdu.Admin.Controllers
                 GiftThumbnailPicture = a.GiftThumbnailPicture,
                 CreatedOn = DateTime.Now,
                 CreatedBy = u.RealName,
-
+                IsDeleted = false
             });
             DB.SaveChanges();
             return RedirectToAction("Index");
@@ -617,19 +680,16 @@ namespace PositiveEdu.Admin.Controllers
 
         public ActionResult RealGiftsDetail(int? id)
         {
-
-
-
             return View(DB.T_Gifts.Where(x => x.id == id).FirstOrDefault());
         }
         public ActionResult RealGiftsDete()
         {
             var id = Convert.ToInt32(Request.Form["id"].ToString());
-
             var ap = DB.T_Gifts.Where(x => x.id == id).FirstOrDefault();
-
-
-            DB.T_Gifts.Remove(ap);
+            var u = JsonConvert.DeserializeObject<AuthAdmin>(User.Identity.Name);
+            ap.IsDeleted = true;
+            ap.UpdatedBy = u.RealName;
+            ap.UpdatedOn = DateTime.Now;
             DB.SaveChanges();
 
 
@@ -637,7 +697,6 @@ namespace PositiveEdu.Admin.Controllers
 
         }
         #endregion
-
         #region 第三方证券
 
 
@@ -698,7 +757,8 @@ namespace PositiveEdu.Admin.Controllers
                 BeginTime = a.BeginTime,
                 StopTime = a.StopTime,
                 MoneyLimit = a.MoneyLimit,
-                OpenCodeCouponNo = a.OpenCodeCouponNo
+                OpenCodeCouponNo = a.OpenCodeCouponNo,
+                IsDeleted = false
 
             });
             DB.SaveChanges();
@@ -818,18 +878,16 @@ namespace PositiveEdu.Admin.Controllers
             int b = 0;
             //判断列数
             int b1 = 0;
+            //记录
+            T_OthersGiftsRecord pd = new T_OthersGiftsRecord();
             ////使用异步方法
             var a = Task.Run(
                  () =>
                  {
 
-
-
-
-
                      PeContext d = new PeContext();
 
-                     var g = d.T_Gifts.Where(x => x.id == id).First();
+                     var g = d.T_Gifts.Where(x => x.id == id).FirstOrDefault();
 
                      var a1 = new List<T_GiftsChild>();
 
@@ -843,96 +901,84 @@ namespace PositiveEdu.Admin.Controllers
 
 
 
-                         var filename = Path.Combine(Request.MapPath("~/App_Data"), file.FileName);
-                         file.SaveAs(filename);
-
+                         //var filename = Path.Combine(Request.MapPath("~/App_Data"), file.FileName);
+                         //file.SaveAs(filename);
+                         var filename = (new FileReadWrite()).SaveFile("T_OthersGifts", file, Request);
                          var dt = Import(filename, 0);
                          var d1 = dt.CreateDataReader();
+                         //if (d1.FieldCount == 1)
+                         //{
+                         //    //for (int j = 0; j < dt.Columns.Count; j++)
+                         //    //{
+                         //    //    if (dt.Columns[j].ColumnName != "CouponNo")
+                         //    //    {
+                         //    //        b1 = 1;
+                         //    //    }
+                         //    //}
 
-
-
-                         if (d1.FieldCount == 1)
+                         if (b1 == 0)
                          {
-
-                             //记录
-                             T_OthersGiftsRecord pd = new T_OthersGiftsRecord();
-
-                             for (int j = 0; j < dt.Columns.Count; j++)
+                             while (d1.Read())
                              {
-                                 if (dt.Columns[j].ColumnName != "CouponNo")
-                                 {
-                                     b1 = 1;
-                                 }
-                             }
+                                 ct++;
+                                 var p1 = d1[0].ToString();
+                                 var t1 = d.T_GiftChild.Where(x => x.CouponNo.Contains(p1)).ToList();
 
-                             if (b1 == 0)
-                             {
-                                 while (d1.Read())
+                                 if (t1.Count > 0)
                                  {
 
-                                     ct++;
 
-                                     var p1 = d1["CouponNo"].ToString();
-                                     var t1 = d.T_GiftChild.Where(x => x.CouponNo.Contains(p1)).ToList();
-
-                                     if (
-                                     t1.Count > 0
-
-
-                                         )
-                                     {
-
-
-                                         cf++;
-                                         a3.Add(cf);
-                                         continue;
-
-                                     }
-
-                                     a1.Add(
-                                   new T_GiftsChild()
-                                   {
-
-                                       CreatedBy = u.RealName,
-                                       CreatedOn = DateTime.Now,
-                                       IsDeleted = false,
-                                       IsUsed = 0,
-                                       GenerationTime = DateTime.Now,
-                                       CouponNo = d1["CouponNo"].ToString()
-
-                                   });
-
-
+                                     cf++;
+                                     a3.Add(cf);
+                                     continue;
 
                                  }
 
+                                 a1.Add(
+                               new T_GiftsChild()
+                               {
+
+                                   CreatedBy = u.RealName,
+                                   CreatedOn = DateTime.Now,
+                                   IsDeleted = false,
+                                   IsUsed = 0,
+                                   GenerationTime = DateTime.Now,
+                                   CouponNo = d1[0].ToString(),
+                                   T_GiftsId = id
+
+                               });
 
 
-                                 d.T_GiftChild.AddRange(a1);
-                                 g.T_GiftsChild = a1;
-                                 if (g.GiftInventory == null)
-                                 {
-                                     g.GiftInventory = 0;
-                                 }
-                                 g.GiftInventory = g.GiftInventory + ct;
-
-                                 //记录详情
-                                 pd.FileName = file.FileName;
-                                 pd.Count = ct - a3.Count();
-                                 pd.Name = u.RealName;
-                                 pd.Time = DateTime.Now;
-                                 d.T_OthersGiftsRecord.Add(pd);
-                                 d.SaveChanges();
 
                              }
 
 
 
+                             d.T_GiftChild.AddRange(a1);
+                             g.T_GiftsChild = a1;
+                             if (g.GiftInventory == null)
+                             {
+                                 g.GiftInventory = 0;
+                             }
+                             g.GiftInventory = g.GiftInventory + a1.Count();
+
+                             //记录详情
+                             pd.FileName = file.FileName;
+                             pd.Count = ct - a3.Count();
+                             pd.Name = u.RealName;
+                             pd.Time = DateTime.Now;
+
+                             d.SaveChanges();
+
                          }
-                         else
-                         {
-                             b1 = 1;
-                         }
+
+
+
+                         //}
+                         //else
+                         //{
+                         //    b1 = 1;
+                         //}
 
                      }
                      else
@@ -984,7 +1030,34 @@ namespace PositiveEdu.Admin.Controllers
 
                     };
 
-                    var q1 = new { q, c1 = 1000 };
+
+                    #region 文件记录
+                    var Message = file.FileName + "文件导入成功\n共发现" + ct + "行\n";
+                    //console.log(a3)
+                    //XXXXXXXXXXX.xls 文件导入成功
+                    //共发现 800行
+                    //第6行数据格式错误，已跳过
+                    //第457行数据格式错误，已跳过
+                    //第701行数据格式错误，已跳过
+                    //第704行券证编码已存在，已跳过
+                    //导入成功796行
+                    for (var i = 0; i < a3.Count(); i++)
+                    {
+                        Message = Message + "第" + a3[i] + "行券证编码已存在，已跳过\n";
+                    }
+                    //console.log(a3)
+
+                    Message = Message + "导入成功" + q.t + "行";
+                    //保存txt文件
+                    var m = (new FileReadWrite()).WriteFile(file.FileName, "T_OthersGifts", Message, Request);
+                    pd.FileName = pd.FileName + "-|<a href = '/CustomerManage/DownloadFile?path=" + m + "' > 导入结果下载</a>";
+
+                    DB.T_OthersGiftsRecord.Add(pd);
+                    DB.SaveChanges();
+                    #endregion
+
+
+                    var q1 = new { q, c1 = 1000, m };
 
                     return Json(q1);
                 }
@@ -1153,7 +1226,6 @@ namespace PositiveEdu.Admin.Controllers
         }
 
         #endregion
-
         #region  自主证券
         public ActionResult PrivateGiftsCreateMuch(int? id)
         {
@@ -1253,6 +1325,7 @@ namespace PositiveEdu.Admin.Controllers
             a.GiftType = Request.Form["GiftType"] == "" ? a.GiftType : Convert.ToInt32(Request.Form["GiftType"].ToString());
             a.IsCoupon = Request.Form["IsCoupon"] == "" ? a.IsCoupon : Convert.ToInt32(Request.Form["IsCoupon"].ToString());
             a.SaveType = Request.Form["SaveType"] == "" ? a.SaveType : Convert.ToInt32(Request.Form["SaveType"].ToString());
+
             a.SaveMoney = Request.Form["SaveMoney"] == "" ? a.SaveMoney : Convert.ToInt32(Request.Form["SaveMoney"].ToString());
             a.BeginTime = Request.Form["BeginTime"] == "" ? a.BeginTime : Convert.ToDateTime(Request.Form["BeginTime"].ToString());
             a.StopTime = Request.Form["StopTime"] == "" ? a.StopTime : Convert.ToDateTime(Request.Form["StopTime"].ToString());
@@ -1296,6 +1369,7 @@ namespace PositiveEdu.Admin.Controllers
                 GiftThumbnailPicture = a.GiftThumbnailPicture,
                 CreatedOn = DateTime.Now,
                 CreatedBy = u.RealName,
+                IsDeleted = false,
                 IsCoupon = a.IsCoupon,
                 SaveType = a.SaveType,
                 SaveMoney = a.SaveMoney,
@@ -1406,9 +1480,6 @@ namespace PositiveEdu.Admin.Controllers
 
         }
         #endregion
-
-
-
         #endregion
     }
 }
