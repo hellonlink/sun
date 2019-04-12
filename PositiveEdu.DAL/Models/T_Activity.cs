@@ -74,8 +74,8 @@ namespace PositiveEdu.DAL
 
         /// <summary>
         /// 是否报名者
-        /// 0都可
-        /// 1否
+        /// 1都可
+        /// 0否
         /// 参与
         /// </summary>
         public int? IsAllTake { get; set; }
@@ -87,14 +87,14 @@ namespace PositiveEdu.DAL
 
         /// <summary>
         /// 是否每人都有相同的奖励
-        /// 0 是
-        /// 1否
+        /// 1 是
+        /// 0否
         /// 
         /// </summary>
         public int? IsAllSameReward { get; set; }
         /// <summary>
-        /// 活动是 1否
-        ///         0有效
+        /// 活动是 0否
+        ///         1有效
         /// </summary>
         public int? IsActivityEffective { get; set; }
         /// <summary>

@@ -40,8 +40,8 @@
                         </div>
                         <div class="form-group">
                             <label>是否启用：</label>
-                            <input type="radio" id="InputMobile" @( ViewBag.IsActivityEffective == 0 + "" ? "checked=checked" : "") class="form-control" name="IsActivityEffective" value="0">是
-                            <input type="radio" id="InputMobile" @(ViewBag.IsActivityEffective == 1 + "" ? "checked=checked" : "") class="form-control" name="IsActivityEffective" value="1">否
+                            <input type="radio" id="InputMobile" @( ViewBag.IsActivityEffective == 0 + "" ? "checked=checked" : "") class="form-control" name="IsActivityEffective" value="0">否
+                            <input type="radio"   id="InputMobile" @(ViewBag.IsActivityEffective == 1 + "" ? "checked=checked" : "") class="form-control" name="IsActivityEffective" value="1"> 是
 
 
                         </div>
@@ -69,7 +69,7 @@
 
                                     <tr>
                                         <td>@item.ActivityName</td>
-                                        <td>@(item.IsActivityEffective == 0 ? "是" : "否")</td>
+                                        <td>@(item.IsActivityEffective == 1 ? "是" : "否")</td>
                                         <td>@item.ActivityStartTime</td>
                                         <td>@item.ActivityStopTime</td>
                                         <td>@( item.T_CustomerActivity.Count() + "/" + item.RegistrationNumber)</td>

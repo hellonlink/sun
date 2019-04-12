@@ -35,6 +35,7 @@
                         <br /> <label>会员手机号   @c.CustomerPhoneNum</label>
                         <br /> <label>会员编号：   @c.CustomerId   </label>
                         <br /> <label>证件编号：   @c.CustomerCertificateType _ @c.CustomerCertificateNum  </label>
+                        <input type="hidden" name="id" value="@ViewBag.id" />
                     </div>
                     <div class="hr-line-dashed"></div>
                     <table class="table table-bordered">
@@ -56,7 +57,7 @@
 
                                     <tr>
                                         <td>   @item.T_Gifts.GiftName     </td>
-                                        <td>   @item.T_Gifts.GiftType==0?"虚拟":"实物"     </td>
+                                        <td>   @(item.T_Gifts.GiftType == 0 ? "虚拟" : "实物")     </td>
                                         <td>
                                             @{
                                                 if (item.ExchangeType == 0)
@@ -88,8 +89,8 @@
                     <div class="dataTables_paginate">
                         <div class="row">
                             <div class="col-sm-8">
-                                @Html.PagedListPager(Model, page => Url.Action("T_CustomerIntegralRecords", new { page
-
+                                @Html.PagedListPager(Model, page => Url.Action("T_GiftsChildRecords", new { page
+                                    ,id=ViewBag.id
                                                           }
                            ), PositiveEdu.Common.PagerUtility.GetPagedListRenderOptions())
                             </div>
@@ -100,7 +101,7 @@
                     </div>
                 </div>
 
-                @using (Html.BeginForm("T_GiftsChildRecords", "CustomerManage", FormMethod.Get, htmlAttributes: new { @class = "form-inline" }))
+                @using (Html.BeginForm("T_GiftsChildRecords", "CustomerManage", FormMethod.Post, htmlAttributes: new { @class = "form-inline" }))
                 {
                     <div>
                         礼品选择:
@@ -109,6 +110,7 @@
                         <select id="s2" name="s2"></select>
                         数量&nbsp;<input type="text" name="s3" id="ct2" value="0" onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')" />
                         <input type="hidden" name="id" value="@c.Id" />
+                        <input type="hidden" name="gid" id="gid" value="" />
                     </div>
 
                     <div class="form-group">
@@ -165,7 +167,8 @@
                                 //礼品填充,填充第一次
                                 s2.append(" <option value='" + Get_date[i].Value[j].GiftInventory + "'>" + Get_date[i].Value[j].GiftName + "</option>");
                                 //数量
-                                $("#ct2").val(Get_date[i].Value[j].GiftInventory);
+                                $("#ct2").val(Get_date[i].Value[0].GiftInventory);
+                                $("#gid").val(Get_date[i].Value[0].id)
                             }
                         }
                     }
@@ -187,10 +190,12 @@
                     if (i == c2) {
                         //礼品填充,填充第一次
                         console.log(Get_date[i].Value[j].GiftName)
-                        s2.append(" <option value='" + Get_date[i].Value[j].GiftInventory + "_'" + Get_date[i].Value[j].id + ">" + Get_date[i].Value[j].GiftName + "</option>");
+                        s2.append(" <option value='" + Get_date[i].Value[j].GiftInventory + "'" + ">" + Get_date[i].Value[j].GiftName + "</option>");
                         //默认第一项
                         if (j == 0) {
                             $("#ct2").val(Get_date[i].Value[j].GiftInventory);
+                            $("#gid").val(Get_date[i].Value[j].id)
+
                         }
                     }
 
@@ -202,7 +207,21 @@
             var c1 = $('#s2 option:selected').text();//选中的文本
             var c2 = $('#s2 option:selected').val();//选中的值
             $("#ct2").val(c2);
-            //console.log(c2);
+            for (var i = 0; i < Get_date.length; i++) {
+
+                for (var j = 0; j < Get_date[i].Value.length; j++) {
+                    //s2选中值得文本
+                    if (Get_date[i].Value[j].GiftName == c1) {
+
+
+                        //控件赋值
+                        $("#gid").val(Get_date[i].Value[j].id)
+
+
+                    }
+
+                }
+            }
         })
 
         //加载事件

@@ -204,7 +204,7 @@ namespace PositiveEdu.Admin.Controllers
 
 
             //var result = query.ToList();
-            var result = query.Where(x=>x.IsDeleted==false).OrderBy(x => x.Id).ToPagedList(page, pageSize);
+            var result = query.Where(x => x.IsDeleted == false).OrderBy(x => x.Id).ToPagedList(page, pageSize);
             return View(result);
         }
         /// <summary>
@@ -476,20 +476,20 @@ namespace PositiveEdu.Admin.Controllers
                                               foreach (var item in TC)
                                               {
                                                   //获取当前对象的指定属性的值
-                                                  var v =DateTime.Now.ToLongDateString();
+                                                  var v = DateTime.Now.ToLongDateString();
                                                   if (a1.GetProperty(Rfiles).GetValue(item) != null)
                                                   {
                                                       v = a1.GetProperty(Rfiles).GetValue(item).ToString();
                                                   }
-                                               
+
                                                   //日期
-                                                  if (Rfiles == "CustomerBirthday"|| Rfiles == "CustomerTakeTime")
+                                                  if (Rfiles == "CustomerBirthday" || Rfiles == "CustomerTakeTime")
                                                   {
 
                                                       var date1 = Convert.ToDateTime(a).ToLongDateString();
                                                       var date2 = Convert.ToDateTime(v).ToLongDateString();
 
-                                                      if (date1==date2)
+                                                      if (date1 == date2)
                                                       {
                                                           d3.row = j;
                                                           d3.message = @"第" + (ct + 2) + "行第" + (j + 1) + "列 '" + getStr(ta[j].name) + "' 数据为: " + d1[dt.Columns[ta[j].index].ColumnName].ToString() + "已存在！！".Replace("<", "").Replace(">", "");
@@ -533,7 +533,7 @@ namespace PositiveEdu.Admin.Controllers
 
                                           if (bj == 0)
                                           {  //日期
-                                              if (ta[j].name == "CustomerBirthday"|| ta[j].name == "CustomerTakeTime")
+                                              if (ta[j].name == "CustomerBirthday" || ta[j].name == "CustomerTakeTime")
                                               {
                                                   a1.GetProperty(ta[j].name).SetValue(a2, Convert.ToDateTime(a));
                                               }
@@ -558,7 +558,7 @@ namespace PositiveEdu.Admin.Controllers
                               catch (Exception e)
                               {
                                   d3.row = j;
-                                  d3.message = @"第" + (ct + 2) + "行第" + (j + 1) + "列 '" + getStr(ta[j].name) + "' 数据为" + d1[dt.Columns[ta[j].index].ColumnName].ToString() + e+"有误！！".Replace("<", "").Replace(">", "");
+                                  d3.message = @"第" + (ct + 2) + "行第" + (j + 1) + "列 '" + getStr(ta[j].name) + "' 数据为" + d1[dt.Columns[ta[j].index].ColumnName].ToString() + e + "有误！！".Replace("<", "").Replace(">", "");
                                   d2.col.Add(d3);
                                   a2 = null;
                                   continue;
@@ -1222,7 +1222,7 @@ namespace PositiveEdu.Admin.Controllers
             return View(a);
         }
         [ValidateAntiForgeryToken, ValidateInput(false), HttpPost]
-        public ActionResult TagEdit(string TagName , int? id)
+        public ActionResult TagEdit(string TagName, int? id)
         {
             var u = JsonConvert.DeserializeObject<AuthAdmin>(User.Identity.Name);
             var a = DB.T_CustomerTag.Where(x => x.id == id).FirstOrDefault();
@@ -1249,6 +1249,15 @@ namespace PositiveEdu.Admin.Controllers
         /// <returns></returns>
         public ActionResult T_CustomerIntegralRecords(int? id, int page = 1)
         {
+            if (id != null)
+            {
+                ViewBag.id = id;
+            }
+            else
+            {
+                var a = Request.QueryString["id"];
+            }
+
             int pageSize = 15;
             var t = DB.T_Customer.Where(x => x.Id == id).FirstOrDefault();
             ViewBag.a = t;
@@ -1297,9 +1306,9 @@ namespace PositiveEdu.Admin.Controllers
                     AfterExchangeintegralValue = t1.CustomerCurrentIntegral,
                     integralExchangeValue = integralExchangeValue + "",
                     ExchangeReason = ExchangeReason,
-                    ExchangeTime=DateTime.Now
+                    ExchangeTime = DateTime.Now
                 });
-   
+
 
                 DB.SaveChanges();
 
@@ -1311,20 +1320,27 @@ namespace PositiveEdu.Admin.Controllers
                 //throw;
             }
 
- 
-            return RedirectToAction ("T_CustomerIntegralRecords");
+
+            return RedirectToAction("T_CustomerIntegralRecords");
         }
         #endregion
 
         #region 会员礼品管理
         /// <summary>
-        /// 会员积分记录
+        /// 会员礼品管理
         /// </summary>
         /// <param name="page"></param>
         /// <returns></returns>
         public ActionResult T_GiftsChildRecords(int? id, int page = 1)
         {
-
+            if (id != null)
+            {
+                ViewBag.id = id;
+            }
+            else
+            {
+                id = Convert.ToInt32(Request.QueryString["id"]);
+            }
             int pageSize = 15;
             var t = DB.T_Customer.Where(x => x.Id == id).FirstOrDefault();
             ViewBag.a = t;
@@ -1337,7 +1353,7 @@ namespace PositiveEdu.Admin.Controllers
 
 
         /// <summary>
-        /// 会员积分记录
+        /// 会员礼品管理
         /// </summary>
         /// <param name="page"></param>
         /// <returns></returns>
@@ -1350,9 +1366,10 @@ namespace PositiveEdu.Admin.Controllers
             {
                 //获取数据
                 id = Convert.ToInt32(Request.Form["id"]);
-                var GetReason = Convert.ToInt32(Request.Form["GetReason"]);
+                var GetReason = Request.Form["GetReason"];
+                //var  s0= Request.Form["s2"].ToString();
                 //礼品id
-                var s2 = Convert.ToInt32(Request.Form["s2"].ToString().Split('_')[1]);
+                var s2 = Convert.ToInt32(Request.Form["gid"]);
                 //礼品数量
                 var s3 = Convert.ToInt32(Request.Form["s3"]);
 
@@ -1373,18 +1390,20 @@ namespace PositiveEdu.Admin.Controllers
 
 
                 //虚拟礼品                   第三方Coupon   
-                if (t2.GiftType == 0 && t2.IsCoupon == 0)
+                if (t2.GiftType == 0 && t2.IsCoupon == 1)
                 {
                     //从卷池中取出需要赠送的卷
                     var j = t2.T_GiftsChild.Where(x => x.T_CustomerId == null).Take(s3).ToList();
                     //修改每张卷
                     foreach (var item in j)
                     {
+
                         //获赠人
                         item.T_Customer = t1;
                         //赠送
                         item.ExchangeTime = DateTime.Now;
-
+                        item.IsDeleted = false;
+                        item.GetReason = GetReason;
                         //修改人
                         item.UpdatedBy = u.RealName;
                         //修改时间
@@ -1395,19 +1414,22 @@ namespace PositiveEdu.Admin.Controllers
                     }
 
                 }
-                else if (t2.GiftType == 0 && t2.IsCoupon == 1)
+                else if (t2.GiftType == 0 && t2.IsCoupon == 0)
                 {
                     //自主Coupon
-                    //从卷池中取出需要赠送的卷 获赠时间在 自主卷生效期内
-                    var j = t2.T_GiftsChild.Where(x => x.T_CustomerId == null && x.EffectiveTime < DateTime.Now && x.FailureTime > DateTime.Now).Take(s3).ToList();
+                    //从卷池中取出需要赠送的卷 获赠时间在 自主卷生效期内 未被删除
+                    var j = t2.T_GiftsChild.Where(x => x.IsDeleted == false && x.T_CustomerId == null && x.EffectiveTime < DateTime.Now && x.FailureTime > DateTime.Now).Take(s3).ToList();
                     //修改每张卷
                     foreach (var item in j)
                     {
+
                         //获赠人
                         item.T_Customer = t1;
                         //赠送
                         item.ExchangeTime = DateTime.Now;
-
+                        item.IsDeleted = false;
+                        item.GetReason = GetReason;
+                        item.ExchangeType = 2;
                         //修改人
                         item.UpdatedBy = u.RealName;
                         //修改时间
@@ -1424,12 +1446,13 @@ namespace PositiveEdu.Admin.Controllers
                     //实体礼品
                     DB.T_GiftChild.Add(new T_GiftsChild()
                     {
-
+                        T_Gifts = t2,
                         //获赠人
                         T_Customer = t1,
                         //赠送
                         ExchangeTime = DateTime.Now,
-
+                        ExchangeType = 2,
+                        GetReason = GetReason,
                         //修改人
                         CreatedBy = u.RealName,
                         //修改时间
@@ -1452,15 +1475,10 @@ namespace PositiveEdu.Admin.Controllers
             catch (Exception ex)
             {
 
-                throw;
-            }
-            int pageSize = 15;
-            var t = DB.T_Customer.Where(x => x.Id == id).FirstOrDefault();
-            var query = DB.T_GiftChild.AsNoTracking().AsQueryable();
-            query = query.Where(x => x.T_Customer == t);
-            var result = query.OrderBy(x => x.id).ToPagedList(page, pageSize);
 
-            return View(result);
+            }
+
+            return RedirectToAction("T_GiftsChildRecords");
 
 
 

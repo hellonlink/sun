@@ -486,7 +486,7 @@ namespace PositiveEdu.Admin.Controllers
 
 
 
-            var result = query.Where(x => x.IsDeleted == false).OrderBy(x => x.id).ToPagedList(page, pageSize);
+            var result = query.Where(x => x.IsDeleted == false&&x.CouponNo!=null).OrderBy(x => x.id).ToPagedList(page, pageSize);
 
             return View(result);
 

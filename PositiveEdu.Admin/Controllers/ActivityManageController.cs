@@ -124,7 +124,7 @@ namespace PositiveEdu.Admin.Controllers
             catch (Exception ex)
             {
 
-              
+
             }
 
 
@@ -239,12 +239,12 @@ namespace PositiveEdu.Admin.Controllers
             //初始化礼品类型集合
             List<T_GiftsTag> _T_GiftsTag = new List<T_GiftsTag>();
             //查询所有礼品类型
-            _T_GiftsTag = DB.T_GiftsTag.ToList();
+            _T_GiftsTag = DB.T_GiftsTag.Where(x => x.IsDeleted == false).ToList();
             //遍历并且填充数据
             foreach (var item in _T_GiftsTag)
             {
                 //根据类型获取所有该类型下的礼品(实体和虚拟) 
-                var _T_Gifts = DB.T_Gifts.Where(x => x.T_GiftsTagId == item.id).ToList();
+                var _T_Gifts = DB.T_Gifts.Where(x => x.T_GiftsTagId == item.id && x.IsDeleted == false).ToList();
                 //初始化虚拟礼品集合
                 //List<T_GiftsChild> _T_GiftsChild = new List<T_GiftsChild>();
                 //遍历该类型的礼品集合
@@ -592,7 +592,7 @@ namespace PositiveEdu.Admin.Controllers
                     if (t1.RegistrationStartTime < DateTime.Now && t1.RegistrationStopTime > DateTime.Now)
                     {
                         //报名人数验证
-                        if (t1.RegistrationNumber >= t1.T_CustomerActivity.Count())
+                        if (t1.RegistrationNumber > t1.T_CustomerActivity.Count())
                         {
                             #region  会员加入活动
                             //初始化
@@ -897,6 +897,38 @@ namespace PositiveEdu.Admin.Controllers
                         Data3 d3 = new Data3();
                         try
                         {
+                            #region 活动规则校验
+                            //数量
+                            if (a.RegistrationNumber > a.T_CustomerActivity.Count())
+                            {
+
+                            }
+                            else
+                            {
+                                //该用户已存在
+                                d3.row = ct;
+                                d3.message = @"导入第" + ct + "行失败 报名人数已经满员，";
+                                FailCount++;
+                                //加入返回结果集
+                                d2.Add(d3);
+                                break;
+                            }
+                            //时间
+                            if (a.RegistrationStartTime <= DateTime.Now && a.RegistrationStopTime >= DateTime.Now)
+                            {
+
+                            }
+                            else
+                            {
+                                //该用户已存在
+                                d3.row = ct;
+                                d3.message = @"导入第" + ct + "行失败 ，与活动时间有误！";
+                                FailCount++;
+                                //加入返回结果集
+                                d2.Add(d3);
+                                break;
+                            }
+                            #endregion
                             //数据过滤
                             var c = Re(sc, d1[0].ToString());
                             //反射+linq     
@@ -935,6 +967,8 @@ namespace PositiveEdu.Admin.Controllers
                                 //当前活动存在
                                 if (b1 == null)
                                 {
+
+
                                     db.T_CustomerActivity.Add(
                                         new T_CustomerActivity()
                                         {
@@ -1472,11 +1506,15 @@ namespace PositiveEdu.Admin.Controllers
             //获取奖项 关联操作
             if (Request.Form["reward"] != "0")
             {
+                var ids = Convert.ToInt32(Request.Form["reward"]);
+                var r = DB.T_Reward.Where(x => x.Id == ids).FirstOrDefault();
+
+
 
                 //用户活动表
-                a.T_RewardId = Convert.ToInt32(Request.Form["reward"]);
+
                 //奖项表
-                var r = DB.T_Reward.Where(x => x.Id == a.T_RewardId).FirstOrDefault();
+
                 //剩余份数
                 if (r.RewardNumber > 0)
                 {
@@ -1486,25 +1524,118 @@ namespace PositiveEdu.Admin.Controllers
                     r.RewardUsed = r.RewardUsed + 1;
                     r.UpdatedBy = u.RealName;
                     r.UpdatedOn = DateTime.Now;
+                    a.T_RewardId = ids;
+                    #region 礼品操作
+                    #region 数据操作
 
+                    //礼品表  
+
+                    var t2 = r.T_RewardChild.FirstOrDefault().T_Gifts;
+
+                    //虚拟礼品                   第三方Coupon   
+                    if (t2.GiftType == 0 && t2.IsCoupon == 1)
+                    {
+                        //从卷池中取出需要赠送的卷
+                        var j = t2.T_GiftsChild.Where(x => x.T_CustomerId == null).Take(1).ToList();
+                        //修改每张卷
+                        foreach (var item in j)
+                        {
+
+                            //获赠人
+                            item.T_Customer = a.T_Customer;
+                            //赠送
+                            item.ExchangeTime = DateTime.Now;
+                            item.IsDeleted = false;
+                            item.GetReason = "参与:" + r.T_Activity.ActivityName + " 获取:" + r.RewardName;
+                            //修改人
+                            item.UpdatedBy = u.RealName;
+                            //修改时间
+                            item.UpdatedOn = DateTime.Now;
+
+
+
+                        }
+
+                    }
+                    else if (t2.GiftType == 0 && t2.IsCoupon == 0)
+                    {
+                        //自主Coupon
+                        //从卷池中取出需要赠送的卷 获赠时间在 自主卷生效期内 未被删除
+                        var j = t2.T_GiftsChild.Where(x => x.IsDeleted == false && x.T_CustomerId == null && x.EffectiveTime < DateTime.Now && x.FailureTime > DateTime.Now).Take(1).ToList();
+                        //修改每张卷
+                        foreach (var item in j)
+                        {
+
+                            //获赠人
+                            item.T_Customer = a.T_Customer;
+                            //赠送
+                            item.ExchangeTime = DateTime.Now;
+                            item.IsDeleted = false;
+                            item.GetReason = "参与:" + r.T_Activity.ActivityName + " 获取:" + r.RewardName;
+                            item.ExchangeType = 2;
+                            //修改人
+                            item.UpdatedBy = u.RealName;
+                            //修改时间
+                            item.UpdatedOn = DateTime.Now;
+
+
+
+                        }
+
+
+                    }
+                    else if (t2.GiftType == 1)
+                    {
+                        //实体礼品
+                        DB.T_GiftChild.Add(new T_GiftsChild()
+                        {
+                            T_Gifts = t2,
+                            //获赠人
+                            T_Customer = a.T_Customer,
+                            //赠送
+                            ExchangeTime = DateTime.Now,
+                            ExchangeType = 2,
+                            GetReason = "参与:" + r.T_Activity.ActivityName + " 获取:" + r.RewardName,
+                            //修改人
+                            CreatedBy = u.RealName,
+                            //修改时间
+                            CreatedOn = DateTime.Now,
+                            IsDeleted = false
+                        });
+
+                    }
+                    //t2.GiftInventory = t2.GiftInventory - 1;
+
+
+
+                    #endregion
+                    #endregion
+
+
+                    a.Tag1 = Request.Form["Tag1"] == "" ? null : Request.Form["Tag1"].ToString();
+                    a.Tag2 = Request.Form["Tag2"] == "" ? null : Request.Form["Tag2"].ToString();
+                    a.Tag3 = Request.Form["Tag3"] == "" ? null : Request.Form["Tag3"].ToString();
+                    a.Tag4 = Request.Form["Tag4"] == "" ? null : Request.Form["Tag4"].ToString();
+                    a.Tag5 = Request.Form["Tag5"] == "" ? null : Request.Form["Tag5"].ToString();
+
+                    a.UpdatedOn = DateTime.Now;
+
+                    a.UpdatedBy = u.RealName;
+                    if (a != null)
+                    {
+                        DB.SaveChanges();
+
+
+                    }
                 }
 
-            }
-            a.Tag1 = Request.Form["Tag1"] == "" ? null : Request.Form["Tag1"].ToString();
-            a.Tag2 = Request.Form["Tag2"] == "" ? null : Request.Form["Tag2"].ToString();
-            a.Tag3 = Request.Form["Tag3"] == "" ? null : Request.Form["Tag3"].ToString();
-            a.Tag4 = Request.Form["Tag4"] == "" ? null : Request.Form["Tag4"].ToString();
-            a.Tag5 = Request.Form["Tag5"] == "" ? null : Request.Form["Tag5"].ToString();
 
-            a.UpdatedOn = DateTime.Now;
 
-            a.UpdatedBy = u.RealName;
-            if (a != null)
-            {
-                DB.SaveChanges();
+
 
 
             }
+
 
             return RedirectToAction("Index");
 

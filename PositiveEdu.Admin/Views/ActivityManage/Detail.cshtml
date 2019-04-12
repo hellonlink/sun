@@ -63,7 +63,7 @@
                         <h3>
                             <label style="color:blue">是否报名即参与：</label>
 
-                            @(Model.IsAllTake == 0 ? "是" : "否")
+                            @(Model.IsAllTake == 1 ? "是" : "否")
                         </h3>
                     </div>
                     <div></div>     <div class="form-group">
@@ -83,14 +83,14 @@
                     <div class="form-group">
                         <h3>
                             <label style="color:blue">是否参与即获奖：</label>
-                            @(Model.IsAllSameReward == 0 ? "是" : "否")
+                            @(Model.IsAllSameReward == 1 ? "是" : "否")
                         </h3>
                     </div>
                     <div></div>
                     <div class="form-group">
                         <h3>
                             <label style="color:blue">是否启用：</label>
-                            @(Model.IsActivityEffective == 0 ? "是" : "否")
+                            @(Model.IsActivityEffective == 1 ? "是" : "否")
                         </h3>
                     </div>
                     <div></div>

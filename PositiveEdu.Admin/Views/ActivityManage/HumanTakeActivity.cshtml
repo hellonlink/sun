@@ -37,19 +37,19 @@
                     @using (Html.BeginForm("HumanTakeActivity", "ActivityManage", FormMethod.Get, htmlAttributes: new { @class = "form-inline" }))
                     {
                         <div class="form-group">
-                            <label for="InputMobile" class="sr-only">会员名称</label>
+                            <label >会员名称</label>
                             <input type="text" placeholder="会员名称" id="InputMobile" class="form-control" name="CustomerRealName" value="@ViewBag._CustomerRealName">
                         </div>
                         <div class="form-group">
-                            <label for="InputMobile" class="sr-only">会员手机号</label>
+                            <label >会员手机号</label>
                             <input type="text" placeholder="会员手机号" id="InputMobile" class="form-control" name="CustomerPhoneNum" value="@ViewBag._CustomerPhoneNum">
                         </div>
                         <div class="form-group">
-                            <label for="InputMobile" class="sr-only">微信昵称</label>
+                            <label  >微信昵称</label>
                             <input type="text" placeholder="微信昵称" id="InputMobile" class="form-control" name="CustomerWechatNickName" value="@ViewBag._CustomerWechatNickName">
                         </div>
                         <div class="form-group">
-                            <label for="SelectPayment" class="sr-only">性别</label>
+                            <label  >性别</label>
 
                             <select class="form-control" name="payment" id="sex">
                                 <option value="全部" @(ViewBag.payment == "全部" ? "selected =selected" : "")>全部</option>
@@ -60,16 +60,16 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="InputMobile" class="sr-only">证件号</label>
+                            <label >证件号</label>
                             <input type="text" placeholder="证件号" id="InputMobile" class="form-control" name="CustomerCertificateNum" value="@ViewBag._CustomerCertificateNum">
                         </div>
                         <div class="form-group">
-                            <label for="InputMobile" class="sr-only">会员编号</label>
+                            <label >会员编号</label>
                             <input type="text" placeholder="会员编号" id="InputMobile" class="form-control" name="CustomerId" value="@ViewBag._CustomerId">
                         </div>
-                        <div></div>
+                   
 
-                        <button class="btn btn-white" type="submit">查询</button>
+                        <button class="btn btn-white" style="float:right ;width:160px" type="submit">查询</button>
                     }
 
                     <div class="hr-line-dashed"></div>

@@ -36,36 +36,15 @@
 
                     @using (Html.BeginForm("TakeActivity", "ActivityManage", FormMethod.Get, htmlAttributes: new { @class = "form-inline" }))
                     {
-                        <div class="form-group">
-                            <label for="InputMobile" class="sr-only">会员名称</label>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>会员名称</label>
                             <input type="text" placeholder="会员名称" id="InputMobile" class="form-control" name="CustomerRealName" value="@ViewBag._CustomerRealName">
                         </div>
-                        <div class="form-group">
-                            <label for="InputMobile" class="sr-only">会员手机号</label>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>会员手机号</label>
                             <input type="text" placeholder="会员手机号" id="InputMobile" class="form-control" name="CustomerPhoneNum" value="@ViewBag._CustomerPhoneNum">
                         </div>
-
-                        <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">报名时间：</label>
-                            <div class="col-sm-10">
-                                <div class="input-group date col-lg-3">
-
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-
-                                    <input type="text" style="width:500px " class="form-control input-sm" name="ExchangeStartTime" value="@ViewBag.ExchangeStartTime">
-                                    <span>~</span>
-                                </div>
-                                <div class="input-group date col-lg-3">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-
-                                    <input type="text" style="width:500px " class="form-control input-sm" name="ExchangeStopTime" value="@ViewBag.ExchangeStopTime">
-                                </div>
-                            </div>
-                        </div> <div class="hr-line-dashed"></div>
-
-
-                        <div class="form-group">
+                        <div style="margin-left:40px;" class="form-group">
                             <label>是否成功</label>
 
                             <select class="form-control" name="ts" id="sex">
@@ -78,7 +57,7 @@
                             </select>
                         </div>
 
-                        <div class="form-group">
+                        <div style="margin-left:40px;" class="form-group">
                             <label>所获奖项：</label>
                             <select class="form-control" name="reward" id="sex">
                                 <option value="0" @(ViewBag.reward == "0" ? "selected =selected" : "")>全部</option>
@@ -99,9 +78,30 @@
 
                             </select>
                         </div>
+                        <div class="hr-line-dashed"></div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label class="col-sm-2 control-label">报名时间：</label>
+                            <div class="col-sm-10">
+                                <div class="input-group date col-lg-3">
+
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+
+                                    <input type="text" style="width:500px " class="form-control input-sm" name="ExchangeStartTime" value="@ViewBag.ExchangeStartTime">
+                                    <span>~</span>
+                                </div>
+                                <div class="input-group date col-lg-3">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+
+                                    <input type="text" style="width:500px " class="form-control input-sm" name="ExchangeStopTime" value="@ViewBag.ExchangeStopTime">
+                                </div>
+                            </div>
+                        </div> <div class="hr-line-dashed"></div>
 
 
-                        <button class="btn btn-white" type="submit">查询</button>
+
+
+
+                        <button class="btn btn-white" type="submit" style="float:right">查询</button>
                     }
 
                     <div class="hr-line-dashed"></div>

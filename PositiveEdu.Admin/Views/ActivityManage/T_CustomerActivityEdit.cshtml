@@ -40,15 +40,15 @@
 
                         @Html.AntiForgeryToken()
 
-                        <div class="form-group">
+                        <div style="margin-left:40px;" class="form-group">
                             <label>当前活动名称：</label>
                             <input type="text" placeholder="当前活动名称" readonly="readonly" id="InputMobile" class="form-control" name="CustomerRealName" value="@Model.T_Activity.ActivityName">
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
                             <label>报名人：</label>
                             <input type="text" placeholder="报名人" readonly="readonly" id="InputMobile" class="form-control" name="CustomerPhoneNum" value="@Model.T_Customer.CustomerRealName">
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
                             <label class="col-sm-2 control-label">报名时间</label>
                             <div class="col-sm-10">
                                 <div class="input-group date col-lg-3">
@@ -65,14 +65,74 @@
                             </div>
                         </div> <div class="hr-line-dashed"></div>
 
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>收件人：</label>
+                            <input type="text" placeholder="收件人" id="InputMobile" class="form-control" name="ReciptName" value="@Model.ReciptName">
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>联系电话：</label>
+                            <input type="text" placeholder="联系电话" id="InputMobile" class="form-control" name="ReciptPhoneNum" value="@Model.ReciptPhoneNum">
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>邮编：</label>
+                            <input type="text" placeholder="邮编" id="InputMobile" class="form-control" name="AcceptAddressPostCode" value="@Model.AcceptAddressPostCode">
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>是否已领奖：</label>
+                            <input type="radio" id="InputMobile" @(Model.RewardTime != null ? "checked=checked" : "") class="form-control" name="IsSuccessTake" value="0">否
+                            <input type="radio" id="InputMobile" @(Model.RewardTime == null ? "checked=checked" : "") class="form-control" name="IsSuccessTake" value="1">是
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>收件方式：</label>
+                            <input type="radio" id="InputMobile" checked="checked" @(Model.EntityRewardGettype == 1 ? "checked=checked" : "") class="form-control" name="EntityRewardGettype" value="0">快递
+                            <input type="radio" id="InputMobile" @(Model.EntityRewardGettype == 0 ? "checked=checked" : "") class="form-control" name="EntityRewardGettype" value="1">自提
 
-                        <div class="form-group">
-                            <label>是否允许参与：</label><h3></h3>
-                            <input type="radio" id="InputMobile" @(Model.IsCanTake == 1 ? "checked=checked" : "") class="form-control" name="IsCanTake" value="0">是
-                            <input type="radio" id="InputMobile" @(Model.IsCanTake == 0 ? "checked=checked" : "") class="form-control" name="IsCanTake" value="1">否
-                        </div> <div class="hr-line-dashed"></div>
 
-                        <div class="form-group">
+                        </div>
+
+                        <div class="hr-line-dashed"></div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>快递公司：</label>
+                            <input type="text" placeholder="快递公司" id="InputMobile" class="form-control" name="CourierCompany" value="@Model.CourierCompany">
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>派件的单号：</label>
+                            <input type="text" placeholder="派件的单号" id="InputMobile" class="form-control" name="DeliveryNumber" value="@Model.DeliveryNumber">
+                        </div>
+
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>详细地址：</label>
+                            <input type="text" placeholder="详细地址" id="InputMobile" class="form-control" name="ReciptDetailedAddress" value="@Model.ReciptDetailedAddress">
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>所属区域：</label>
+                            <select class="select" name="province" id="s1"><option></option></select>
+                            <select class="select" name="city" id="s2"><option></option></select>
+                            <select class="select" name="town" id="s3"><option></option></select>
+                        </div><div class="hr-line-dashed"></div>
+
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>扩展字段1</label>
+                            <input type="text" placeholder="扩展字段1" id="InputMobile" class="form-control" name="Tag1" value="@Model.Tag1">
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>扩展字段2</label>
+                            <input type="text" placeholder="扩展字段2" id="InputMobile" class="form-control" name="Tag2" value="@Model.Tag2">
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>扩展字段3</label>
+                            <input type="text" placeholder="扩展字段3" id="InputMobile" class="form-control" name="Tag3" value="@Model.Tag3">
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>扩展字段4</label>
+                            <input type="text" placeholder="扩展字段4" id="InputMobile" class="form-control" name="Tag4" value="@Model.Tag4">
+
+                        </div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>扩展字段5</label>
+                            <input type="text" placeholder="扩展字段5" id="InputMobile" class="form-control" name="Tag5" value="@Model.Tag5">
+                        </div><div class="hr-line-dashed"></div>
+                        <div style="margin-left:40px;" class="form-group">
                             <label>所获奖项：</label>
                             <select class="form-control" name="reward" id="sex">
                                 <option value="0" @( Model.T_RewardId == null ? "selected =selected" : "")>无</option>
@@ -93,80 +153,13 @@
 
                             </select>
                         </div>
-                        <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>是否已领奖：</label><h3></h3>
-                            <input type="radio" id="InputMobile" @(Model.RewardTime != null ? "checked=checked" : "") class="form-control" name="IsSuccessTake" value="0">是
-                            <input type="radio" id="InputMobile" @(Model.RewardTime == null ? "checked=checked" : "") class="form-control" name="IsSuccessTake" value="1">否
-                        </div> <div class="hr-line-dashed"></div>
+                        <div style="margin-left:40px;" class="form-group">
+                            <label>是否允许参与：</label>
+                            <input type="radio" id="InputMobile" checked="checked" @(Model.IsCanTake == 1 ? "checked=checked" : "") class="form-control" name="IsCanTake" value="0">是
+                            <input type="radio" id="InputMobile" @(Model.IsCanTake == 0 ? "checked=checked" : "") class="form-control" name="IsCanTake" value="1">否
+                        </div>
 
-                        <div class="form-group">
-                            <label>收件方式：</label><h3></h3>
-                            <input type="radio" id="InputMobile" @(Model.EntityRewardGettype == 1 ? "checked=checked" : "") class="form-control" name="EntityRewardGettype" value="0">快递
-                            <input type="radio" id="InputMobile" @(Model.EntityRewardGettype == 0 ? "checked=checked" : "") class="form-control" name="EntityRewardGettype" value="1">自提
-
-
-                        </div> <div class="hr-line-dashed"></div>
-
-                        <div class="form-group">
-                            <label>所属区域：</label>
-                            <select class="select" name="province" id="s1"><option></option></select>
-                            <select class="select" name="city" id="s2"><option></option></select>
-                            <select class="select" name="town" id="s3"><option></option></select>
-                        </div> <div class="hr-line-dashed"></div>
-
-                        <div class="form-group">
-                            <label>详细地址：</label>
-                            <input type="text" placeholder="详细地址" id="InputMobile" class="form-control" name="ReciptDetailedAddress" value="@Model.ReciptDetailedAddress">
-                        </div> <div class="hr-line-dashed"></div>
-
-
-                        <div class="form-group">
-                            <label>收件人：</label>
-                            <input type="text" placeholder="收件人" id="InputMobile" class="form-control" name="ReciptName" value="@Model.ReciptName">
-                        </div> <div class="hr-line-dashed"></div>
-
-                        <div class="form-group">
-                            <label>联系电话：</label>
-                            <input type="text" placeholder="联系电话" id="InputMobile" class="form-control" name="ReciptPhoneNum" value="@Model.ReciptPhoneNum">
-                        </div> <div class="hr-line-dashed"></div>
-
-                        <div class="form-group">
-                            <label>邮编：</label>
-                            <input type="text" placeholder="邮编" id="InputMobile" class="form-control" name="AcceptAddressPostCode" value="@Model.AcceptAddressPostCode">
-                        </div> <div class="hr-line-dashed"></div>
-
-                        <div class="form-group">
-                            <label>快递公司：</label>
-                            <input type="text" placeholder="快递公司" id="InputMobile" class="form-control" name="CourierCompany" value="@Model.CourierCompany">
-                        </div> <div class="hr-line-dashed"></div>
-
-                        <div class="form-group">
-                            <label>派件的单号：</label>
-                            <input type="text" placeholder="派件的单号" id="InputMobile" class="form-control" name="DeliveryNumber" value="@Model.DeliveryNumber">
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>扩展字段1</label>
-                            <input type="text" placeholder="扩展字段1" id="InputMobile" class="form-control" name="Tag1" value="@Model.Tag1">
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>扩展字段2</label>
-                            <input type="text" placeholder="扩展字段2" id="InputMobile" class="form-control" name="Tag2" value="@Model.Tag2">
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>扩展字段3</label>
-                            <input type="text" placeholder="扩展字段3" id="InputMobile" class="form-control" name="Tag3" value="@Model.Tag3">
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>扩展字段4</label>
-                            <input type="text" placeholder="扩展字段4" id="InputMobile" class="form-control" name="Tag4" value="@Model.Tag4">
-
-                        </div> <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label>扩展字段5</label>
-                            <input type="text" placeholder="扩展字段5" id="InputMobile" class="form-control" name="Tag5" value="@Model.Tag5">
-                        </div> <div class="hr-line-dashed"></div>
-                        <button class="btn btn-white" type="submit">保存</button>
+                        <button class="btn btn-white" style="width:180px;float:right" type="submit">保存</button>
                     }
 
                 </div>

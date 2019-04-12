@@ -121,7 +121,7 @@
 
                                                     <a href="@Url.Action("T_CustomerIntegralRecords", new { id = item.Id })">会员积分记录表</a>
                                                 }}
-                                            @{ if (item.T_GiftsChild.Count() == 0)
+                                            @{ if (item.T_GiftsChild.Count() >= 0)
                                                 {
 
                                                     <a href="@Url.Action("T_GiftsChildRecords", new { id = item.Id })">会员礼品</a>
